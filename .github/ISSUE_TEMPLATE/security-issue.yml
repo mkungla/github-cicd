@@ -1,0 +1,61 @@
+name: Security Vulnerability
+description: File a security vulnerability report
+title: "[Security]: "
+labels: [security, triage]
+assignees:
+  - mkungla
+body:
+  - type: checkboxes
+    id: reporting-terms
+    attributes:
+      label: This security vulnerability does not impose risk do being discussed in public before it's fixed 
+      description: By submitting this issue, you confirm that this security vulnerability is not high sencitive.
+      options:
+        - label: I confirm
+          required: true
+  - type: checkboxes
+    id: security-policy
+    attributes:
+      label: Security Policy
+      description: By submitting this issue, you agree to follow our [Security Policy](.github/SECURITY.md)
+      options:
+        - label: I agree to follow this project's Security Policy
+          required: true
+  - type: input
+    id: summary
+    attributes:
+      label: Summary
+      description: Short summary about the issue you are reporting
+      placeholder: ex. Problem with x...
+    validations:
+      required: false
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the issue.
+      placeholder: Tell us what you see!
+    validations:
+      required: true
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version
+      description: What version of this repo it affects?
+      options:
+        - main (Edge)
+        - 1.0.0 (Default)
+    validations:
+      required: true
+  - type: textarea
+    id: additional-ctx
+    attributes:
+      label: Provide aditional context
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
+  - type: textarea
+    id: logs-code
+    attributes:
+      label: Logs or code snippets
+      description: Any logs or code snippets.
+      render: shell

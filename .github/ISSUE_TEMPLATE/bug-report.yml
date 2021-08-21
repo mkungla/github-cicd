@@ -1,0 +1,54 @@
+name: Bug Report
+description: File a bug report
+title: "[Bug]: "
+labels: [bug, triage]
+assignees:
+  - mkungla
+body:
+  - type: input
+    id: summary
+    attributes:
+      label: Issue summary
+      description: Short summary about the bug you are reporting
+      placeholder: ex. Problem with x...
+    validations:
+      required: false
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the issue, what did you expect to happen?
+      placeholder: Tell us what you see!
+      value: "A bug happened!"
+    validations:
+      required: true
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version
+      description: What version of this repo it affects?
+      options:
+        - main (Edge)
+        - 1.0.0 (Default)
+    validations:
+      required: true
+  - type: textarea
+    id: additional-ctx
+    attributes:
+      label: Provide aditional context
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
+  - type: textarea
+    id: logs-code
+    attributes:
+      label: Logs or code snippets
+      description: Any logs or code snippets.
+      render: shell
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](.github/CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
