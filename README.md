@@ -6,7 +6,7 @@ Experiments of GitHub actions, workflows and all other automation features.
 | name | workflow | config |
 | --- | --- | --- |
 | Issue templates | | [github-issue-templates] |
-| CodeQL Analysis | [![CodeQL](https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-codeql-analysis.yml/badge.svg?branch=main)][github-codeql-analysis] | [.github/workflows/github-codeql-analysis.yml](.github/workflows/codeql-analysis.yml) |
+| CodeQL Analysis | [![CodeQL](https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-codeql-analysis.yml/badge.svg?branch=main)][github-codeql-analysis] | [.github/workflows/github-codeql-analysis.yml](.github/workflows/github-codeql-analysis.yml) |
 
 
 <!-- LINKS -->
