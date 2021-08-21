@@ -1,0 +1,25 @@
+# https://securitylab.github.com/tools/codeql/
+# https://docs.github.com/en/code-security/code-scanning/using-codeql-code-scanning-with-your-existing-ci-system/configuring-codeql-runner-in-your-ci-system
+name: "CodeQL config"
+
+disable-default-queries: true
+
+languages:
+  - cpp
+  - csharp
+  - go
+  - java
+  - javascript
+  - python
+
+queries:
+  - name: Extended Security
+    uses: security-extended
+  - name: Security and Quality
+    uses: security-and-quality
+
+paths:
+  - src 
+
+paths-ignore:
+  - '/.github/'
