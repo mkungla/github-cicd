@@ -38,7 +38,7 @@ jobs:
           node-version: 16.x
           cache: npm
       - name: Install dependencies
-        working-directory: .github
+        working-directory: ./.github
         run: npm ci
       - name: generate new README
         working-directory: ./cmd/github-cicd-experiments
