@@ -60,7 +60,7 @@ export async function gitpush() {
   core.info('executing git push')
 
   const remote = getRemoteUrl()
-  let args = ['push', remote, `main:main`, '--no-verify']
+  let args = ['push', remote, `main`, '--no-verify']
   return git(...args)
 }
 
