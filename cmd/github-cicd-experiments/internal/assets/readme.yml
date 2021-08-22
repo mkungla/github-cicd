@@ -26,6 +26,13 @@ content:
             - '[github-issue-templates]'
 
       - detail:
+          summary: Funding
+          content: |
+            > Add funding links to your repo
+          resources:
+            - '[repo-funding]'
+
+      - detail:
           summary: Press `.` on any repo
           content: |
             > Press the `.` key on any repo or swap .com with .dev on any GitHub repo to be taken directly into a fully fledged VS Code environment.
@@ -83,3 +90,7 @@ links:
   repo-github-dev:
     link: https://github.com/github/dev
     title: github.com/github/dev
+
+  repo-funding:
+    link: .github/FUNDING.yml
+    title: Repo funding config
