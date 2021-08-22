@@ -51,8 +51,8 @@ content:
             > Create repo local action scripts.
             > Example how readme file of this repo is udpated.
           resources:
-            - [.github/actions-scripts/update-readme.js](.github/actions-scripts/update-readme.js)
-            - [.github/workflows/readme-update.yml](.github/workflows/readme-update.yml)
+            - '[.github/actions-scripts/update-readme.js](.github/actions-scripts/update-readme.js)'
+            - '[.github/workflows/readme-update.yml](.github/workflows/readme-update.yml)'
           badges:
             - alt: Update README
               img: https://github.com/mkungla/github-cicd-experiments/actions/workflows/readme-update.yml/badge.svg

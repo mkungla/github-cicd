@@ -4,11 +4,13 @@ on:
   push:
     branches: [ main ]
     paths:
+      .github/workflows/readme-update.yml
       - README.md
       - cmd/github-cicd-experiments/internal/assets/readme.yml
   pull_request:
     branches: [ main ]
     paths:
+      - .github/workflows/readme-update.yml
       - README.md
       - cmd/github-cicd-experiments/internal/assets/readme.yml
 
@@ -44,6 +46,7 @@ jobs:
       - name: generate new README
         working-directory: ./cmd/github-cicd-experiments
         run: go run . readme update
+      # only on push to repo create actual commit
       - name: push new readme
         if: ${{ github.event_name != 'pull_request' }}
         run: .github/actions-scripts/update-readme.js
