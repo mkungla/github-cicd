@@ -13,7 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Check README config
     steps:
-      - run: echo ${{ toJson(github) }}
+      - uses: actions/checkout@v2
+      - run: if [ $(git diff --name-only HEAD HEAD~1 | grep README.md | wc -m) -gt 0 ]; then echo "do not edit README directly"; exit 1; fi
   update:
     needs: checks
     runs-on: ubuntu-latest
@@ -23,3 +24,5 @@ jobs:
           go-version: 1.17.x
       - uses: actions/checkout@v2
       - run: .github/actions-scripts/update-readme.js
+
+
