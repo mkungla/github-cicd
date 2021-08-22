@@ -4,3 +4,50 @@ updates:
   - package-ecosystem: "github-actions"
     schedule:
       interval: "weekly"
+      day: "sunday"
+      timezone: "Europe/Tallinn"
+    assignees:
+      - "mkungla"
+    commit-message:
+      prefix: "dep(github-actions):"
+    labels:
+      - "eco/github-actions"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mkungla"
+
+  - package-ecosystem: npm
+    directory: "/.github"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+      timezone: "Europe/Tallinn"
+    assignees:
+      - "mkungla"
+    commit-message:
+      prefix: "dep(github-actions-npm):"
+      prefix-development: "dev(github-actions-npm):"
+    labels:
+      - "eco/npm"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mkungla"
+
+
+  - package-ecosystem: gomod
+    directory: "/cmd/github-cicd-experiments"
+    schedule:
+      interval: "daily"
+      time: "00:00"
+      timezone: "Europe/Tallinn"
+    assignees:
+      - "mkungla"
+    commit-message:
+      prefix: "dep(github-cicd-experiments):"
+    labels:
+      - "eco/go"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mkungla"
+    vendor: true
+
