@@ -10,7 +10,7 @@ updates:
     assignees:
       - "mkungla"
     commit-message:
-      prefix: "dep(github-actions):"
+      prefix: "dep(actions):"
     labels:
       - "eco/github-actions"
     open-pull-requests-limit: 10
@@ -26,8 +26,8 @@ updates:
     assignees:
       - "mkungla"
     commit-message:
-      prefix: "dep(github-actions-npm):"
-      prefix-development: "dev(github-actions-npm):"
+      prefix: "dep(actions):"
+      prefix-development: "dev(actions):"
     labels:
       - "eco/npm"
     open-pull-requests-limit: 10
@@ -44,7 +44,7 @@ updates:
     assignees:
       - "mkungla"
     commit-message:
-      prefix: "dep(github-cicd-experiments):"
+      prefix: "dep(cmd):"
     labels:
       - "eco/go"
     open-pull-requests-limit: 10
