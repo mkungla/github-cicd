@@ -46,6 +46,18 @@ content:
             - '[github.com/github/dev][repo-github-dev]'
 
       - detail:
+          summary: Repo based action scripts
+          content: |
+            > Create repo local action scripts.
+            > Example how readme file of this repo is udpated.
+          resources:
+            - [.github/actions-scripts/update-readme.js](.github/actions-scripts/update-readme.js)
+            - [.github/workflows/readme-update.yml](.github/workflows/readme-update.yml)
+          badges:
+            - alt: Update README
+              img: https://github.com/mkungla/github-cicd-experiments/actions/workflows/readme-update.yml/badge.svg
+              link: https://github.com/mkungla/github-cicd-experiments/actions/workflows/readme-update.yml
+      - detail:
           summary: CodeQL Analysis
           content: |
             > CodeQL is the analysis engine used by developers to automate security checks, and by

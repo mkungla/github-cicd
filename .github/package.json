@@ -1,5 +1,6 @@
 {
   "private": true,
+  "type": "module",
   "repository": "github.com:mkungla/github-action-benchmark",
   "name": "github-action-benchmark-actions",
   "license": "MIT",
