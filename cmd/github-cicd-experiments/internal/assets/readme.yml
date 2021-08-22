@@ -47,6 +47,12 @@ content:
               link: https://github.com/mkungla/github-cicd-experiments/blob/main/LICENSE
 
       - detail:
+          summary: GitHub Pages
+          content: |
+            > GitHub Pages configuration
+
+
+      - detail:
           summary: Press `.` on any repo
           content: |
             > Press the `.` key on any repo or swap .com with .dev on any GitHub repo to be taken directly into a fully fledged VS Code environment.
