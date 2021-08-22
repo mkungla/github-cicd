@@ -1,0 +1,25 @@
+name: "Update README.md"
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - README.md
+      - cmd/github-cicd-experiments/internal/assets/readme.yml
+
+jobs:
+  checks:
+    if: github.repository == 'mkungla/github-cicd-experiments'
+    runs-on: ubuntu-latest
+    name: Check README config
+    steps:
+      - run: echo "${{ github.event.inputs.name }}"
+  update:
+    needs: checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-go@v2
+        with:
+          go-version: 1.17.x
+      - uses: actions/checkout@v2
+      - run: .github/actions-scripts/update-readme.js
