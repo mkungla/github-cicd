@@ -5,11 +5,12 @@ on:
 
 jobs:
   see-page-build-payload:
+    if: github.repository == 'mkungla/github-cicd-experiments'
     runs-on: ubuntu-latest
     steps:
       # get status of page_build event
       - name: check status
-        if: ${{ github.event_name == 'page_build' }}
+        if: github.event_name == 'page_build'
         run: |
           import os
           status, errormsg = os.getenv('STATUS'), os.getenv('ERROR')
