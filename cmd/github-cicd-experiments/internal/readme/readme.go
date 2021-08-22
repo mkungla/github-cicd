@@ -223,7 +223,7 @@ func (detail DetailSection) Lines() (lines []string) {
 	lines = append(lines, detail.Content)
 
 	if len(detail.Resources) > 0 {
-		lines = append(lines, "**Resources**")
+		lines = append(lines, []string{"", "**Resources**", ""}...)
 	}
 
 	lines = append(lines, "")
