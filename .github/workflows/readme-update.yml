@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Check README config
     steps:
-      - run: echo "${{ github.event.inputs.name }}"
+      - run: echo ${{ toJson(github) }}
   update:
     needs: checks
     runs-on: ubuntu-latest
