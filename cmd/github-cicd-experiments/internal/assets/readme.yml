@@ -41,6 +41,10 @@ content:
             - '[repo-funding]'
             - '[CODEOWNERS](.github/CODEOWNERS)'
             - '[Security Policy](.github/SECURITY.md)'
+          badges:
+            - alt: LICENSE
+              img: https://img.shields.io/github/license/mkungla/github-cicd-experiments
+              link: https://github.com/mkungla/github-cicd-experiments/blob/main/LICENSE
 
       - detail:
           summary: Press `.` on any repo
