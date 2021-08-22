@@ -104,7 +104,7 @@ Some automatioons may be available only for public repos or some only for privat
 
 **Resources**
 
-- [.github/actions-scripts/update-readme.js](.github/actions-scripts/update-readme.js)
+- [.github/actions-scripts/commit.js](.github/actions-scripts/commit.js)
 - [.github/workflows/readme-update.yml](.github/workflows/readme-update.yml)
 </details>
 

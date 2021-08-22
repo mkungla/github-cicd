@@ -24,13 +24,13 @@ async function capture(cmd, args) {
     return res
   } catch (err) {
       const msg = `Command '${cmd}' failed with args '${args.join(' ')}': ${res.stderr}: ${err}`
-      core.debug(`@actions/exec.exec() threw an error: ${msg}`)
+      core.error(`@actions/exec.exec() threw an error: ${msg}`)
       throw new Error(msg)
   }
 }
 
 export async function git(...args) {
-  core.debug(`Executing Git: ${args.join(' ')}`)
+  core.info(`Executing Git: ${args.join(' ')}`)
   const userArgs = [
       '-c',
       'user.name=github-actions',
@@ -57,7 +57,7 @@ function getRemoteUrl() {
 }
 
 export async function gitpush() {
-  core.debug('Executing git push')
+  core.info('executing git push')
 
   const remote = getRemoteUrl()
   let args = ['push', remote, `main:main`, '--no-verify']
@@ -66,13 +66,13 @@ export async function gitpush() {
 
 async function run() {
   await git('add', '-A')
-  await git('commit', '-m', `generate and update (README.md)`)
+  await git('commit', '-m', core.getInput('commit-message') || `auto-commit: from ${process.env.GITHUB_WORKFLOW}`)
 
   try {
     await gitpush()
-    core.debug('git push is done')
+    core.info('git push is done')
   } catch (err) {
-    core.warning('Auto-push failed')
+    core.notice('auto-push failed')
     core.error(err)
     core.setFailed(err.message)
     process.exit(1)

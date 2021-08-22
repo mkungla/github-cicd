@@ -5,7 +5,7 @@ on:
     branches: [ main ]
     paths:
       - README.md
-      - .github/actions-scripts/update-readme.js
+      - .github/actions-scripts/commit.js
       - .github/workflows/readme-update.yml
       - cmd/github-cicd-experiments/internal/assets/readme.yml
       - cmd/github-cicd-experiments/cmd/readme.go
@@ -14,7 +14,7 @@ on:
     branches: [ main ]
     paths:
       - README.md
-      - .github/actions-scripts/update-readme.js
+      - .github/actions-scripts/commit.js
       - .github/workflows/readme-update.yml
       - cmd/github-cicd-experiments/internal/assets/readme.yml
       - cmd/github-cicd-experiments/cmd/readme.go
@@ -57,4 +57,4 @@ jobs:
         if: github.event_name != 'pull_request'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: .github/actions-scripts/update-readme.js
+        run: .github/actions-scripts/commit.js
