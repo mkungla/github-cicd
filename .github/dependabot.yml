@@ -50,5 +50,5 @@ updates:
     open-pull-requests-limit: 10
     reviewers:
       - "mkungla"
-    vendor: true
+    # vendor: true ?
 
