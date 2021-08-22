@@ -9,38 +9,42 @@ jobs:
   tag:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 10 # do fetch-dept handle tags?
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
 
-    - name: Get repo
-      run: |
-        git fetch --all
-        git pull origin main
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 10 # do fetch-dept handle tags?
 
-    - name: Setup Node
-      uses: actions/setup-node@v2
-      with:
-        node-version: 16.x
-        cache: npm
-        cache-dependency-path: .github/package-lock.json
+      - name: Get repo
+        run: |
+          git fetch --all
+          git pull origin main
 
-    - name: Setup GO
-      uses: actions/setup-go@v2
-      with:
-        go-version: 1.17.x
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: npm
+          cache-dependency-path: .github/package-lock.json
 
-    - name: Install action dependencies
-      working-directory: ./.github
-      run: npm ci
+      - name: Setup GO
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17.x
 
-    - name: (cmd) GO Generate
-      working-directory: ./cmd/github-cicd-experiments
-      run: go generate ./...
+      - name: Install action dependencies
+        working-directory: ./.github
+        run: npm ci
 
-    - name: update tag
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        MESSAGE: update repo files for tag
-      run: .github/actions-scripts/commit.js
+      - name: (cmd) GO Generate
+        working-directory: ./cmd/github-cicd-experiments
+        run: go generate ./...
+
+      - name: update tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MESSAGE: update files for ${{ steps.get_version.outputs.VERSION }}
+        run: .github/actions-scripts/commit.js
