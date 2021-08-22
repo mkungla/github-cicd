@@ -11,34 +11,20 @@ import (
 	"text/template"
 	"time"
 
+	"github-cicd-experiments/internal"
+
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/object"
 )
 
-var (
-	now  time.Time
-	wd   string // working directory
-	repo *git.Repository
-)
+var app *internal.Application
 
 func main() {
-	now = time.Now().UTC()
-	curr, err := os.Getwd()
+	var err error
+	app, err = internal.App()
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	wd = filepath.Join(curr, "../../")
-
-	repo, err = git.PlainOpen(wd)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	if err := updateVersion(); err != nil {
 		log.Fatal(err)
 	}
@@ -59,7 +45,7 @@ const (
 
 func updateVersion() error {
 	// LATEST TAG
-	tags, err := repo.TagObjects()
+	tags, err := app.Repo.TagObjects()
 	if err != nil {
 		return err
 	}
@@ -74,11 +60,11 @@ func updateVersion() error {
 		return err
 	}
 
-	ref, err := repo.Head()
+	ref, err := app.Repo.Head()
 	if err != nil {
 		return err
 	}
-	cIter, err := repo.Log(&git.LogOptions{
+	cIter, err := app.Repo.Log(&git.LogOptions{
 		From:  ref.Hash(),
 		Since: &latest.Tagger.When,
 		Order: git.LogOrderCommitterTime,
@@ -104,12 +90,11 @@ func updateVersion() error {
 		CreatedAt string
 	}{
 		Version:   version,
-		CreatedAt: now.Format(time.RFC3339),
+		CreatedAt: app.Now.Format(time.RFC3339),
 	}
-	f, err := os.Create(filepath.Join(wd, "cmd", "github-cicd-experiments", "version.go"))
+	f, err := os.Create(filepath.Join(app.WD, "cmd", "github-cicd-experiments", "version.go"))
 	if err != nil {
 		return err
 	}
 	return versionTmpl.Execute(f, v)
-	return nil
 }

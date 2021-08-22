@@ -1,0 +1,62 @@
+---
+# Readme intro
+title: GitHub CI/CD Experiments
+markdown: |
+  Experiments of GitHub actions, workflows and all other automation features.
+
+# Readme main content
+content:
+  - title: GitHub provided automations
+    markdown: |
+      Following automations require minimal configuration and are provided by GitHub.  
+      Some automatioons may be available only for public repos or some only for private.
+    sections:
+      - table:
+          cols: [name, workflow, config]
+          rows: 
+            - cols:
+                - Issue templates
+                - ''
+                - '[github-issue-templates]'
+            - cols:
+                - Pull Request templates
+                - ''
+                - '[github-pr-templates]'
+            - cols:
+                - CodeQL Analysis
+                - '[![CodeQL](https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-codeql-analysis.yml/badge.svg?branch=main)][github-codeql-analysis]'
+                - '[.github/workflows/github-codeql-analysis.yml](.github/workflows/github-codeql-analysis.yml)'
+  - title: About this repo
+    sections:
+      - title: "why this repo"
+        markdown: |
+          This repo is for experimenting different automations you can setup in GitHub.  
+          At this point there is no other purpose for this repo however it may provide  
+          common temlpates in the future
+      - title: Contributing
+        markdown: |
+          Everybody are welcome to contribute and add experiments or show cases to this repo.  
+          Read [contributing-guidelines] and [coc] before submiting a pr.
+
+        
+
+# links used within README file
+links:
+  coc:
+    link: .github/CODE_OF_CONDUCT.md
+    title: Contributor Covenant Code of Conduct
+
+  contributing-gl:
+    link: .github/CONTRIBUTING.md
+    title: Contributing Guidelines
+
+  github-issue-templates:
+    link: .github/ISSUE_TEMPLATE
+    title: Issue templates directory
+
+  github-pr-templates:
+    link: .github/PULL_REQUEST_TEMPLATE
+    title: Pull Request templates directory
+
+  github-codeql-analysis:
+    link: https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-codeql-analysis.yml
