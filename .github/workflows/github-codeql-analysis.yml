@@ -15,8 +15,12 @@ on:
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ main ]
+
+  # on.schedule
+  # You can schedule a workflow to run at specific UTC times using POSIX cron syntax.
+  # https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07
   schedule:
-    - cron: daily
+    - cron: '0 0 * * *' # '@midnight' ???
 
 jobs:
   analyze:
