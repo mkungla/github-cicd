@@ -14,8 +14,10 @@ jobs:
       with:
         fetch-depth: 10 # do fetch-dept handle tags?
 
-    - name: Get latest
-      run: git fetch --all
+    - name: Get repo
+      run: |
+        git fetch --all
+        git pull origin main
 
     - name: Setup Node
       uses: actions/setup-node@v2
