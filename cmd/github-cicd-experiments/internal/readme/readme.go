@@ -221,7 +221,7 @@ func (detail DetailSection) Lines() (lines []string) {
 	lines = append(lines, "<details>")
 	lines = append(lines, fmt.Sprintf("<summary>%s</summary>", detail.Summary))
 
-	lines = append(lines, "")
+	lines = append(lines, []string{"", "**Description**", ""}...)
 
 	lines = append(lines, detail.Content)
 
