@@ -17,6 +17,10 @@ content:
             > Configure issue templates for your repo
           resources:
             - '[github-issue-templates]'
+          badges:
+            - alt: Open issues
+              img: https://img.shields.io/github/issues/mkungla/github-cicd-experiments
+              link: https://github.com/mkungla/github-cicd-experiments/issues
 
       - detail:
           summary: Pull Request templates
