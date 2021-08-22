@@ -23,6 +23,10 @@ content:
                 - ''
                 - '[github-pr-templates]'
             - cols:
+                - Press `.` on any repo
+                - ''
+                - '[repo-github-dev]'
+            - cols:
                 - CodeQL Analysis
                 - '[![CodeQL](https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-codeql-analysis.yml/badge.svg?branch=main)][github-codeql-analysis]'
                 - '[.github/workflows/github-codeql-analysis.yml](.github/workflows/github-codeql-analysis.yml)'
@@ -60,3 +64,6 @@ links:
 
   github-codeql-analysis:
     link: https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-codeql-analysis.yml
+
+  repo-github-dev:
+    link: https://github.com/github/dev
