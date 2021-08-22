@@ -61,10 +61,6 @@ export async function gitpush() {
 
   const remote = getRemoteUrl()
   let args = ['push', remote, `main:main`, '--no-verify']
-  if (options.length > 0) {
-      args = args.concat(options)
-  }
-
   return cmd(...args)
 }
 
