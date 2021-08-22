@@ -68,13 +68,13 @@ func (a *Application) Header() {
 ##########################################################################
 # GitHub CI/CD Experiments
 #
-# This CLI application is providing commands to manage repo of 
-# Github CI/CD Experiments: 
+# This CLI application is providing commands to manage repo of
+# Github CI/CD Experiments:
 # (https://github.com/mkungla/github-cicd-experiments)
 #
-# Copyright © 2021 Marko Kungla 
+# Copyright © 2021 Marko Kungla
 # (https://github.com/mkungla). All rights reserved.
-# 
+#
 # Version:      ` + a.Version + `
 # Release date: ` + a.Built + `
 ##########################################################################
@@ -91,4 +91,9 @@ func (a *Application) Sync() {
 # elapsed ` + elapsed.String() + `
 ##########################################################################
 `)
+}
+
+func (a *Application) ExitErr(err error) {
+	a.Log.Error(err)
+	os.Exit(1)
 }

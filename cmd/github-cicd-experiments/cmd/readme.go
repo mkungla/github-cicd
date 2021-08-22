@@ -1,8 +1,8 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
-	"log"
 	"os"
 	"path/filepath"
 
@@ -38,7 +38,7 @@ func Readme(app *internal.Application) *cobra.Command {
 
 			r := readme.New()
 			if err := r.ReadConfigBytes(cnf); err != nil {
-				app.Log.Error(err)
+				app.ExitErr(err)
 				return
 			}
 			r.AddLink(
@@ -48,7 +48,7 @@ func Readme(app *internal.Application) *cobra.Command {
 			)
 			content, err := r.Render()
 			if err != nil {
-				app.Log.Fatal(err)
+				app.ExitErr(err)
 				return
 			}
 
@@ -56,13 +56,13 @@ func Readme(app *internal.Application) *cobra.Command {
 				rpath := filepath.Join(app.WD, "README-TEST.md")
 				f, err := os.OpenFile(rpath, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0664)
 				if err != nil {
-					app.Log.Fatal(err)
+					app.ExitErr(err)
 					return
 				}
 				defer f.Close()
 
 				if _, err := f.Write(content); err != nil {
-					app.Log.Fatal(err)
+					app.ExitErr(err)
 					return
 				}
 				app.Log.Info("test README updated")
@@ -72,20 +72,20 @@ func Readme(app *internal.Application) *cobra.Command {
 				rpath := filepath.Join(app.WD, "README.md")
 				f, err := os.OpenFile(rpath, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0664)
 				if err != nil {
-					app.Log.Fatal(err)
+					app.ExitErr(err)
 					return
 				}
 				defer f.Close()
 
 				if _, err := f.Write(content); err != nil {
-					app.Log.Fatal(err)
+					app.ExitErr(err)
 					return
 				}
 				app.Log.Info("README updated")
 			}
 
 		default:
-			log.Fatal("invalid arg")
+			app.ExitErr(errors.New("invalid arg"))
 		}
 	}
 	return cmd
