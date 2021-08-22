@@ -6,6 +6,11 @@ on:
     paths:
       - README.md
       - cmd/github-cicd-experiments/internal/assets/readme.yml
+  pull_request:
+    branches: [ main ]
+    paths:
+      - README.md
+      - cmd/github-cicd-experiments/internal/assets/readme.yml
 
 jobs:
   checks:
