@@ -33,9 +33,9 @@ export async function git(...args) {
   core.debug(`Executing Git: ${args.join(' ')}`)
   const userArgs = [
       '-c',
-      'user.name=update-readme',
+      'user.name=github-actions',
       '-c',
-      'user.email=update-readme+github-actions[bot]@users.noreply.github.com',
+      'user.email=github-actions[bot]@users.noreply.github.com',
       '-c',
       'http.https://github.com/.extraheader=', // This config is necessary to support actions/checkout@v2 (#9)
   ]
