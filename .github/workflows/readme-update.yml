@@ -57,6 +57,5 @@ jobs:
         if: github.event_name != 'pull_request'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          commit-message: update readme
+          MESSAGE: update readme
         run: .github/actions-scripts/commit.js
