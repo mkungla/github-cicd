@@ -211,6 +211,7 @@ type DetailSection struct {
 	Summary   string   `yaml:"summary"`
 	Content   string   `yaml:"content"`
 	Resources []string `yaml:"resources"`
+	Badges    []Badge  `yaml:"badges"`
 }
 
 func (detail DetailSection) Lines() (lines []string) {
@@ -220,17 +221,36 @@ func (detail DetailSection) Lines() (lines []string) {
 	lines = append(lines, "<details>")
 	lines = append(lines, fmt.Sprintf("<summary>%s</summary>", detail.Summary))
 
+	lines = append(lines, "")
+
 	lines = append(lines, detail.Content)
 
 	if len(detail.Resources) > 0 {
 		lines = append(lines, []string{"", "**Resources**", ""}...)
 	}
 
-	lines = append(lines, "")
 	for _, res := range detail.Resources {
 		lines = append(lines, fmt.Sprintf("- %s", res))
 	}
-	lines = append(lines, "")
-	lines = append(lines, "</details>")
+	lines = append(lines, []string{"</details>", ""}...)
+
+	if len(detail.Badges) > 0 {
+		for _, badge := range detail.Badges {
+			var link string
+			if strings.HasPrefix(badge.Link, "[") {
+				link = badge.Link
+			} else {
+				link = "(" + badge.Link + ")"
+			}
+			str := fmt.Sprintf("[![%s](%s)]%s", badge.Alt, badge.Img, link)
+			lines = append(lines, str)
+		}
+	}
 	return lines
+}
+
+type Badge struct {
+	Alt  string `yaml:"alt"`
+	Img  string `yaml:"img"`
+	Link string `yaml:"link"`
 }

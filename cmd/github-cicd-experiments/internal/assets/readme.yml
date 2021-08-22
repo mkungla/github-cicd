@@ -13,29 +13,37 @@ content:
     sections:
       - detail:
           summary: Issue templates
-          content: Configure issue templates for your repo
+          content: |
+            > Configure issue templates for your repo
           resources:
             - '[github-issue-templates]'
 
       - detail:
           summary: Pull Request templates
-          content: Configure pull request templates for your repo
+          content: |
+            > Configure pull request templates for your repo
           resources:
             - '[github-issue-templates]'
 
       - detail:
           summary: Press `.` on any repo
-          content: Press the `.` key on any repo or swap .com with .dev on any GitHub repo to be taken directly into a fully fledged VS Code environment.
+          content: |
+            > Press the `.` key on any repo or swap .com with .dev on any GitHub repo to be taken directly into a fully fledged VS Code environment.
           resources:
-            - '[repo-github-dev]'
+            - '[github.com/github/dev][repo-github-dev]'
 
       - detail:
-          summary: CodeQL Analysis [![CodeQL](https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-codeql-analysis.yml/badge.svg?branch=main)][github-codeql-analysis]
+          summary: CodeQL Analysis
           content: |
-            CodeQL is the analysis engine used by developers to automate security checks, and by security researchers to perform variant analysis.
+            > CodeQL is the analysis engine used by developers to automate security checks, and by
+            > security researchers to perform variant analysis.
 
           resources:
             - '[.github/workflows/github-codeql-analysis.yml](.github/workflows/github-codeql-analysis.yml)'
+          badges:
+            - alt: CodeQL
+              img: https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-codeql-analysis.yml/badge.svg?branch=main
+              link: '[github-codeql-analysis]'
 
   - title: About this repo
     sections:
@@ -74,3 +82,4 @@ links:
 
   repo-github-dev:
     link: https://github.com/github/dev
+    title: github.com/github/dev
