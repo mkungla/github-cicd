@@ -91,7 +91,12 @@ content:
         markdown: |
           This repo is for experimenting different automations you can setup in GitHub.
           At this point there is no other purpose for this repo however it may provide
-          common temlpates in the future
+          common temlpates in the future.
+
+          e.g.
+          - Showcase best practices
+          - Have optimized workflows which run fast!
+
       - title: Contributing
         markdown: |
           Everybody are welcome to contribute and add experiments or show cases to this repo.
