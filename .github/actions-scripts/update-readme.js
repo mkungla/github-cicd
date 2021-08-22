@@ -53,7 +53,6 @@ function getRemoteUrl() {
       throw new Error(`Repository info is not available in payload: ${JSON.stringify(github.context.payload)}`)
   }
   const token = process.env.GITHUB_TOKEN
-  core.warning(`token len ${token.length}`)
   return `https://x-access-token:${token}@github.com/${fullName}.git`
 }
 
@@ -78,6 +77,11 @@ async function run() {
     core.setFailed(err.message)
     process.exit(1)
   }
+}
+
+if (!process.env.GITHUB_TOKEN) {
+  console.error('Error! You must have a GITHUB_TOKEN environment variable for repo access.')
+  process.exit(1)
 }
 
 run()
