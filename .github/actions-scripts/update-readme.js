@@ -42,7 +42,7 @@ export async function gitpush() {
   return cmd(...args)
 }
 
-async function main() {
+async function run() {
   await git('add', '-A')
   await git('commit', '-m', `generate and update (README.md)`)
 
@@ -52,8 +52,9 @@ async function main() {
   } catch (err) {
     core.warning('Auto-push failed')
     core.error(err)
+    core.setFailed(err.message)
+    process.exit(1)
   }
 }
 
-
-main().catch(e => core.setFailed(e.message))
+run()

@@ -26,10 +26,20 @@ jobs:
     needs: checks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-go@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup GO
+        uses: actions/setup-go@v2
         with:
           go-version: 1.17.x
-      - uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: npm
+      - name: Install dependencies
+        working-directory: .github
+        run: npm ci
       - name: generate new README
         working-directory: ./cmd/github-cicd-experiments
         run: go run . readme update

@@ -26,11 +26,17 @@ content:
             - '[github-issue-templates]'
 
       - detail:
-          summary: Funding
+          summary: Various Repo Community Guidelines and configs
           content: |
-            > Add funding links to your repo
+            > Configure things like Contributing Guidelines
+            > Add funding links and Security Policy to your repo
+            > Contributor Covenant Code of Conduct etc.
           resources:
+            - '[contributing-gl]'
+            - '[coc]'
             - '[repo-funding]'
+            - '[CODEOWNERS](.github/CODEOWNERS)'
+            - '[Security Policy](.github/SECURITY.md)'
 
       - detail:
           summary: Press `.` on any repo
