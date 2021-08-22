@@ -16,6 +16,7 @@ jobs:
         with:
           go-version: 1.17.x
       - name: GO Generate
+        working-directory: ./cmd/github-cicd-experiments
         run: go generate ./...
   tag:
     needs: [go]
