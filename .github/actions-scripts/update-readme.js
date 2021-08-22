@@ -1,9 +1,10 @@
+#!/usr/bin/env node
+
 import * as core from '@actions/core'
-import { exec } from '@actions/exec'
 import * as github from '@actions/github'
 
 export async function git(...args) {
-  core.debug(`Executing Git: ${args.join(' ')}`);
+  core.debug(`Executing Git: ${args.join(' ')}`)
   const userArgs = [
       '-c',
       'user.name=github-action-readme',
@@ -11,18 +12,16 @@ export async function git(...args) {
       'user.email=github@users.noreply.github.com',
       '-c',
       'http.https://github.com/.extraheader=', // This config is necessary to support actions/checkout@v2 (#9)
-  ];
-  const res = await capture('git', userArgs.concat(args));
+  ]
+  const res = await capture('git', userArgs.concat(args))
   if (res.code !== 0) {
-    throw new Error(`Command 'git ${args.join(' ')}' failed: ${JSON.stringify(res)}`);
+    throw new Error(`Command 'git ${args.join(' ')}' failed: ${JSON.stringify(res)}`)
   }
-  return res.stdout;
+  return res.stdout
 }
 
 function getRemoteUrl() {
-  /* eslint-disable @typescript-eslint/camelcase */
   const fullName = github.context.payload.repository?.full_name
-  /* eslint-enable @typescript-eslint/camelcase */
 
   if (!fullName) {
       throw new Error(`Repository info is not available in payload: ${JSON.stringify(github.context.payload)}`)
@@ -35,17 +34,17 @@ export async function gitpush() {
   core.debug('Executing git push')
 
   const remote = getRemoteUrl()
-  let args = ['push', remote, `main:main`, '--no-verify'];
+  let args = ['push', remote, `main:main`, '--no-verify']
   if (options.length > 0) {
-      args = args.concat(options);
+      args = args.concat(options)
   }
 
-  return cmd(...args);
+  return cmd(...args)
 }
 
 async function main() {
   await git('add', '-A')
-  await git('commit', '-m', `generate and update (README.md)`);
+  await git('commit', '-m', `generate and update (README.md)`)
 
   try {
     await gitpush()
