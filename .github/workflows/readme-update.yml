@@ -19,7 +19,9 @@ jobs:
     name: Check README config
     steps:
       - uses: actions/checkout@v2
-      - run: if [ $(git diff --name-only HEAD HEAD~1 | grep README.md | wc -m) -gt 0 ]; then echo "do not edit README directly"; exit 1; fi
+        with:
+          fetch-depth: 10
+      - run: if [ $(git diff --name-only refs/heads/main refs/heads/main~1 | grep README.md | wc -m) -gt 0 ]; then echo "do not edit README directly"; exit 1; fi
   update:
     needs: checks
     runs-on: ubuntu-latest
