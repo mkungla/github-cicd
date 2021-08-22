@@ -80,7 +80,7 @@ async function run() {
 }
 
 if (!process.env.GITHUB_TOKEN) {
-  console.error('Error! You must have a GITHUB_TOKEN environment variable for repo access.')
+  core.setFailed('Error! You must have a GITHUB_TOKEN environment variable for repo access.')
   process.exit(1)
 }
 
