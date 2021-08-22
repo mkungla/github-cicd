@@ -8,41 +8,48 @@ markdown: |
 content:
   - title: GitHub provided automations
     markdown: |
-      Following automations require minimal configuration and are provided by GitHub.  
+      Following automations require minimal configuration and are provided by GitHub.
       Some automatioons may be available only for public repos or some only for private.
     sections:
-      - table:
-          cols: [name, workflow, config]
-          rows: 
-            - cols:
-                - Issue templates
-                - ''
-                - '[github-issue-templates]'
-            - cols:
-                - Pull Request templates
-                - ''
-                - '[github-pr-templates]'
-            - cols:
-                - Press `.` on any repo
-                - ''
-                - '[repo-github-dev]'
-            - cols:
-                - CodeQL Analysis
-                - '[![CodeQL](https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-codeql-analysis.yml/badge.svg?branch=main)][github-codeql-analysis]'
-                - '[.github/workflows/github-codeql-analysis.yml](.github/workflows/github-codeql-analysis.yml)'
+      - detail:
+          summary: Issue templates
+          content: Configure issue templates for your repo
+          resources:
+            - '[github-issue-templates]'
+
+      - detail:
+          summary: Pull Request templates
+          content: Configure pull request templates for your repo
+          resources:
+            - '[github-issue-templates]'
+
+      - detail:
+          summary: Press `.` on any repo
+          content: Press the `.` key on any repo or swap .com with .dev on any GitHub repo to be taken directly into a fully fledged VS Code environment.
+          resources:
+            - '[repo-github-dev]'
+
+      - detail:
+          summary: CodeQL Analysis [![CodeQL](https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-codeql-analysis.yml/badge.svg?branch=main)][github-codeql-analysis]
+          content: |
+            CodeQL is the analysis engine used by developers to automate security checks, and by security researchers to perform variant analysis.
+
+          resources:
+            - '[.github/workflows/github-codeql-analysis.yml](.github/workflows/github-codeql-analysis.yml)'
+
   - title: About this repo
     sections:
       - title: "why this repo"
         markdown: |
-          This repo is for experimenting different automations you can setup in GitHub.  
-          At this point there is no other purpose for this repo however it may provide  
+          This repo is for experimenting different automations you can setup in GitHub.
+          At this point there is no other purpose for this repo however it may provide
           common temlpates in the future
       - title: Contributing
         markdown: |
-          Everybody are welcome to contribute and add experiments or show cases to this repo.  
+          Everybody are welcome to contribute and add experiments or show cases to this repo.
           Read [contributing-guidelines] and [coc] before submiting a pr.
 
-        
+
 
 # links used within README file
 links:

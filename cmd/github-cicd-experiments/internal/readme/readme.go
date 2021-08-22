@@ -124,6 +124,7 @@ type ContentSection struct {
 	Title    string           `yaml:"title"`
 	Markdown string           `yaml:"markdown"`
 	Table    ContentTable     `yaml:"table"`
+	Detail   DetailSection    `yaml:"detail"`
 	Sections []ContentSection `yaml:"sections"`
 }
 
@@ -145,6 +146,7 @@ func (cs ContentSection) Lines(hdepth int) (lines, toc []string, err error) {
 	}
 
 	lines = append(lines, cs.Table.Lines()...)
+	lines = append(lines, cs.Detail.Lines()...)
 
 	next := hdepth + 1
 	for _, section := range cs.Sections {
@@ -203,4 +205,32 @@ func (l Link) Line() string {
 		link += fmt.Sprintf(" %q", l.Title)
 	}
 	return link
+}
+
+type DetailSection struct {
+	Summary   string   `yaml:"summary"`
+	Content   string   `yaml:"content"`
+	Resources []string `yaml:"resources"`
+}
+
+func (detail DetailSection) Lines() (lines []string) {
+	if len(detail.Summary) == 0 {
+		return []string{}
+	}
+	lines = append(lines, "<details>")
+	lines = append(lines, fmt.Sprintf("<summary>%s</summary>", detail.Summary))
+
+	lines = append(lines, detail.Content)
+
+	if len(detail.Resources) > 0 {
+		lines = append(lines, "**Resources**")
+	}
+
+	lines = append(lines, "")
+	for _, res := range detail.Resources {
+		lines = append(lines, fmt.Sprintf("- %s", res))
+	}
+	lines = append(lines, "")
+	lines = append(lines, "</details>")
+	return lines
 }
