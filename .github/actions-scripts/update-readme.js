@@ -33,7 +33,7 @@ export async function git(...args) {
   core.debug(`Executing Git: ${args.join(' ')}`)
   const userArgs = [
       '-c',
-      'user.name=github-action-readme',
+      'user.name=github-cicd-experiments',
       '-c',
       'user.email=github@users.noreply.github.com',
       '-c',
@@ -52,8 +52,9 @@ function getRemoteUrl() {
   if (!fullName) {
       throw new Error(`Repository info is not available in payload: ${JSON.stringify(github.context.payload)}`)
   }
-
-  return `https://x-access-token:${core.getInput('github-token')}@github.com/${fullName}.git`
+  const token = process.env.GITHUB_TOKEN
+  core.warning(`token len ${token.length}`)
+  return `https://x-access-token:${token}@github.com/${fullName}.git`
 }
 
 export async function gitpush() {
