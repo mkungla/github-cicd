@@ -37,6 +37,7 @@ jobs:
         with:
           node-version: 16.x
           cache: npm
+          cache-dependency-path: .github/package-lock.json
       - name: Install dependencies
         working-directory: ./.github
         run: npm ci

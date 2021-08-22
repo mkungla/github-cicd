@@ -31,7 +31,6 @@ content:
             > Configure things like Contributing Guidelines
             > Add funding links and Security Policy to your repo
             > Contributor Covenant Code of Conduct etc.
-
           resources:
             - '[contributing-gl]'
             - '[coc]'
