@@ -1,7 +1,33 @@
 #!/usr/bin/env node
-
+import { exec } from '@actions/exec'
 import * as core from '@actions/core'
 import * as github from '@actions/github'
+
+async function capture(cmd, args) {
+  const res = {
+    stdout: '',
+    stderr: '',
+    code: null,
+  }
+  try {
+    const code = await exec(cmd, args, {
+      listeners: {
+        stdout(data) {
+          res.stdout += data.toString()
+        },
+        stderr(data) {
+          res.stderr += data.toString()
+        },
+      },
+    })
+    res.code = code
+    return res
+  } catch (err) {
+      const msg = `Command '${cmd}' failed with args '${args.join(' ')}': ${res.stderr}: ${err}`
+      core.debug(`@actions/exec.exec() threw an error: ${msg}`)
+      throw new Error(msg)
+  }
+}
 
 export async function git(...args) {
   core.debug(`Executing Git: ${args.join(' ')}`)

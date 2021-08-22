@@ -57,6 +57,7 @@ content:
             - alt: Update README
               img: https://github.com/mkungla/github-cicd-experiments/actions/workflows/readme-update.yml/badge.svg
               link: https://github.com/mkungla/github-cicd-experiments/actions/workflows/readme-update.yml
+
       - detail:
           summary: CodeQL Analysis
           content: |
