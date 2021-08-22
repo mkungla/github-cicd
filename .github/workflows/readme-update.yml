@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 10
-      - run: if [ $(git diff --name-only refs/heads/main refs/heads/main~1 | grep README.md | wc -m) -gt 0 ]; then echo "::error ::Do not edit README directly"; exit 1; fi
+      - run: if [ $(git diff --name-only refs/heads/main refs/heads/main~1 | grep README.md | wc -m) -gt 0 ]; then echo "::error ile=README.md::Do not edit README directly"; echo "::debug::update cmd/github-cicd-experiments/internal/assets/readme.yml instead" exit 1; fi
   update:
     needs: checks
     runs-on: ubuntu-latest
@@ -30,4 +30,9 @@ jobs:
         with:
           go-version: 1.17.x
       - uses: actions/checkout@v2
-      - run: .github/actions-scripts/update-readme.js
+      - name: generate new README
+        working-directory: ./cmd/github-cicd-experiments
+        run: go run . readme update
+      - name: push new readme
+        if: ${{ github.event_name != 'pull_request' }}
+        run: .github/actions-scripts/update-readme.js
