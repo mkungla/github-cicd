@@ -61,7 +61,8 @@ jobs:
         run: npm ci
       - name: push new readme
         if: github.event_name == 'workflow_dispatch'
-        run: sed -i "4s/.*/${{ github.event.inputs.announcement }}/" ./cmd/github-cicd-experiments/internal/assets/readme.yml
+        run: |
+          sed -i "4s/.*/${{ format('announcement: {0}', github.event.inputs.announcement) }}/" ./cmd/github-cicd-experiments/internal/assets/readme.yml
       - name: generate new README
         working-directory: ./cmd/github-cicd-experiments
         run: go run . readme update "${{ github.event.inputs.announcement }}"
