@@ -90,7 +90,7 @@ jobs:
             } = process.env
 
             core.info(`creating prerelease: ${commitHash} - ${version}`)
-            const res = github.repos.createRelease({
+            const res = await github.repos.createRelease({
               owner: context.repo.owner,
               repo: context.repo.repo,
               tag_name: version,
