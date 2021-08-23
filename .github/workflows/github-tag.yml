@@ -112,5 +112,5 @@ jobs:
           #     await github.repos.uploadReleaseAsset(args);
           #   } catch (err) {
           #     core.setFailed(`failed to upload release asset (${err.message}).`)
-            }
+          # }
 
