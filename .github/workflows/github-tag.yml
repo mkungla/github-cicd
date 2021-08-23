@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: 16.x
           cache: npm
-          cache-dependency-path: .github/package-lock.json
+          cache-dependency-path: .github/actions-scripts/package-lock.json
 
       - name: Setup GO
         uses: actions/setup-go@v2
