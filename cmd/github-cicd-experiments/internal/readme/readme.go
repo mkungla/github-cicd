@@ -75,8 +75,12 @@ func (r *File) Render() (content []byte, err error) {
 	}
 
 	if len(r.announcement) > 0 {
+		r.Config.Announcement = r.announcement
+	}
+
+	if len(r.Config.Announcement) > 0 {
 		intro = append(intro, fmt.Sprintf(
-			"> # :loudspeaker: Attention!\n> %s\n", r.announcement))
+			"> # :loudspeaker: Attention!\n> %s\n", r.Config.Announcement))
 	}
 
 	if len(r.Config.Markdown) > 0 {
@@ -124,10 +128,11 @@ func (r *File) Render() (content []byte, err error) {
 }
 
 type Config struct {
-	Title    string           `yaml:"title"`
-	Markdown string           `yaml:"markdown"`
-	Content  []ContentSection `yaml:"content"`
-	Links    map[string]Link  `yaml:"links"`
+	Announcement string           `yaml:"announcement"`
+	Title        string           `yaml:"title"`
+	Markdown     string           `yaml:"markdown"`
+	Content      []ContentSection `yaml:"content"`
+	Links        map[string]Link  `yaml:"links"`
 }
 
 type ContentSection struct {
