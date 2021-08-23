@@ -12,11 +12,13 @@ content:
       Some automatioons may be available only for public repos or some only for private.
     sections:
       - detail:
-          summary: Issue templates
+          summary: Github Issues
           content: |
-            > Configure issue templates for your repo
+            > Configure issue templates for your repo and automate issue realated tasks.
+            > E.g run workflows when some condition in issues is met. add comments, labels etc.
           resources:
             - '[github-issue-templates]'
+            - '[.github/workflows/github-issue-open.yml](.github/workflows/github-issue-open.yml)'
           badges:
             - alt: Open issues
               img: https://img.shields.io/github/issues/mkungla/github-cicd-experiments
