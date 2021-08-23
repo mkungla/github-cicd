@@ -29,11 +29,12 @@ content:
               link: https://github.com/mkungla/github-cicd-experiments/issues
 
       - detail:
-          summary: Pull Request templates
+          summary: Pull Requests
           content: |
-            > Configure pull request templates for your repo
+            > Configure pull request templates and automations for your repo
           resources:
             - '[github-issue-templates]'
+            - '[.github/workflows/github-pr-open.yml](.github/workflows/github-pr-open.yml)'
 
       - detail:
           summary: Various Repo Community Guidelines and configs
