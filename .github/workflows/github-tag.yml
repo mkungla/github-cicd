@@ -75,7 +75,7 @@ jobs:
           MESSAGE: generate files for ${{ steps.get_version.outputs.VERSION }}
         run: |
           npm ci
-          .github/actions-scripts/commit.js
+          ./commit.js
 
       - name: create prerelease
         uses: actions/github-script@v4
