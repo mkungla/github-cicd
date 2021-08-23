@@ -20,6 +20,7 @@ jobs:
 
       - name: Get repo
         run: |
+          git fetch --all
           git checkout main
           git fetch --all
           git pull origin main
