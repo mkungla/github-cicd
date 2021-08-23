@@ -110,9 +110,9 @@ jobs:
               url: uploadUrl,
               headers: {
                 'content-length': hashblob.size,
-                'content-type': 'text/plain',
+                'content-type': 'text/octet-stream',
               },
-              name: 'build.commithash',
+              name: 'build.commithash.txt',
               file: commitHash,
             }
 
