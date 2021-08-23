@@ -20,8 +20,8 @@ jobs:
 
       - name: Get repo
         run: |
-          git fetch --all
           git checkout main
+          git fetch --all
           git pull origin main
 
       - name: Setup Node
@@ -39,6 +39,10 @@ jobs:
       - name: Install action dependencies
         working-directory: ./.github/actions-scripts
         run: npm ci
+
+      - name: bump javascript-action version
+        working-directory: ./.github/actions/javascript-action
+        run: npm version ${{ steps.get_version.outputs.VERSION }}
 
       - name: (cmd) GO Generate
         working-directory: ./cmd/github-cicd-experiments
