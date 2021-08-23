@@ -15,12 +15,17 @@ const getworkflows = (octokit) => {
   })
 }
 async function run() {
-  const { action } = github.context
-  core.info(`running ${action}`)
-
   const token = process.env.GITHUB_TOKEN
   // init octokit
   const octokit = github.getOctokit(token)
+
+  const { ref, runId: run_id } = github.context
+  const { data: { workflow_id } } = await octokit.request('GET /repos/{owner}/{repo}/actions/runs/{run_id}', {
+    ...github.context.repo,
+    run_id
+  })
+
+  core.info(`workflow_id: ${workflow_id}`)
 
   const retry = 60 // times
   const interval = 5000 // 5 sec
@@ -41,12 +46,14 @@ async function run() {
     let mustWait = false
     if (running > 0) {
       for (const workflow of workflows) {
-        if (workflow.check_suite.id === action) {
+        if (workflow.check_suite.id === workflow_id) {
           continue
         }
         if (workflow.conclusion === 'failure') {
           core.setFailed(`workflow ${workflow.name} failed`)
+          break
         }
+        mustWait = true
       }
       core.info(`waiting for other jobs to finish retry ${i}/${retry}`)
     }
