@@ -2,13 +2,13 @@
   "name": "javascript-action",
   "version": "1.0.0",
   "description": "Javasript Action Showcase",
-  "main": "index.js",
   "type": "module",
   "scripts": {
     "lint": "eslint .",
-    "prepare": "ncc build index.mjs -o dist --source-map --license licenses.txt --target es2021",
-    "test": "node --experimental-vm-modules node_modules/.bin/jest",
-    "all": "npm run lint && npm run prepare && npm run test"
+    "build": "webpack",
+    "test": "mocha",
+    "test:coverage": "c8 --src ./src --all --reporter=text mocha",
+    "c8": "c8 --help"
   },
   "repository": {
     "type": "git",
@@ -28,8 +28,20 @@
     "@actions/core": "^1.5.0"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.29.2",
+    "c8": "^7.8.0",
+    "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
     "eslint": "^7.32.0",
-    "jest": "^27.0.6"
+    "mocha": "^9.1.0",
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.8.0",
+    "webpack-license-plugin": "^4.2.0"
+  },
+  "engines": {
+    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+  },
+  "jest": {
+    "verbose": true,
+    "transform": {}
   }
 }

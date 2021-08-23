@@ -1,5 +1,5 @@
 import * as core from '@actions/core'
-import wait from './src/wait.js'
+import wait from './wait.js'
 
 // most @actions toolkit packages have async methods
 async function run() {
