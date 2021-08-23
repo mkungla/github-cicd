@@ -19,6 +19,10 @@ content:
           resources:
             - '[github-issue-templates]'
             - '[.github/workflows/github-issue-open.yml](.github/workflows/github-issue-open.yml)'
+            - 'https://github.com/mkungla/github-cicd-experiments/issues/new/choose'
+            - 'https://github.com/actions/github-script'
+            - 'https://github.com/features/issues/'
+            - 'https://docs.github.com/en/issues'
           badges:
             - alt: Open issues
               img: https://img.shields.io/github/issues/mkungla/github-cicd-experiments
