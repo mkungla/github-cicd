@@ -46,13 +46,7 @@ jobs:
       - name: update files
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MESSAGE: update files for ${{ steps.get_version.outputs.VERSION }}
+          MESSAGE: generate files for ${{ steps.get_version.outputs.VERSION }}
         run: .github/actions-scripts/commit.js
 
-      - name: update plain tag
-        run: |
-          git --delete ${{ steps.get_version.outputs.VERSION }}
-          git push --delete origin ${{ steps.get_version.outputs.VERSION }}
-          git tag -am"tag ${{ steps.get_version.outputs.VERSION }}" ${{ steps.get_version.outputs.VERSION }}
-          git push && git push --tags
 
