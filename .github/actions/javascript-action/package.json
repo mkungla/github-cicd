@@ -1,6 +1,6 @@
 {
   "name": "javascript-action",
-  "version": "1.0.48",
+  "version": "1.0.49",
   "description": "Javasript Action Showcase",
   "type": "module",
   "scripts": {
