@@ -46,6 +46,11 @@ func Readme(app *internal.Application) *cobra.Command {
 				"https://github.com/mkungla/github-cicd-experiments",
 				"GitHub CI/CD Experiments repository",
 			)
+
+			if len(args) > 1 {
+				r.SetAnnouncement(args[1])
+			}
+
 			content, err := r.Render()
 			if err != nil {
 				app.ExitErr(err)

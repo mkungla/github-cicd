@@ -18,8 +18,9 @@ type File struct {
 	Path   string
 	Config Config
 
-	lines []string
-	links map[string]Link
+	lines        []string
+	links        map[string]Link
+	announcement string
 }
 
 func New() *File {
@@ -49,6 +50,9 @@ func (r *File) AddLink(key, link, title string) error {
 	r.links[key] = Link{key, link, title}
 	return nil
 }
+func (r *File) SetAnnouncement(announcement string) {
+	r.announcement = announcement
+}
 
 func (r *File) Render() (content []byte, err error) {
 	// readme file comment
@@ -69,6 +73,12 @@ func (r *File) Render() (content []byte, err error) {
 	if len(r.Config.Title) > 0 {
 		intro = append(intro, "# "+r.Config.Title+"\n")
 	}
+
+	if len(r.announcement) > 0 {
+		intro = append(intro, fmt.Sprintf(
+			"> # :loudspeaker: Attention!\n> %s\n", r.announcement))
+	}
+
 	if len(r.Config.Markdown) > 0 {
 		intro = append(intro, r.Config.Markdown)
 	}
