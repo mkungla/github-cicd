@@ -1,6 +1,8 @@
 blank_issues_enabled: true
 contact_links:
+  - name: Propose a feature or idea
+    url: https://github.com/mkungla/github-cicd-experiments/discussions/new?category=ideas
+    about: Post a dsicussion to propose new feature.
   - name: Have a question?
-    url: https://github.com/mkungla/github-cicd-experiments/discussions/new
+    url: https://github.com/mkungla/github-cicd-experiments/discussions/new?category=questions
     about: Search for discussions or ask your question under discussions
-
