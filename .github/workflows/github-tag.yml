@@ -84,6 +84,8 @@ jobs:
           NEW_COMMIT_HASH: ${{ steps.commit-changes.outputs.NEW_COMMIT_HASH }}
         with:
           script: |
+            const { Blob } = require('buffer')
+
             const {
               PRE_VERSION: version,
               NEW_COMMIT_HASH: commitHash,
@@ -103,14 +105,17 @@ jobs:
             core.info(`upload url: ${uploadUrl}`)
             core.info(`uploading: hash artifact ${commitHash}`)
 
+            const hashblob = new Blob([commitHash], {
+              type: "text/plain; charset=utf-8",
+            })
             const args = {
               url: uploadUrl,
               headers: {
                 'content-length': hashblob.size,
-                'content-type': 'text/plain',
+                'content-type': 'text/octet-stream',
               },
               name: 'build.commithash',
-              file: commitHash,
+              file: hashblob,
             }
 
             try {
