@@ -6,6 +6,7 @@ on:
     paths:
       - README.md
       - .github/actions-scripts/commit.js
+      - .github/actions-scripts/package.json
       - .github/workflows/readme-update.yml
       - cmd/github-cicd-experiments/internal/assets/readme.yml
       - cmd/github-cicd-experiments/cmd/readme.go
@@ -15,6 +16,7 @@ on:
     paths:
       - README.md
       - .github/actions-scripts/commit.js
+      - .github/actions-scripts/package.json
       - .github/workflows/readme-update.yml
       - cmd/github-cicd-experiments/internal/assets/readme.yml
       - cmd/github-cicd-experiments/cmd/readme.go
@@ -55,9 +57,9 @@ jobs:
         with:
           node-version: 16.x
           cache: npm
-          cache-dependency-path: .github/package-lock.json
+          cache-dependency-path: .github/actions-scripts/package-lock.json
       - name: Install dependencies
-        working-directory: ./.github
+        working-directory: ./.github/actions-scripts
         run: npm ci
       - name: push new readme
         if: github.event_name == 'workflow_dispatch'

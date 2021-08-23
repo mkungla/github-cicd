@@ -26,3 +26,5 @@ LICENSE text
 *.min.* binary minified
 *.jpg binary
 *.png binary
+
+.github/actions/javascript-action/dist/** -diff linguist-generated=true

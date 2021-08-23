@@ -1,0 +1,35 @@
+{
+  "name": "javascript-action",
+  "version": "1.0.0",
+  "description": "Javasript Action Showcase",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint .",
+    "prepare": "ncc build index.js -o dist --source-map --license licenses.txt",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
+    "all": "npm run lint && npm run prepare && npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkungla/github-cicd-experiments.git"
+  },
+  "author": {
+    "email": "marko.kungla+opensource@gmail.com",
+    "name": "mkungla",
+    "url": "https://github.com/mkungla"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mkungla/github-cicd-experiments/issues/new/choose"
+  },
+  "homepage": "https://github.com/mkungla/github-cicd-experiments#readme",
+  "dependencies": {
+    "@actions/core": "^1.5.0"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.29.2",
+    "eslint": "^7.32.0",
+    "jest": "^27.0.6"
+  }
+}

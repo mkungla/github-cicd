@@ -73,23 +73,6 @@ content:
               link: https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-tag.yml
 
       - detail:
-          summary: Various Repo Community Guidelines and configs
-          content: |
-            > Configure things like Contributing Guidelines
-            > Add funding links and Security Policy to your repo
-            > Contributor Covenant Code of Conduct etc.
-          resources:
-            - '[contributing-gl]'
-            - '[coc]'
-            - '[repo-funding]'
-            - '[CODEOWNERS](.github/CODEOWNERS)'
-            - '[Security Policy](.github/SECURITY.md)'
-          badges:
-            - alt: LICENSE
-              img: https://img.shields.io/github/license/mkungla/github-cicd-experiments
-              link: https://github.com/mkungla/github-cicd-experiments/blob/main/LICENSE
-
-      - detail:
           summary: GitHub Pages
           content: |
             > GitHub Pages configuration
@@ -108,11 +91,17 @@ content:
             - '[delete-package-versions](https://github.com/actions/delete-package-versions)'
 
       - detail:
-          summary: Press `.` on any repo
+          summary: Github Actions
           content: |
-            > Press the `.` key on any repo or swap .com with .dev on any GitHub repo to be taken directly into a fully fledged VS Code environment.
+            > Create your own github actions.
           resources:
-            - '[github.com/github/dev][repo-github-dev]'
+            - 'https://github.com/actions/toolkit/'
+            - '[Creating a composite run steps action](https://docs.github.com/en/actions/creating-actions/creating-a-composite-run-steps-action)'
+            - 'https://github.com/actions/hello-world-docker-action'
+            - 'https://github.com/actions/container-action'
+            - '[Upload-Artifact](https://github.com/actions/upload-artifact)'
+            - '[Download-Artifact](https://github.com/actions/download-artifact)'
+            - '[cache](https://github.com/actions/cache)'
 
       - detail:
           summary: Repo based action scripts
@@ -128,17 +117,28 @@ content:
               link: https://github.com/mkungla/github-cicd-experiments/actions/workflows/readme-update.yml
 
       - detail:
-          summary: Github Actions
+          summary: Various Repo Community Guidelines and configs
           content: |
-            > Create your own github actions.
+            > Configure things like Contributing Guidelines
+            > Add funding links and Security Policy to your repo
+            > Contributor Covenant Code of Conduct etc.
           resources:
-            - 'https://github.com/actions/toolkit/'
-            - '[Creating a composite run steps action](https://docs.github.com/en/actions/creating-actions/creating-a-composite-run-steps-action)'
-            - 'https://github.com/actions/hello-world-docker-action'
-            - 'https://github.com/actions/container-action'
-            - '[Upload-Artifact](https://github.com/actions/upload-artifact)'
-            - '[Download-Artifact](https://github.com/actions/download-artifact)'
-            - '[cache](https://github.com/actions/cache)'
+            - '[contributing-gl]'
+            - '[coc]'
+            - '[repo-funding]'
+            - '[CODEOWNERS](.github/CODEOWNERS)'
+            - '[Security Policy](.github/SECURITY.md)'
+          badges:
+            - alt: LICENSE
+              img: https://img.shields.io/github/license/mkungla/github-cicd-experiments
+              link: https://github.com/mkungla/github-cicd-experiments/blob/main/LICENSE
+
+      - detail:
+          summary: Press `.` on any repo
+          content: |
+            > Press the `.` key on any repo or swap .com with .dev on any GitHub repo to be taken directly into a fully fledged VS Code environment.
+          resources:
+            - '[github.com/github/dev][repo-github-dev]'
 
       - detail:
           summary: CodeQL Analysis

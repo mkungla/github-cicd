@@ -1,0 +1,28 @@
+name: JavaScript Action
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - .github/actions/javascript-action
+      - .github/workflows/javascript-action.yml
+
+jobs:
+  # unit tests
+  tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .github/actions/javascript-action
+    steps:
+    - uses: actions/checkout@v2
+    - run: npm ci
+    - run: npm all
+
+  showcase:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: JavaScript Action showcase
+        uses: ./.github/actions/javascript-action
