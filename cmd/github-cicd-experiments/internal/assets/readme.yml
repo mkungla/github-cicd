@@ -1,7 +1,7 @@
 ---
 # Readme intro
 title: GitHub CI/CD Experiments
-announcement: Code, scripts, configurations and examples in this repository are experimental so use it on your own risk!
+announcement: Code examples, scripts and configurations in this repository are experimental so use it on your own risk!
 markdown: |
   Experiments of GitHub actions, workflows and other automation features.
   Purpose of this repo is experiment with different automation features to
