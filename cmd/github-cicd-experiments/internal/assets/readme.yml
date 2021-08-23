@@ -60,6 +60,9 @@ content:
             - alt: Stale
               img: https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-stale.yml/badge.svg
               link: https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-stale.yml
+            - alt: Labeler
+              img: https://github.com/mkungla/github-cicd-experiments/actions/workflows/labeler.yml/badge.svg
+              link: https://github.com/mkungla/github-cicd-experiments/actions/workflows/labeler.yml
 
       - detail:
           summary: Git tags
