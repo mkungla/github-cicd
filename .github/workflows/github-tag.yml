@@ -103,7 +103,7 @@ jobs:
             core.info(`upload url: ${uploadUrl}`)
             core.info(`uploading: hash artifact ${commitHash}`)
 
-            const hashblob = Buffer.from([commitHash], {
+            const hashblob = Buffer.from(commitHash, {
               type: "text/plain; charset=utf-8",
             })
             const args = {
@@ -113,7 +113,7 @@ jobs:
                 'content-type': 'text/octet-stream',
               },
               name: 'build.commithash',
-              file: hashblob,
+              file: commitHash,
             }
 
             try {
