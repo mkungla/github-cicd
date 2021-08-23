@@ -6,23 +6,37 @@ on:
       - 'v*'
 
 jobs:
-  tag:
+
+  check:
     runs-on: ubuntu-latest
     steps:
-      - name: enusre no other running workflows
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: npm
+          cache-dependency-path: .github/actions-scripts/package-lock.json
+      - name: Install action dependencies
+        working-directory: ./.github/actions-scripts
+        run: npm ci
+      - name: wait other workflows to complete
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: .github/actions-scripts/tagwait.js
 
+  tag:
+    runs-on: ubuntu-latest
+    needs: ['checks']
+    steps:
       - name: Get the version
         id: get_version
         run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
-
       - name: Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 10 # do fetch-dept handle tags?
-
       - name: Get repo
         run: |
           git fetch --all
