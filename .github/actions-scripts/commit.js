@@ -69,7 +69,6 @@ async function run() {
   // await git('commit', '-m', core.getInput('commit-message') || `auto-commit: ${process.env.GITHUB_WORKFLOW}`)
   await git('commit', '-m', process.env.MESSAGE || `auto-commit: ${process.env.GITHUB_WORKFLOW}`)
 
-
   try {
     await gitpush()
     core.info('git push is done')
@@ -79,6 +78,9 @@ async function run() {
     core.setFailed(err.message)
     process.exit(1)
   }
+
+  const newhash = await git('rev-parse', '--verify', 'HEAD')
+  core.setOutput('NEW_COMMIT_HASH', newhash)
 }
 
 if (!process.env.GITHUB_TOKEN) {

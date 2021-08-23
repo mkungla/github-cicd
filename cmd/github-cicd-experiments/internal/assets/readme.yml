@@ -75,6 +75,13 @@ content:
               img: https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-tag.yml/badge.svg
               link: https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-tag.yml
 
+      - details:
+          summary: GitHub pre-release
+          content: |
+            > Github action to run on tag when publishing pre-release
+          resources:
+            - https://github.com/mkungla/github-cicd-experiments/tags
+
       - detail:
           summary: GitHub Pages
           content: |

@@ -8,6 +8,7 @@
 # DIRECTORIES to ignore
 ################################################################################
 **/node_modules/*
+**/[Tt]mp/*
 
 .github/actions/javascript-action/coverage
 .github/actions/javascript-action/dist

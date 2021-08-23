@@ -26,17 +26,18 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: .github/actions-scripts/tagwait.js
 
-  tag:
+  generators:
     runs-on: ubuntu-latest
     needs: checks
     steps:
-      - name: Get the version
+      - name: set the version
         id: get_version
         run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
-      - name: Checkout
+
         uses: actions/checkout@v2
         with:
-          fetch-depth: 10 # do fetch-dept handle tags?
+          fetch-depth: 0 # do fetch-dept handle tags?
+
       - name: Get repo
         run: |
           git fetch --all
@@ -51,27 +52,64 @@ jobs:
           cache: npm
           cache-dependency-path: .github/actions-scripts/package-lock.json
 
-      - name: Setup GO
-        uses: actions/setup-go@v2
-        with:
-          go-version: 1.17.x
-
-      - name: Install action dependencies
-        working-directory: ./.github/actions-scripts
-        run: npm ci
-
+      # JS
       - name: bump javascript-action version
         working-directory: ./.github/actions/javascript-action
         run: npm version ${{ steps.get_version.outputs.VERSION }}
+
+      # GO
+      - uses: actions/setup-go@v2
+        with:
+          go-version: 1.17.x
 
       - name: (cmd) GO Generate
         working-directory: ./cmd/github-cicd-experiments
         run: go generate ./...
 
-      - name: update files
+      # Commit generated files
+      - name: commit files
+        working-directory: ./.github/actions-scripts
+        id: commit-changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MESSAGE: generate files for ${{ steps.get_version.outputs.VERSION }}
-        run: .github/actions-scripts/commit.js
+        run: |
+          npm ci
+          .github/actions-scripts/commit.js
 
+      - name: create prerelease
+        uses: actions/github-script@v4
+        with:
+          script: |
+            core.info(`creating prerelease: ${steps.get_version.outputs.VERSION}`)
+            const {
+              data: {
+                upload_url: uploadUrl,
+              },
+            } = github.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: steps.get_version.outputs.VERSION,
+              prerelease: true,
+            })
+
+            core.info(`uploading: hash artifact ${steps.commit-changes.outputs.NEW_COMMIT_HASH}`)
+            const hashblob = new Blob([steps.commit-changes.outputs.NEW_COMMIT_HASH], {
+              type: "text/plain; charset=utf-8"
+            })
+
+            const args = {
+              url: uploadUrl,
+              headers: {
+                'content-length': hashblob.size,
+                'content-type': 'application/octet-stream',
+              },
+              name: 'build.commithash',
+              file: hashblob,
+            }
+            try {
+              await github.repos.uploadReleaseAsset(args);
+            } catch (err) {
+              core.setFailed(`failed to upload release asset (${err.message}).`)
+            }
 

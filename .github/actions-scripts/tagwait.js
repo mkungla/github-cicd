@@ -27,7 +27,7 @@ async function run() {
 
   core.info(`check_suite_id: ${checkSuiteId}`)
 
-  const retry = 2 // times
+  const retry = 60 // times
   const interval = 5000 // 5 sec
 
   for (let i = 1; i <= retry; i++) {
