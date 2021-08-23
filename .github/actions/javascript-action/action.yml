@@ -9,5 +9,5 @@ outputs:
   time: # output will be available to future steps
     description: 'The message to output'
 runs:
-  using: 'node16'
+  using: 'node14'
   main: 'dist/index.js'
