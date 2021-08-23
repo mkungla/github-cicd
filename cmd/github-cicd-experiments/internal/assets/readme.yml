@@ -32,6 +32,15 @@ content:
             - alt: Open issues
               img: https://img.shields.io/github/issues/mkungla/github-cicd-experiments
               link: https://github.com/mkungla/github-cicd-experiments/issues
+            - alt: New issue
+              img: https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-issue-open.yml/badge.svg
+              link: https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-issue-open.yml
+            - alt: Last greeting
+              img: https://github.com/mkungla/github-cicd-experiments/actions/workflows/greetings.yml/badge.svg
+              link: https://github.com/mkungla/github-cicd-experiments/actions/workflows/greetings.yml
+            - alt: Stale
+              img: https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-stale.yml/badge.svg
+              link: https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-stale.yml
 
       - detail:
           summary: Pull Requests
@@ -41,6 +50,27 @@ content:
             - '[github-pr-templates]'
             - '[.github/workflows/github-stale.yml](.github/workflows/github-stale.yml)'
             - '[.github/workflows/github-pr-open.yml](.github/workflows/github-pr-open.yml)'
+          badges:
+            - alt: New pull request
+              img: https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-pr-open.yml/badge.svg
+              link: https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-pr-open.yml
+            - alt: Last greeting
+              img: https://github.com/mkungla/github-cicd-experiments/actions/workflows/greetings.yml/badge.svg
+              link: https://github.com/mkungla/github-cicd-experiments/actions/workflows/greetings.yml
+            - alt: Stale
+              img: https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-stale.yml/badge.svg
+              link: https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-stale.yml
+
+      - detail:
+          summary: Git tags
+          content: |
+            > Action to run on new tag
+          resources:
+            - https://github.com/mkungla/github-cicd-experiments/tags
+          badges:
+            - alt: New pull request
+              img: https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-tag.yml/badge.svg
+              link: https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-tag.yml
 
       - detail:
           summary: Various Repo Community Guidelines and configs
@@ -63,7 +93,19 @@ content:
           summary: GitHub Pages
           content: |
             > GitHub Pages configuration
+          badges:
+            - alt: Page Build
+              img: https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-pages.yml/badge.svg
+              link: https://github.com/mkungla/github-cicd-experiments/actions/workflows/github-pages.yml
 
+      - detail:
+          summary: GitHub Packages
+          content: |
+            > With GitHub Packages, you can safely publish and consume packages within your organization or with the entire world.
+
+          resources:
+            - https://github.com/features/packages
+            - '[delete-package-versions](https://github.com/actions/delete-package-versions)'
 
       - detail:
           summary: Press `.` on any repo

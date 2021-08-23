@@ -1,4 +1,4 @@
-name: 'Issue Cron'
+name: 'GitHub Stale'
 
 permissions:
   issues: write
