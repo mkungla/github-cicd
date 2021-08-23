@@ -31,7 +31,7 @@ jobs:
     needs: checks
     steps:
       - name: set the version
-        id: get_version
+        id: set-version
         run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
 
       - uses: actions/checkout@v2
@@ -55,7 +55,7 @@ jobs:
       # JS
       - name: bump javascript-action version
         working-directory: ./.github/actions/javascript-action
-        run: npm version ${{ steps.get_version.outputs.VERSION }}
+        run: npm version ${{ steps.set-version.outputs.VERSION }}
 
       # GO
       - uses: actions/setup-go@v2
@@ -72,17 +72,22 @@ jobs:
         id: commit-changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MESSAGE: generate files for ${{ steps.get_version.outputs.VERSION }}
+          MESSAGE: generate files for ${{ steps.set-version.outputs.VERSION }}
         run: |
           npm ci
           ./commit.js
 
       - name: create prerelease
         uses: actions/github-script@v4
+        env:
+          PRE_VERSION: ${{ steps.set-version.outputs.VERSION }}
+          NEW_COMMIT_HASH: ${{ steps.commit-changes.outputs.NEW_COMMIT_HASH }}
         with:
           script: |
-            const commitHash = '${{ steps.commit-changes.outputs.NEW_COMMIT_HASH }}'
-            const version = '${{ steps.get_version.outputs.VERSION }}'
+            const {
+              PRE_VERSION: version,
+              NEW_COMMIT_HASH: commitHash,
+            } = process.env
 
             core.info(`creating prerelease: ${commitHash} - ${version}`)
             const {
