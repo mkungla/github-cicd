@@ -83,6 +83,13 @@ content:
               link: https://github.com/mkungla/github-cicd-experiments/actions/workflows/readme-update.yml
 
       - detail:
+          summary: Github Actions
+          content: |
+            > Create your own github actions.
+          resources:
+            - 'https://github.com/actions/toolkit/'
+            - '[Creating a composite run steps action](https://docs.github.com/en/actions/creating-actions/creating-a-composite-run-steps-action)'
+      - detail:
           summary: CodeQL Analysis
           content: |
             > CodeQL is the analysis engine used by developers to automate security checks, and by
