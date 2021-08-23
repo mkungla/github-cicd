@@ -21,6 +21,7 @@ jobs:
       - name: Get repo
         run: |
           git fetch --all
+          git checkout main
           git pull origin main
 
       - name: Setup Node
