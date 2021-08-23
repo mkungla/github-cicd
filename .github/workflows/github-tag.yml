@@ -103,17 +103,14 @@ jobs:
             core.info(`upload url: ${uploadUrl}`)
             core.info(`uploading: hash artifact ${commitHash}`)
 
-            const hashblob = new Blob([commitHash], {
-              type: "text/plain; charset=utf-8",
-            })
             const args = {
               url: uploadUrl,
               headers: {
                 'content-length': hashblob.size,
-                'content-type': 'application/octet-stream',
+                'content-type': 'text/plain',
               },
               name: 'build.commithash',
-              file: hashblob,
+              file: commitHash,
             }
 
             try {
