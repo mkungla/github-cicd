@@ -84,7 +84,7 @@ jobs:
           NEW_COMMIT_HASH: ${{ steps.commit-changes.outputs.NEW_COMMIT_HASH }}
         with:
           script: |
-            const { Blob } = require('buffer')
+            import { Blob } from 'buffer'
 
             const {
               PRE_VERSION: version,
