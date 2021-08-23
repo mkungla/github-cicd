@@ -124,6 +124,13 @@ content:
               link: https://github.com/mkungla/github-cicd-experiments/actions/workflows/readme-update.yml
 
       - detail:
+          summary: Action services
+          content: |
+            > use services on github actions
+          resources:
+            - https://github.com/actions/example-services
+
+      - detail:
           summary: Various Repo Community Guidelines and configs
           content: |
             > Configure things like Contributing Guidelines
