@@ -80,7 +80,7 @@ async function run() {
   }
 
   const newhash = await git('rev-parse', '--verify', 'HEAD')
-  core.setOutput('NEW_COMMIT_HASH', newhash)
+  core.setOutput('NEW_COMMIT_HASH', newhash.replace(/[\n\r]/g, ''))
 }
 
 if (!process.env.GITHUB_TOKEN) {
