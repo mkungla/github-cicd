@@ -102,6 +102,10 @@ content:
             - '[Upload-Artifact](https://github.com/actions/upload-artifact)'
             - '[Download-Artifact](https://github.com/actions/download-artifact)'
             - '[cache](https://github.com/actions/cache)'
+          badges:
+            - alt: Javascript Action
+              img: https://github.com/mkungla/github-cicd-experiments/actions/workflows/javascript-action.yml/badge.svg
+              link: https://github.com/mkungla/github-cicd-experiments/actions/workflows/javascript-action.yml
 
       - detail:
           summary: Repo based action scripts
