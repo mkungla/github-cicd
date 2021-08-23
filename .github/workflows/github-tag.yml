@@ -9,6 +9,11 @@ jobs:
   tag:
     runs-on: ubuntu-latest
     steps:
+      - name: enusre no other running workflows
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: .github/actions-scripts/tagwait.js
+
       - name: Get the version
         id: get_version
         run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
