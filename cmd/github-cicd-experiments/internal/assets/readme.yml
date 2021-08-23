@@ -2,7 +2,9 @@
 # Readme intro
 title: GitHub CI/CD Experiments
 markdown: |
-  Experiments of GitHub actions, workflows and all other automation features.
+  Experiments of GitHub actions, workflows and other automation features.
+  Purpose of this repo is experiment with different automation features to
+  have examples for optimized workflows.
 
 # Readme main content
 content:
