@@ -4,7 +4,7 @@ package main
 
 const (
 	// Version represents current version of this repo.
-	Version = "v1.0.63"
+	Version = "0.0.0"
 	// Built represents date object when go gen was last execurted.
 	Built = "2021-08-24T08:59:58Z"
 )

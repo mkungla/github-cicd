@@ -1,6 +1,5 @@
 package main
 
-//go:generate go run generators.go
 import (
 	"fmt"
 	"github-cicd-experiments/cmd"
