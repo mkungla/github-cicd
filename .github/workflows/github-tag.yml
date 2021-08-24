@@ -111,7 +111,7 @@ jobs:
                 'content-type': 'text/plain',
               },
               name: 'build.commithash',
-              file: commitHash.toString(),
+              file: hashblob,
             }
 
             try {
