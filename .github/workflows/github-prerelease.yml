@@ -1,0 +1,30 @@
+# Trigger the workflow on pull request activity
+on:
+  release:
+    types:
+      - prereleased
+
+jobs:
+  tag-ready:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: npm
+          cache-dependency-path: .github/actions-scripts/package-lock.json
+      - name: Install action dependencies
+        working-directory: ./.github/actions-scripts
+        run: npm ci
+      - name: wait other workflows to complete
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: .github/actions-scripts/tagwait.js
+  prerelease:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "pre release"
+
