@@ -4,8 +4,8 @@ on:
       - tag
     types:
       - completed
-    tags:
-      - 'v*'
+    branches:
+      - main
 
 jobs:
   on-success:
