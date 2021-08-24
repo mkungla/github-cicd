@@ -1,7 +1,7 @@
 on:
   workflow_run:
     workflows:
-      - .github/workflows/github-tag.yml
+      - tag
     types:
       - completed
     tags:
