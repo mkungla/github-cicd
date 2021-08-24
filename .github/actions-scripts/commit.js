@@ -47,6 +47,7 @@ export async function git(...args) {
 }
 
 function getRemoteUrl() {
+
   const fullName = github.context.payload.repository?.full_name
 
   if (!fullName) {
