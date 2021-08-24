@@ -112,8 +112,8 @@ jobs:
                 'content-length': hashblob.size,
                 'content-type': 'text/octet-stream',
               },
-              name: 'build.commithash.txt',
-              file: commitHash,
+              name: 'build.commithash',
+              file: commitHash.toString(),
             }
 
             try {
