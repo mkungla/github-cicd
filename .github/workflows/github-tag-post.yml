@@ -1,11 +1,8 @@
 on:
   workflow_run:
-    workflows:
-      - tag
+    workflows: [".github/workflows/github-tag.yml"]
     types:
       - completed
-    branches:
-      - main
 
 jobs:
   on-success:
