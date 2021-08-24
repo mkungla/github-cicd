@@ -111,7 +111,7 @@ jobs:
                 'content-type': 'text/octet-stream',
               },
               name: 'build.commithash',
-              file: hashblob,
+              data: hashblob,
             }
 
             try {
