@@ -1,4 +1,5 @@
 # https://github.com/mkungla/github-cicd/discussions/11
+name: issues
 on:
   issues:
     types:
@@ -28,9 +29,8 @@ on:
 
 defaults:
   runs-on: ubuntu-latest
+  timeout-minutes: 5
   steps:
-    - run: |
-        echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
     - run: echo ${{ toJSON(github) }}
     - run: echo ${{ toJSON(env) }}
     - run: echo ${{ toJSON(job) }}
@@ -50,51 +50,98 @@ jobs:
   opened:
     if: github.event.action == 'opened'
     steps:
+      - run: |
+          echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
 
-  # edited:
-  #   if: github.event.action == 'edited'
+  edited:
+    if: github.event.action == 'edited'
+    steps:
+      - run: |
+          echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
 
-  # deleted:
-  #   if: github.event.action == 'deleted'
+  deleted:
+    if: github.event.action == 'deleted'
+    steps:
+      - run: |
+          echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
 
-  # transferred:
-  #   if: github.event.action == 'transferred'
+  transferred:
+    if: github.event.action == 'transferred'
+    steps:
+      - run: |
+          echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
 
-  # pinned:
-  #   if: github.event.action == 'pinned'
+  pinned:
+    if: github.event.action == 'pinned'
+    steps:
+      - run: |
+          echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
 
-  # unpinned:
-  #   if: github.event.action == 'unpinned'
+  unpinned:
+    if: github.event.action == 'unpinned'
+    steps:
+      - run: |
+          echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
 
-  # closed:
-  #   if: github.event.action == 'closed'
+  closed:
+    if: github.event.action == 'closed'
+    steps:
+      - run: |
+          echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
 
-  # reopened:
-  #   if: github.event.action == 'reopened'
+  reopened:
+    if: github.event.action == 'reopened'
+    steps:
+      - run: |
+          echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
 
-  # assigned:
-  #   if: github.event.action == 'assigned'
+  assigned:
+    if: github.event.action == 'assigned'
+    steps:
+      - run: |
+          echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
 
-  # unassigned:
-  #   if: github.event.action == 'unassigned'
+  unassigned:
+    if: github.event.action == 'unassigned'
+    steps:
+      - run: |
+          echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
 
-  # labeled:
-  #   if: github.event.action == 'labeled'
+  labeled:
+    if: github.event.action == 'labeled'
+    steps:
+      - run: |
+          echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
 
-  # unlabeled:
-  #   if: github.event.action == 'unlabeled'
+  unlabeled:
+    if: github.event.action == 'unlabeled'
+    steps:
+      - run: |
+          echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
 
-  # locked:
-  #   if: github.event.action == 'locked'
+  locked:
+    if: github.event.action == 'locked'
+    steps:
+      - run: |
+          echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
 
-  # unlocked:
-  #   if: github.event.action == 'unlocked'
+  unlocked:
+    if: github.event.action == 'unlocked'
+    steps:
+      - run: |
+          echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
 
-  # milestoned:
-  #   if: github.event.action == 'milestoned'
+  milestoned:
+    if: github.event.action == 'milestoned'
+    steps:
+      - run: |
+          echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
 
-  # demilestoned:
-  #   if: github.event.action == 'demilestoned'
+  demilestoned:
+    if: github.event.action == 'demilestoned'
+    steps:
+      - run: |
+          echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
 
   issue-comment:
     name: Issue comment
