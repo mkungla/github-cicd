@@ -62,7 +62,7 @@ jobs:
           exit 1
       - name: issue payload
         env:
-          issue: toJSON(github.event.issue)
+          issue: ${{ toJSON(github.event.issue) }}
         run: echo "$issue"
       - name: set-user-issues-total
         id: set-user-issues-total
@@ -105,7 +105,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: toal issues
-        run: echo "total issues ({{ needs.issue.outputs.user-issues-total }})"
+        run: echo "total issues (${{ needs.issue.outputs.user-issues-total }})"
       - name: greeting on first issue
         if: needs.issue.outputs.user-issues-total == 0 && github.event.action == 'opened'
         run: |
