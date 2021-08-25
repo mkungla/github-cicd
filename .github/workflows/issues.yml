@@ -90,10 +90,10 @@ jobs:
       # greeting on first issue
       - if: needs.issue.outputs.first-issue && github.event.action == 'opened'
         env:
-          GITHUB_TOKEN: secrets.GITHUB_TOKEN
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh issue comment ${{ github.event.issue.html_url }} \
-            --body "👋 Thanks for reporting @${{ github.event.issue.user.login }}! Your issue will be reviewed shortly."
+            --body "👋 Thanks for reporting @${{ github.event.sender.login }}! Your issue will be reviewed shortly."
 
 # - run: |
 #     echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
