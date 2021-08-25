@@ -123,11 +123,12 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - name: triage
+      - name: on open add labels
         if: github.event.action == 'opened' && !contains(github.event.issue.labels.*.name, 'triage')
-        run: |
-          gh issue edit ${{ github.event.issue.number }} \
-            --add-label "triage"
+        run: gh issue edit ${{ github.event.issue.number }} --add-label "triage"
+      - name: on close remove labels
+        if: github.event.action == 'closed' && contains(github.event.issue.labels.*.name, 'triage')
+        run: gh issue edit ${{ github.event.issue.number }} --remove-label "triage"
 
   stale:
     needs:
