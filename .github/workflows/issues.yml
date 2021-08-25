@@ -29,7 +29,7 @@ on:
 
   schedule:
     - name: "daily"
-      cron: '*/5 * * * *'
+      cron: '0 0 * * *'
 
 jobs:
   # Comment
@@ -94,6 +94,10 @@ jobs:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: echo "$GITHUB_CONTEXT"
 
+  daily:
+    needs: schedule
+    if: github.event.schedule == '0 0 * * *'
+
   # comment on issue
   comment:
     needs:
@@ -147,8 +151,7 @@ jobs:
             })
 
   stale:
-    needs:
-      - schedule
+    needs: daily
     runs-on: ubuntu-latest
     steps:
       - uses: actions/stale@v4
