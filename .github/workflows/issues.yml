@@ -48,7 +48,7 @@ jobs:
   issue:
     strategy:
       matrix:
-        event:
+        action:
           - opened
           - edited
           - deleted
@@ -65,8 +65,9 @@ jobs:
           - unlocked
           - milestoned
           - demilestoned
-    if: github.event_name == 'issues' && ${{ matrix.event }} == github.event.action
+    # if: github.event_name == 'issues' && ${{ matrix.action }} == github.event.action
     runs-on: ubuntu-latest
+    name: ${{ matrix.action }}
     steps:
       - run: |
           echo "issue #${{ github.event.issue.number }} pull_request #${{ github.event.issue.pull_request }}"
