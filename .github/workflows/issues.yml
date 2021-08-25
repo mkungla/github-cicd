@@ -97,6 +97,7 @@ jobs:
   daily:
     needs: schedule
     if: github.event.schedule == '0 0 * * *'
+    steps:
 
   # comment on issue
   comment:
