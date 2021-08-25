@@ -28,8 +28,7 @@ on:
       - edited
 
   schedule:
-    - name: daily
-      cron: '*/5 * * * *'
+    - cron: '*/5 * * * *'
 
 jobs:
   # Comment
@@ -121,8 +120,8 @@ jobs:
     needs: issue
     runs-on: ubuntu-latest
     steps:
-      # greeting on first issue
-      - if: needs.issue.outputs.first-issue && github.event.action == 'opened'
+      - name: greeting on first issue
+        if: needs.issue.outputs.first-issue && github.event.action == 'opened'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
