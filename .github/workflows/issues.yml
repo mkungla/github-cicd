@@ -65,7 +65,7 @@ jobs:
           - unlocked
           - milestoned
           - demilestoned
-    if: github.event_name == 'issues' && matrix.event == github.event.action
+    if: github.event_name == 'issues' && ${{ matrix.event }} == github.event.action
     runs-on: ubuntu-latest
     steps:
       - run: |
