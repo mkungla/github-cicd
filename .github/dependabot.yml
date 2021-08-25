@@ -1,73 +1,73 @@
 # https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/configuration-options-for-dependency-updates
 version: 2
 updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: github-actions
+    directory: /
     schedule:
-      interval: "weekly"
-      day: "sunday"
-      timezone: "Europe/Tallinn"
+      interval: weekly
+      day: sunday
+      timezone: Europe/Tallinn
     assignees:
-      - "mkungla"
+      - mkungla
     commit-message:
       prefix: "dep(actions):"
     labels:
-      - "eco/github-actions"
-      - "actions"
+      - dependencies
+      - github/actions
     open-pull-requests-limit: 10
     reviewers:
-      - "mkungla"
+      - mkungla
 
-  - package-ecosystem: npm
-    directory: "/.github/actions-scripts"
-    schedule:
-      interval: "weekly"
-      day: "sunday"
-      timezone: "Europe/Tallinn"
-    assignees:
-      - "mkungla"
-    commit-message:
-      prefix: "dep(actions):"
-      prefix-development: "dev(actions):"
-    labels:
-      - "eco/npm"
-      - "actions"
-    open-pull-requests-limit: 10
-    reviewers:
-      - "mkungla"
+  # - package-ecosystem: npm
+  #   directory: "/.github/actions-scripts"
+  #   schedule:
+  #     interval: "weekly"
+  #     day: "sunday"
+  #     timezone: "Europe/Tallinn"
+  #   assignees:
+  #     - "mkungla"
+  #   commit-message:
+  #     prefix: "dep(actions):"
+  #     prefix-development: "dev(actions):"
+  #   labels:
+  #     - "eco/npm"
+  #     - "actions"
+  #   open-pull-requests-limit: 10
+  #   reviewers:
+  #     - "mkungla"
 
-  - package-ecosystem: npm
-    directory: "/.github/actions/javascript-action"
-    schedule:
-      interval: "weekly"
-      day: "sunday"
-      timezone: "Europe/Tallinn"
-    assignees:
-      - "mkungla"
-    commit-message:
-      prefix: "dep(js-actions):"
-      prefix-development: "dev(js-actions):"
-    labels:
-      - "eco/npm"
-      - "actions"
-    open-pull-requests-limit: 10
-    reviewers:
-      - "mkungla"
+  # - package-ecosystem: npm
+  #   directory: "/.github/actions/javascript-action"
+  #   schedule:
+  #     interval: "weekly"
+  #     day: "sunday"
+  #     timezone: "Europe/Tallinn"
+  #   assignees:
+  #     - "mkungla"
+  #   commit-message:
+  #     prefix: "dep(js-actions):"
+  #     prefix-development: "dev(js-actions):"
+  #   labels:
+  #     - "eco/npm"
+  #     - "actions"
+  #   open-pull-requests-limit: 10
+  #   reviewers:
+  #     - "mkungla"
 
-  - package-ecosystem: gomod
-    directory: "/cmd/github-cicd-experiments"
-    schedule:
-      interval: "daily"
-      time: "00:00"
-      timezone: "Europe/Tallinn"
-    assignees:
-      - "mkungla"
-    commit-message:
-      prefix: "dep(cmd):"
-    labels:
-      - "eco/go"
-    open-pull-requests-limit: 10
-    reviewers:
-      - "mkungla"
-    # vendor: true ?
+  # - package-ecosystem: gomod
+  #   directory: "/cmd/github-cicd-experiments"
+  #   schedule:
+  #     interval: "daily"
+  #     time: "00:00"
+  #     timezone: "Europe/Tallinn"
+  #   assignees:
+  #     - "mkungla"
+  #   commit-message:
+  #     prefix: "dep(cmd):"
+  #   labels:
+  #     - "eco/go"
+  #   open-pull-requests-limit: 10
+  #   reviewers:
+  #     - "mkungla"
+  #   # vendor: true ?
 
