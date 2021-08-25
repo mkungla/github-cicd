@@ -67,9 +67,8 @@ jobs:
         uses: actions/github-script@v4
         with:
           script: |
-            console.log(context)
-            const user = context.payload.issue.user.login
-            const { status, data: issues } = github.issues.listForRepo({
+            const user = context.payload.sender.login
+            const { status, data: issues } = await github.issues.listForRepo({
               ...context.repo,
               creator: user,
               state: 'all'
