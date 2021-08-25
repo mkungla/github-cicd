@@ -31,12 +31,12 @@ defaults:
   steps:
     - run: |
         echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
-    - run: echo ${{ toJSON(github) }}
-    - run: echo ${{ toJSON(env) }}
-    - run: echo ${{ toJSON(job) }}
-    - run: echo ${{ toJSON(steps) }}
-    - run: echo ${{ toJSON(runner) }}
-    - run: echo ${{ toJSON(needs) }}
+    # - run: echo ${{ toJSON(github) }}
+    # - run: echo ${{ toJSON(env) }}
+    # - run: echo ${{ toJSON(job) }}
+    # - run: echo ${{ toJSON(steps) }}
+    # - run: echo ${{ toJSON(runner) }}
+    # - run: echo ${{ toJSON(needs) }}
 
 
 jobs:
@@ -50,51 +50,54 @@ jobs:
 
   opened:
     if: github.event.action == 'opened'
+    steps:
+      - run: |
+          echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
 
-  edited:
-    if: github.event.action == 'edited'
+  # edited:
+  #   if: github.event.action == 'edited'
 
-  deleted:
-    if: github.event.action == 'deleted'
+  # deleted:
+  #   if: github.event.action == 'deleted'
 
-  transferred:
-    if: github.event.action == 'transferred'
+  # transferred:
+  #   if: github.event.action == 'transferred'
 
-  pinned:
-    if: github.event.action == 'pinned'
+  # pinned:
+  #   if: github.event.action == 'pinned'
 
-  unpinned:
-    if: github.event.action == 'unpinned'
+  # unpinned:
+  #   if: github.event.action == 'unpinned'
 
-  closed:
-    if: github.event.action == 'closed'
+  # closed:
+  #   if: github.event.action == 'closed'
 
-  reopened:
-    if: github.event.action == 'reopened'
+  # reopened:
+  #   if: github.event.action == 'reopened'
 
-  assigned:
-    if: github.event.action == 'assigned'
+  # assigned:
+  #   if: github.event.action == 'assigned'
 
-  unassigned:
-    if: github.event.action == 'unassigned'
+  # unassigned:
+  #   if: github.event.action == 'unassigned'
 
-  labeled:
-    if: github.event.action == 'labeled'
+  # labeled:
+  #   if: github.event.action == 'labeled'
 
-  unlabeled:
-    if: github.event.action == 'unlabeled'
+  # unlabeled:
+  #   if: github.event.action == 'unlabeled'
 
-  locked:
-    if: github.event.action == 'locked'
+  # locked:
+  #   if: github.event.action == 'locked'
 
-  unlocked:
-    if: github.event.action == 'unlocked'
+  # unlocked:
+  #   if: github.event.action == 'unlocked'
 
-  milestoned:
-    if: github.event.action == 'milestoned'
+  # milestoned:
+  #   if: github.event.action == 'milestoned'
 
-  demilestoned:
-    if: github.event.action == 'demilestoned'
+  # demilestoned:
+  #   if: github.event.action == 'demilestoned'
 
   issue-comment:
     name: Issue comment
