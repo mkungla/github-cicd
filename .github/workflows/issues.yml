@@ -27,7 +27,7 @@ on:
       - deleted
       - edited
 
-default-steps:
+x-default-steps: &default-steps
   - run: echo ${{ toJSON(github) }}
   - run: echo ${{ toJSON(env) }}
   - run: echo ${{ toJSON(job) }}
