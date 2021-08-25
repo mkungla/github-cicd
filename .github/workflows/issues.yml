@@ -28,12 +28,13 @@ on:
       - edited
 
 x-default-steps: &default-steps
-  - run: echo ${{ toJSON(github) }}
-  - run: echo ${{ toJSON(env) }}
-  - run: echo ${{ toJSON(job) }}
-  - run: echo ${{ toJSON(steps) }}
-  - run: echo ${{ toJSON(runner) }}
-  - run: echo ${{ toJSON(needs) }}
+  steps:
+    - run: echo ${{ toJSON(github) }}
+    - run: echo ${{ toJSON(env) }}
+    - run: echo ${{ toJSON(job) }}
+    - run: echo ${{ toJSON(steps) }}
+    - run: echo ${{ toJSON(runner) }}
+    - run: echo ${{ toJSON(needs) }}
 
 
 jobs:
@@ -47,8 +48,7 @@ jobs:
 
   opened:
     if: github.event.action == 'opened'
-    steps:
-      <<: *default-steps
+    <<: *default-steps
   # edited:
   #   if: github.event.action == 'edited'
   #   steps:
