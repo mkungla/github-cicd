@@ -68,20 +68,20 @@ jobs:
         with:
           script: |
             console.log(context)
-            # const user = context.issue.user.login
-            # const { status, data: issues } = github.issues.listForRepo({
-            #   ...context.repo,
-            #   creator: user,
-            #   state: 'all'
-            # })
-            # if (status !== 200) {
-            #   core.setFailed(`Received unexpected API status code ${status}`)
-            #   return
-            # }
-            # if (issues.length === 0) {
-            #   // core.setOutput('value', true)
-            # }
-            # core.setOutput('value', true)
+# const user = context.issue.user.login
+# const { status, data: issues } = github.issues.listForRepo({
+#   ...context.repo,
+#   creator: user,
+#   state: 'all'
+# })
+# if (status !== 200) {
+#   core.setFailed(`Received unexpected API status code ${status}`)
+#   return
+# }
+# if (issues.length === 0) {
+#   // core.setOutput('value', true)
+# }
+# core.setOutput('value', true)
 
   # comment on issue
   comment:
