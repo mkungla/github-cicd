@@ -74,7 +74,7 @@ jobs:
                 }
               }
             }`
-            const res = await octokit.graphql(query, {
+            const res = await github.graphql(query, {
               "user": user
             })
             core.setOutput('value', res.data.repository.issues.totalCount)
