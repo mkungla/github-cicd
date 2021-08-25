@@ -102,7 +102,7 @@ jobs:
         if: needs.issue.outputs.first-issue && github.event.action == 'opened'
         run: |
           gh issue comment ${{ github.event.issue.html_url }} \
-            --body "👋 Thanks for reporting @${{ github.event.sender.login }}! Your issue will be reviewed shortly."
+            --body "👋 Thanks for reporting @${{ github.event.sender.login }}! This your first issue and will be reviewed shortly."
 
   stale:
     needs:
