@@ -71,7 +71,6 @@ jobs:
     steps:
       - run: |
           echo "issue #${{ github.event.issue.number }} pull_request #${{ github.event.issue.pull_request }}"
-          exit 1
 
   # opened:
   #   if: github.event.action == 'opened'
