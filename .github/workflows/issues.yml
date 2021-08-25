@@ -130,6 +130,22 @@ jobs:
         if: github.event.action == 'closed' && contains(github.event.issue.labels.*.name, 'triage')
         run: gh issue edit ${{ github.event.issue.html_url }} --remove-label "triage"
 
+  reaction:
+    needs:
+      - issue
+    runs-on: ubuntu-latest
+    steps:
+      - if: github.event.action == 'opened'
+        uses: actions/github-script@v4
+        with:
+          script: |
+            github.reactions.createForIssue({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              content: 'heart',
+            })
+
   stale:
     needs:
       - schedule
