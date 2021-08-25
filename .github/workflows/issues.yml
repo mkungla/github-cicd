@@ -96,7 +96,8 @@ jobs:
 
   daily:
     needs: schedule
-    if: github.event.schedule == '0 0 * * *'
+    if: github.event.schedule == '*/5 * * * *'
+    runs-on: ubuntu-latest
     steps:
       - if: ${{ contains(toJSON(github), 'daily') }}
         run: exit 1
