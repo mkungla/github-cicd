@@ -67,24 +67,17 @@ jobs:
         with:
           script: |
             const user = context.payload.sender.login
-            const {
-              data: {
-                repository: {
-                  issues: {
-                    totalCount: totalCount,
-                  }
-                }
-              }
-            } = await octokit.graphql(query($user: String){
+            const query = `query($user: String) {
               repository(owner: "mkungla", name: "github-cicd") {
                 issues(filterBy: {createdBy: $user}) {
                   totalCount
                 }
               }
-            }, {
+            }`
+            const res = await octokit.graphql(query, {
               "user": user
             })
-            core.setOutput('value', totalCount)
+            core.setOutput('value', res.data.repository.issues.totalCount)
 
   # Schedule
   schedule:
