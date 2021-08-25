@@ -99,15 +99,13 @@ jobs:
     if: github.event.schedule == '*/5 * * * *'
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ contains(toJSON(github), 'daily') }}
+      - if: ${{ contains(toJSON(github.event), 'daily') }}
         run: exit 1
 
   # comment on issue
   comment:
     needs:
       - issue
-      - schedule
-    if: always()
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -160,8 +158,8 @@ jobs:
     steps:
       - uses: actions/stale@v4
         with:
-          days-before-issue-stale: 30
-          days-before-issue-close: 7
+          days-before-issue-stale: 1
+          days-before-issue-close: 1
           stale-issue-message: 'This issue has no activity for a while.'
           close-issue-message: 'This issue was closed since there was no activity after it was marked stale.'
           stale-issue-label: 'stale'
