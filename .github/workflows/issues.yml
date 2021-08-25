@@ -26,6 +26,19 @@ on:
       - deleted
       - edited
 
+defaults:
+  runs-on: ubuntu-latest
+  steps:
+    - run: |
+        echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
+    - run: echo ${{ toJSON(github) }}
+    - run: echo ${{ toJSON(env) }}
+    - run: echo ${{ toJSON(job) }}
+    - run: echo ${{ toJSON(steps) }}
+    - run: echo ${{ toJSON(runner) }}
+    - run: echo ${{ toJSON(needs) }}
+
+
 jobs:
   not-a-pull-request:
     if: github.event_name === 'issues' && github.event.issue.pull_request
@@ -36,100 +49,52 @@ jobs:
           exit 1
 
   opened:
-    runs-on: ubuntu-latest
     if: github.event.action == 'opened'
-    run: |
-          echo "${{ github.event.sender.login }} opened issue #${{ github.event.issue.number }}"
 
   edited:
-    runs-on: ubuntu-latest
     if: github.event.action == 'edited'
-    run: |
-          echo "${{ github.event.sender.login }} edited issue #${{ github.event.issue.number }}"
 
   deleted:
-    runs-on: ubuntu-latest
     if: github.event.action == 'deleted'
-    run: |
-          echo "${{ github.event.sender.login }} deleted issue #${{ github.event.issue.number }}"
 
   transferred:
-    runs-on: ubuntu-latest
     if: github.event.action == 'transferred'
-    run: |
-          echo "${{ github.event.sender.login }} transferred issue #${{ github.event.issue.number }}"
 
   pinned:
-    runs-on: ubuntu-latest
     if: github.event.action == 'pinned'
-    run: |
-          echo "${{ github.event.sender.login }} pinned issue #${{ github.event.issue.number }}"
 
   unpinned:
-    runs-on: ubuntu-latest
     if: github.event.action == 'unpinned'
-    run: |
-          echo "${{ github.event.sender.login }} unpinned issue #${{ github.event.issue.number }}"
 
   closed:
-    runs-on: ubuntu-latest
     if: github.event.action == 'closed'
-    run: |
-          echo "${{ github.event.sender.login }} closed issue #${{ github.event.issue.number }}"
 
   reopened:
-    runs-on: ubuntu-latest
     if: github.event.action == 'reopened'
-    run: |
-          echo "${{ github.event.sender.login }} reopened issue #${{ github.event.issue.number }}"
 
   assigned:
-    runs-on: ubuntu-latest
     if: github.event.action == 'assigned'
-    run: |
-          echo "${{ github.event.sender.login }} assigned issue #${{ github.event.issue.number }}"
 
   unassigned:
-    runs-on: ubuntu-latest
     if: github.event.action == 'unassigned'
-    run: |
-          echo "${{ github.event.sender.login }} unassigned issue #${{ github.event.issue.number }}"
 
   labeled:
-    runs-on: ubuntu-latest
     if: github.event.action == 'labeled'
-    run: |
-          echo "${{ github.event.sender.login }} labeled issue #${{ github.event.issue.number }}"
 
   unlabeled:
-    runs-on: ubuntu-latest
     if: github.event.action == 'unlabeled'
-    run: |
-          echo "${{ github.event.sender.login }} unlabeled issue #${{ github.event.issue.number }}"
 
   locked:
-    runs-on: ubuntu-latest
     if: github.event.action == 'locked'
-    run: |
-          echo "${{ github.event.sender.login }} locked issue #${{ github.event.issue.number }}"
 
   unlocked:
-    runs-on: ubuntu-latest
     if: github.event.action == 'unlocked'
-    run: |
-          echo "${{ github.event.sender.login }} unlocked issue #${{ github.event.issue.number }}"
 
   milestoned:
-    runs-on: ubuntu-latest
     if: github.event.action == 'milestoned'
-    run: |
-          echo "${{ github.event.sender.login }} milestoned issue #${{ github.event.issue.number }}"
 
   demilestoned:
-    runs-on: ubuntu-latest
     if: github.event.action == 'demilestoned'
-    run: |
-          echo "${{ github.event.sender.login }} demilestoned issue #${{ github.event.issue.number }}"
 
   issue-comment:
     name: Issue comment
