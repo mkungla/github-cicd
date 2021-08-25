@@ -27,9 +27,6 @@ on:
       - deleted
       - edited
 
-x-default-steps:
-
-
 jobs:
   not-a-pull-request:
     if: github.event_name === 'issues' && github.event.issue.pull_request
