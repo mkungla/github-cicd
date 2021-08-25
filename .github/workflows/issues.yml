@@ -47,7 +47,8 @@ jobs:
       - run: echo ${{ toJSON(needs) }}
   edited:
     if: github.event.action == 'edited'
-    <<: *default-steps
+    steps:
+      <<: *default-steps
 
   # deleted:
   #   if: github.event.action == 'deleted'
