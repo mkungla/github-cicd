@@ -115,8 +115,8 @@ jobs:
           gh issue comment ${{ github.event.issue.number }} \
             --body ":boom: Thanks for reporting @${{ github.event.sender.login }}! You have opened total **${{ needs.issue.outputs.user-issues-total }}** issues in this repository."
 
-  # add labels
-  add-labels:
+  # add remove labels
+  labels:
     needs:
       - issue
     runs-on: ubuntu-latest
