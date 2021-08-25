@@ -49,7 +49,7 @@ jobs:
 
 
   issue:
-    needs: not-a-pull-request
+    needs: check
     strategy:
       matrix:
         include:
