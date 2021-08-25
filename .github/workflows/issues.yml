@@ -66,7 +66,7 @@ jobs:
         uses: actions/github-script@v4
         with:
           script: |
-            const user = github.event.sender.login
+            const user = github.event.issue.user.login
             const { status, data: issues } = github.issues.listForRepo({
               ...context.repo,
               creator: user,
@@ -90,8 +90,7 @@ jobs:
       - if: needs.issue.outputs.first-issue && github.event.action == 'opened'
         run: |
           gh issue comment ${{ github.event.issue.html_url }} \
-            --body "👋 Thank you for opening this issue!"
-
+            --body "👋 Thanks for reporting @${{ github.event.issue.user.login }}! Your issue will be reviewed shortly."
 
 # - run: |
 #     echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
