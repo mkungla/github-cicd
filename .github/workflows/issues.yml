@@ -27,16 +27,12 @@ on:
       - deleted
       - edited
 
-# default-steps:
-#   - run: echo ${{ toJSON(github) }}
-#   - run: echo ${{ toJSON(env) }}
-#   - run: echo ${{ toJSON(job) }}
-#   - run: echo ${{ toJSON(steps) }}
-#   - run: echo ${{ toJSON(runner) }}
-#   - run: echo ${{ toJSON(needs) }}
-
+  schedule:
+    - name: daily
+      cron: '*/5 * * * *'
 
 jobs:
+  # Comment
   issue-comment:
     name: Issue comment
     runs-on: ubuntu-latest
@@ -52,6 +48,7 @@ jobs:
         run: |
           echo "${{ github.event.sender.login }} edited comment on issue #${{ github.event.issue.number }}"
 
+  # Issues
   issue:
     runs-on: ubuntu-latest
     if: github.event_name == 'issues'
@@ -81,6 +78,44 @@ jobs:
               core.setOutput('value', true)
             }
 
+  # Schedule
+  schedule:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJSON(job) }}
+        run: echo "$JOB_CONTEXT"
+      - name: Dump steps context
+        env:
+          STEPS_CONTEXT: ${{ toJSON(steps) }}
+        run: echo "$STEPS_CONTEXT"
+      - name: Dump runner context
+        env:
+          RUNNER_CONTEXT: ${{ toJSON(runner) }}
+        run: echo "$RUNNER_CONTEXT"
+      - name: Dump strategy context
+        env:
+          STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
+        run: echo "$STRATEGY_CONTEXT"
+      - name: Dump matrix context
+        env:
+          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
+        run: echo "$MATRIX_CONTEXT"
+      - name: Dump env context
+        env:
+          ENV_CONTEXT: ${{ toJSON(env) }}
+        run: echo "$ENV_CONTEXT"
+      - name: Dump needs context
+        env:
+          NEEDS_CONTEXT: ${{ toJSON(needs) }}
+        run: echo "$NEEDS_CONTEXT"
+
   # comment on issue
   comment:
     needs: issue
@@ -93,6 +128,9 @@ jobs:
         run: |
           gh issue comment ${{ github.event.issue.html_url }} \
             --body "👋 Thanks for reporting @${{ github.event.sender.login }}! Your issue will be reviewed shortly."
+
+
+
 
 # - run: |
 #     echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
