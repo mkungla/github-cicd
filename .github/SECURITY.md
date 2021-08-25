@@ -12,4 +12,4 @@ https://github.com/mkungla/github-cicd-experiments/issues/new/choose
 | ------- | ------------------ |
 | main    | :white_check_mark: |
 | 1.x.x   | :white_check_mark: |
-| < 1.0.0 | :x:                |
+| < 0.1.0 | :x:                |

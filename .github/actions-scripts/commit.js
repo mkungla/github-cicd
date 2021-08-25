@@ -68,7 +68,7 @@ export async function gitpush() {
 async function run() {
   await git('add', '-A')
   // await git('commit', '-m', core.getInput('commit-message') || `auto-commit: ${process.env.GITHUB_WORKFLOW}`)
-  await git('commit', '-m', process.env.MESSAGE || `auto-commit: ${process.env.GITHUB_WORKFLOW}`)
+  await git('commit', '-m', process.env.COMMIT_MESSAGE || `auto-commit: ${process.env.GITHUB_WORKFLOW}`)
 
   try {
     await gitpush()
