@@ -50,8 +50,6 @@ jobs:
   opened:
     if: github.event.action == 'opened'
     steps:
-      - run: |
-          echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
 
   # edited:
   #   if: github.event.action == 'edited'
