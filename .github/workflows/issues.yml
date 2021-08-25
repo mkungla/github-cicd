@@ -38,7 +38,7 @@ on:
 
 jobs:
   not-a-pull-request:
-    if: github.event_name === 'issues' && github.event.issue.pull_request
+    if: github.event_name == 'issues' && github.event.issue.pull_request
     runs-on: ubuntu-latest
     steps:
       - run: |
@@ -65,7 +65,7 @@ jobs:
           - unlocked
           - milestoned
           - demilestoned
-    if: github.event_name === 'issues' && matrix.event == github.event.action
+    if: github.event_name == 'issues' && matrix.event == github.event.action
     runs-on: ubuntu-latest
     steps:
       - run: |
