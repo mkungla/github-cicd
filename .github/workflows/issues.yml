@@ -78,7 +78,7 @@ jobs:
               return
             }
             if (issues.length === 0) {
-              // core.setOutput('value', true)
+              core.setOutput('value', true)
             }
             core.setOutput('value', true)
 
@@ -89,6 +89,8 @@ jobs:
     steps:
       # greeting on first issue
       - if: needs.issue.outputs.first-issue && github.event.action == 'opened'
+        env:
+          GITHUB_TOKEN: secrets.GITHUB_TOKEN
         run: |
           gh issue comment ${{ github.event.issue.html_url }} \
             --body "👋 Thanks for reporting @${{ github.event.issue.user.login }}! Your issue will be reviewed shortly."
