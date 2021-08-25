@@ -68,7 +68,8 @@ jobs:
             const res = await github.issues.listForRepo({
               ...context.repo,
               creator: user,
-              state: 'all'
+              state: 'all',
+              per_page: 1,
             })
             console.log(res)
             // const { status, data: issues } = await github.issues.listForRepo({
@@ -80,7 +81,7 @@ jobs:
             //  core.setFailed(`Received unexpected API status code ${status}`)
             //  return
             // }
-            core.setOutput('value', issues.length)
+            // core.setOutput('value', issues.length)
 
   # Schedule
   schedule:
