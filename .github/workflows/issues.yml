@@ -153,7 +153,9 @@ jobs:
             })
 
   stale:
-    needs: daily
+    needs:
+      - daily
+      - issue-comment
     runs-on: ubuntu-latest
     steps:
       - uses: actions/stale@v4
