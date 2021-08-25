@@ -53,35 +53,38 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'issues'
     outputs:
-      user-issue-count: steps.user-issue-count.outputs.value
+      user-issues-totalCount: steps.set-user-issues-totalCount.outputs.value
     steps:
       - if: github.event.issue.pull_request
+        name: is pull request
         run: |
           echo "issue #${{ github.event.issue.number }} pull_request #${{ github.event.issue.pull_request }}"
           exit 1
-      - id: user-issue-count
+      - name: set-user-issues-totalCount
+        id: set-user-issues-totalCount
         if: github.event_name == 'issues'
         uses: actions/github-script@v4
         with:
           script: |
             const user = context.payload.sender.login
-            const res = await github.issues.listForRepo({
-              ...context.repo,
-              creator: user,
-              state: 'all',
-              per_page: 1,
+            const {
+              data: {
+                repository: {
+                  issues: {
+                    totalCount: totalCount,
+                  }
+                }
+              }
+            } = await octokit.graphql(query($user: String){
+              repository(owner: "mkungla", name: "github-cicd") {
+                issues(filterBy: {createdBy: $user}) {
+                  totalCount
+                }
+              }
+            }, {
+              "user": user
             })
-            console.log(res)
-            // const { status, data: issues } = await github.issues.listForRepo({
-            //  ...context.repo,
-            //  creator: user,
-            //  state: 'all'
-            // })
-            // if (status !== 200) {
-            //  core.setFailed(`Received unexpected API status code ${status}`)
-            //  return
-            // }
-            // core.setOutput('value', issues.length)
+            core.setOutput('value', totalCount)
 
   # Schedule
   schedule:
@@ -104,15 +107,15 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: greeting on first issue
-        if: needs.issue.outputs.user-issue-count == 0 && github.event.action == 'opened'
+        if: needs.issue.outputs.user-issues-totalCount == 0 && github.event.action == 'opened'
         run: |
           gh issue comment ${{ github.event.issue.html_url }} \
             --body "👋 Thanks for reporting @${{ github.event.sender.login }}! This your first issue and will be reviewed shortly."
       - name: greeting for reccuring user
-        if: needs.issue.outputs.user-issue-count > 0 && github.event.action == 'opened'
+        if: needs.issue.outputs.user-issues-totalCount > 0 && github.event.action == 'opened'
         run: |
           gh issue comment ${{ github.event.issue.html_url }} \
-            --body ":boom: Thanks for reporting @${{ github.event.sender.login }}! You have opened total **${{ needs.issue.outputs.user-issue-count }}** issues in this repository."
+            --body ":boom: Thanks for reporting @${{ github.event.sender.login }}! You have opened total **${{ needs.issue.outputs.user-issues-totalCount }}** issues in this repository."
 
   stale:
     needs:
