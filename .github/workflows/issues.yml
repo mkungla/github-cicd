@@ -31,13 +31,12 @@ defaults:
   steps:
     - run: |
         echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
-    # - run: echo ${{ toJSON(github) }}
-    # - run: echo ${{ toJSON(env) }}
-    # - run: echo ${{ toJSON(job) }}
-    # - run: echo ${{ toJSON(steps) }}
-    # - run: echo ${{ toJSON(runner) }}
-    # - run: echo ${{ toJSON(needs) }}
-
+    - run: echo ${{ toJSON(github) }}
+    - run: echo ${{ toJSON(env) }}
+    - run: echo ${{ toJSON(job) }}
+    - run: echo ${{ toJSON(steps) }}
+    - run: echo ${{ toJSON(runner) }}
+    - run: echo ${{ toJSON(needs) }}
 
 jobs:
   not-a-pull-request:
