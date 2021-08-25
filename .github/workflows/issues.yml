@@ -54,11 +54,11 @@ jobs:
 
   issue:
     runs-on: ubuntu-latest
-    # if: github.event_name == 'issues' && ${{ matrix.action }} == github.event.action
+    if: github.event_name == 'issues'
     outputs:
-      first-issue: ${{ steps.is-first-issue.outputs.value }}
+      first-issue: steps.is-first-issue.outputs.value
     steps:
-      - if: github.event_name == 'issues' && github.event.issue.pull_request
+      - if: github.event.issue.pull_request
         run: |
           echo "issue #${{ github.event.issue.number }} pull_request #${{ github.event.issue.pull_request }}"
           exit 1
@@ -77,15 +77,17 @@ jobs:
               return
             }
             if (issues.length === 0) {
-              core.setOutput('value', true)
+              // core.setOutput('value', true)
             }
+            core.setOutput('value', true)
 
-  # debug
+  # comment on issue
   comment:
     needs: issue
     runs-on: ubuntu-latest
     steps:
-      - if: needs.issue.outputs.first-issue
+      # greeting on first issue
+      - if: needs.issue.outputs.first-issue && github.event.action == 'opened'
         run: |
           gh issue comment ${{ github.event.issue.html_url }} \
             --body "👋 Thank you for opening this issue!"
