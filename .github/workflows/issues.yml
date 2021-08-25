@@ -156,6 +156,7 @@ jobs:
     needs:
       - daily
       - issue-comment
+    if: ${{ success() }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/stale@v4
