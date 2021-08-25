@@ -29,7 +29,7 @@ on:
 
   schedule:
     - name: "daily"
-      cron: '0 0 * * *'
+      cron: '*/5 * * * *' # 0 0 * * *
 
 jobs:
   # Comment
@@ -98,6 +98,8 @@ jobs:
     needs: schedule
     if: github.event.schedule == '0 0 * * *'
     steps:
+      - if: ${{ contains(toJSON(github), 'daily') }}
+        run: exit 1
 
   # comment on issue
   comment:
