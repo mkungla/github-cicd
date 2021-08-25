@@ -46,6 +46,7 @@ jobs:
           exit 1
 
   issue:
+    needs: not-a-pull-request
     strategy:
       matrix:
         action:
