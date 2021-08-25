@@ -80,7 +80,6 @@ jobs:
             if (issues.length === 0) {
               core.setOutput('value', true)
             }
-            core.setOutput('value', true)
 
   # comment on issue
   comment:
