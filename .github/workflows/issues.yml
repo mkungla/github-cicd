@@ -63,23 +63,25 @@ jobs:
           echo "issue #${{ github.event.issue.number }} pull_request #${{ github.event.issue.pull_request }}"
           exit 1
       - id: is-first-issue
+        if: github.event_name == 'issues'
         uses: actions/github-script@v4
         with:
           script: |
-            const user = github.context.issue.user.login
-            const { status, data: issues } = github.issues.listForRepo({
-              ...context.repo,
-              creator: user,
-              state: 'all'
-            })
-            if (status !== 200) {
-              core.setFailed(`Received unexpected API status code ${status}`)
-              return
-            }
-            if (issues.length === 0) {
-              // core.setOutput('value', true)
-            }
-            core.setOutput('value', true)
+            console.log(context)
+            # const user = context.issue.user.login
+            # const { status, data: issues } = github.issues.listForRepo({
+            #   ...context.repo,
+            #   creator: user,
+            #   state: 'all'
+            # })
+            # if (status !== 200) {
+            #   core.setFailed(`Received unexpected API status code ${status}`)
+            #   return
+            # }
+            # if (issues.length === 0) {
+            #   // core.setOutput('value', true)
+            # }
+            # core.setOutput('value', true)
 
   # comment on issue
   comment:
