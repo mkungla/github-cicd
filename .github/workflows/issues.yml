@@ -28,10 +28,8 @@ on:
       - edited
 
   schedule:
-    - cron: '*/5 * * * *'
-      name: "schedule 1"
-    - cron: '*/13 * * * *'
-      name: "schedule 2"
+    - name: "daily"
+      cron: '*/5 * * * *'
 
 jobs:
   # Comment
@@ -89,47 +87,42 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: echo "$GITHUB_CONTEXT"
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJSON(job) }}
-        run: echo "$JOB_CONTEXT"
-      - name: Dump steps context
-        env:
-          STEPS_CONTEXT: ${{ toJSON(steps) }}
-        run: echo "$STEPS_CONTEXT"
-      - name: Dump runner context
-        env:
-          RUNNER_CONTEXT: ${{ toJSON(runner) }}
-        run: echo "$RUNNER_CONTEXT"
-      - name: Dump strategy context
-        env:
-          STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
-        run: echo "$STRATEGY_CONTEXT"
-      - name: Dump matrix context
-        env:
-          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
-        run: echo "$MATRIX_CONTEXT"
-      - name: Dump env context
-        env:
-          ENV_CONTEXT: ${{ toJSON(env) }}
-        run: echo "$ENV_CONTEXT"
-      - name: Dump needs context
-        env:
-          NEEDS_CONTEXT: ${{ toJSON(needs) }}
-        run: echo "$NEEDS_CONTEXT"
 
   # comment on issue
   comment:
-    needs: issue
+    needs:
+      - issue
+      - schedule
+
+    if: always()
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: greeting on first issue
         if: needs.issue.outputs.first-issue && github.event.action == 'opened'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh issue comment ${{ github.event.issue.html_url }} \
             --body "👋 Thanks for reporting @${{ github.event.sender.login }}! Your issue will be reviewed shortly."
+
+  stale:
+    needs:
+      - schedule
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v4
+        with:
+          days-before-issue-stale: 30
+          days-before-issue-close: 7
+          stale-issue-message: 'This issue has no activity for a while.'
+          close-issue-message: 'This issue was closed since there was no activity after it was marked stale.'
+          stale-issue-label: 'stale'
+          exempt-issue-labels: 'bug'
+          remove-issue-stale-when-updated: true
+          labels-to-add-when-unstale: 'triage'
+          exempt-all-issue-milestones: true
+          days-before-pr-stale : -1
+          days-before-pr-close: -1
 
 
 
