@@ -49,7 +49,7 @@ jobs:
     needs: check
     strategy:
       matrix:
-        action: github.event.action
+        action: ${{ github.event.action }}
     # if: github.event_name == 'issues' && ${{ matrix.action }} == github.event.action
     runs-on: ubuntu-latest
     steps:
