@@ -39,43 +39,30 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
-    outputs:
-      action: ${{ steps.set-action.outputs.action }}
     steps:
       - if: github.event_name == 'issues' && github.event.issue.pull_request
         run: |
           echo "issue #${{ github.event.issue.number }} pull_request #${{ github.event.issue.pull_request }}"
           exit 1
 
-
   issue:
     needs: check
     strategy:
       matrix:
-        include:
-          - action: github.event.action
-        action:
-          - opened
-          - edited
-          - deleted
-          - transferred
-          - pinned
-          - unpinned
-          - closed
-          - reopened
-          - assigned
-          - unassigned
-          - labeled
-          - unlabeled
-          - locked
-          - unlocked
-          - milestoned
-          - demilestoned
+        action: github.event.action
     # if: github.event_name == 'issues' && ${{ matrix.action }} == github.event.action
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "issue #${{ github.event.issue.number }} pull_request #${{ github.event.issue.pull_request }}"
+          echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue."
+      - run: echo ${{ toJSON(github) }}
+      - run: echo ${{ toJSON(env) }}
+      - run: echo ${{ toJSON(job) }}
+      - run: echo ${{ toJSON(steps) }}
+      - run: echo ${{ toJSON(runner) }}
+      - run: echo ${{ toJSON(needs) }}
+      - run: echo ${{ toJSON(matrix) }}
+
 
   # opened:
   #   if: github.event.action == 'opened'
