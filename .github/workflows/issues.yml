@@ -53,14 +53,14 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'issues'
     outputs:
-      user-issues-total: steps.set-user-issues-totalCount.outputs.value
+      user-issues-total: steps.set-user-issues-total.outputs.value
     steps:
       - if: github.event.issue.pull_request
         name: is pull request
         run: |
           echo "issue #${{ github.event.issue.number }} pull_request #${{ github.event.issue.pull_request }}"
           exit 1
-      - name: set-user-issues-totalCount
+      - name: set-user-issues-total
         id: set-user-issues-total
         if: github.event_name == 'issues'
         uses: actions/github-script@v4
