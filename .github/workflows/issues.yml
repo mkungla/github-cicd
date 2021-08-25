@@ -37,131 +37,6 @@ on:
 
 
 jobs:
-  check:
-    runs-on: ubuntu-latest
-    steps:
-      - if: github.event_name == 'issues' && github.event.issue.pull_request
-        run: |
-          echo "issue #${{ github.event.issue.number }} pull_request #${{ github.event.issue.pull_request }}"
-          exit 1
-
-  issue:
-    needs: check
-    strategy:
-      matrix:
-        action:
-          - ${{ github.event.action }}
-
-    # if: github.event_name == 'issues' && ${{ matrix.action }} == github.event.action
-    runs-on: ubuntu-latest
-    steps:
-      - run: |
-          echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
-      - run: echo "${{ toJSON(github) }}"
-      - run: echo "${{ toJSON(env) }}"
-      - run: echo "${{ toJSON(job) }}"
-      - run: echo "${{ toJSON(steps) }}"
-      - run: echo "${{ toJSON(runner) }}"
-      - run: echo "${{ toJSON(needs) }}"
-      - run: echo "${{ toJSON(matrix) }}"
-
-
-  # opened:
-  #   if: github.event.action == 'opened'
-  #   steps:
-  #     - run: |
-  #         echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
-
-  # edited:
-  #   if: github.event.action == 'edited'
-  #   steps:
-  #     - run: |
-  #         echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
-
-  # deleted:
-  #   if: github.event.action == 'deleted'
-  #   steps:
-  #     - run: |
-  #         echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
-
-  # transferred:
-  #   if: github.event.action == 'transferred'
-  #   steps:
-  #     - run: |
-  #         echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
-
-  # pinned:
-  #   if: github.event.action == 'pinned'
-  #   steps:
-  #     - run: |
-  #         echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
-
-  # unpinned:
-  #   if: github.event.action == 'unpinned'
-  #   steps:
-  #     - run: |
-  #         echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
-
-  # closed:
-  #   if: github.event.action == 'closed'
-  #   steps:
-  #     - run: |
-  #         echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
-
-  # reopened:
-  #   if: github.event.action == 'reopened'
-  #   steps:
-  #     - run: |
-  #         echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
-
-  # assigned:
-  #   if: github.event.action == 'assigned'
-  #   steps:
-  #     - run: |
-  #         echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
-
-  # unassigned:
-  #   if: github.event.action == 'unassigned'
-  #   steps:
-  #     - run: |
-  #         echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
-
-  # labeled:
-  #   if: github.event.action == 'labeled'
-  #   steps:
-  #     - run: |
-  #         echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
-
-  # unlabeled:
-  #   if: github.event.action == 'unlabeled'
-  #   steps:
-  #     - run: |
-  #         echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
-
-  # locked:
-  #   if: github.event.action == 'locked'
-  #   steps:
-  #     - run: |
-  #         echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
-
-  # unlocked:
-  #   if: github.event.action == 'unlocked'
-  #   steps:
-  #     - run: |
-  #         echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
-
-  # milestoned:
-  #   if: github.event.action == 'milestoned'
-  #   steps:
-  #     - run: |
-  #         echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
-
-  # demilestoned:
-  #   if: github.event.action == 'demilestoned'
-  #   steps:
-  #     - run: |
-  #         echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
-
   issue-comment:
     name: Issue comment
     if: github.event_name == 'issue_comment' && !github.event.issue.pull_request
@@ -176,3 +51,77 @@ jobs:
       - if: github.event.action == 'edited'
         run: |
           echo "${{ github.event.sender.login }} edited comment on issue #${{ github.event.issue.number }}"
+
+  issue:
+    runs-on: ubuntu-latest
+    # if: github.event_name == 'issues' && ${{ matrix.action }} == github.event.action
+    outputs:
+      first-issue: ${{ steps.is-first-issue.outputs.value }}
+    steps:
+      - if: github.event_name == 'issues' && github.event.issue.pull_request
+        run: |
+          echo "issue #${{ github.event.issue.number }} pull_request #${{ github.event.issue.pull_request }}"
+          exit 1
+      - id: is-first-issue
+        uses: actions/github-script@v4
+        with:
+          script: |
+            const user = github.event.sender.login
+            const { status, data: issues } = github.issues.listForRepo({
+              ...context.repo,
+              creator: user,
+              state: 'all'
+            })
+            if (status !== 200) {
+              core.setFailed(`Received unexpected API status code ${status}`)
+              return
+            }
+            if (issues.length === 0) {
+              core.setOutput('value', true)
+            }
+
+  # debug
+  comment:
+    needs: issue
+    runs-on: ubuntu-latest
+    steps:
+      - if: needs.issue.outputs.first-issue
+        run: |
+          gh issue comment ${{ github.event.issue.html_url }} \
+            --body "👋 Thank you for opening this issue!"
+
+
+# - run: |
+#     echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
+# - name: Dump GitHub context
+#   env:
+#     GITHUB_CONTEXT: ${{ toJSON(github) }}
+#   run: echo "$GITHUB_CONTEXT"
+# - name: Dump job context
+#   env:
+#     JOB_CONTEXT: ${{ toJSON(job) }}
+#   run: echo "$JOB_CONTEXT"
+# - name: Dump steps context
+#   env:
+#     STEPS_CONTEXT: ${{ toJSON(steps) }}
+#   run: echo "$STEPS_CONTEXT"
+# - name: Dump runner context
+#   env:
+#     RUNNER_CONTEXT: ${{ toJSON(runner) }}
+#   run: echo "$RUNNER_CONTEXT"
+# - name: Dump strategy context
+#   env:
+#     STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
+#   run: echo "$STRATEGY_CONTEXT"
+# - name: Dump matrix context
+#   env:
+#     MATRIX_CONTEXT: ${{ toJSON(matrix) }}
+#   run: echo "$MATRIX_CONTEXT"
+# - name: Dump env context
+#   env:
+#     ENV_CONTEXT: ${{ toJSON(env) }}
+#   run: echo "$ENV_CONTEXT"
+# - name: Dump needs context
+#   env:
+#     NEEDS_CONTEXT: ${{ toJSON(needs) }}
+#   run: echo "$NEEDS_CONTEXT"
