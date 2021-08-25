@@ -77,6 +77,7 @@ jobs:
             const res = await github.graphql(query, {
               "user": user
             })
+            core.info(`user: ${user} has total ${res.repository.issues.totalCount} issues`)
             core.setOutput('value', res.repository.issues.totalCount)
 
   # Schedule
