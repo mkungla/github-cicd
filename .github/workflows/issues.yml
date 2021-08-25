@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'issues'
     outputs:
-      user-issues-total: steps.set-user-issues-total.outputs.value
+      user-issues-total: ${{ steps.set-user-issues-total.outputs.value }}
     steps:
       - if: github.event.issue.pull_request
         name: is pull request
