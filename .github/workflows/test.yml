@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "${{ fromJSON(needs.*.outputs.issue_url) }}"
+          echo "${{ toJSON(needs.*.outputs.issue_url) }}"
       - name: Dump strategy context
         env:
           STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
