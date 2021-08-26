@@ -7,10 +7,11 @@ jobs:
     env:
       ISSUE_URL: ''
     steps:
-      - run: node --version
-      - run: |
-          echo "ISSUE_URL=https://issue.url" >> $GITHUB_ENV
 
+      - run:
+        env:
+          issue_url: "issue url..."
+          issue_comment: "issue comment..."
 
       - name: Dump GitHub context
         env:
