@@ -13,8 +13,8 @@ jobs:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     outputs:
-      issue_url: ${{ toJSON(steps.*.outputs) }}
-      issue_comment: ''
+      issue_url: ${{ toJSON(steps.*.outputs.issue_url) }}
+      issue_comment: ${{ toJSON(steps.*.outputs.issue_comment) }}
     steps:
       - name: set
         env:
@@ -24,8 +24,8 @@ jobs:
             This your first issue and will be reviewed shortly.
         id: set
         run: |
-          echo "::set-output name=issue_env_url::${{env.ISSUE_URL}}"
-          echo "::set-output name=issue_env_comment::${{env.ISSUE_COMMENT}}"
+          echo "::set-output name=issue_url::${{env.ISSUE_URL}}"
+          echo "::set-output name=issue_comment::${{env.ISSUE_COMMENT}}"
       - name: Dump strategy context
         env:
           STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
