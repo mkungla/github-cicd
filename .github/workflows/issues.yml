@@ -127,7 +127,7 @@ jobs:
             This your first issue and will be reviewed shortly.
         run: echo "::set-output name=issue_comment::${{env.ISSUE_COMMENT}}"
 
-      - name: greeting-for-reccuring-user
+      - id: greeting-for-reccuring-user
         if: github.event.action == 'opened' && needs.issue.outputs.user-issues-total > 0
         env:
           ISSUE_COMMENT: |
@@ -153,6 +153,8 @@ jobs:
     steps:
       # POST
       - name: post comment
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh issue comment ${{ env.issue_url }} --body "${{ env.issue_comment }}"
 
   # add remove labels
