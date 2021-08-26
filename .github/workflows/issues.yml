@@ -128,8 +128,8 @@ jobs:
         # set env vars
         run: |
           echo 'ISSUE_URL=${{ env.issue_url }}' >> $GITHUB_ENV
-          echo "ISSUE_COMMENT=$(cat <<EOF${{ env.issue_comment }}
-          EOF)" >> $GITHUB_ENV
+          echo 'ISSUE_COMMENT=<<EOF${{ env.issue_comment }}
+          EOF' >> $GITHUB_ENV
 
       - name: greeting for reccuring user
         if: needs.issue.outputs.user-issues-total > 0 && github.event.action == 'opened'
@@ -140,8 +140,8 @@ jobs:
             You have opened total **${{ needs.issue.outputs.user-issues-total }}** issues in this repository.
         run: |
           echo 'ISSUE_URL=${{ env.issue_url }}' >> $GITHUB_ENV
-          echo "ISSUE_COMMENT=$(cat <<EOF${{ env.issue_comment }}
-          EOF)" >> $GITHUB_ENV
+          echo 'ISSUE_COMMENT=<<EOF${{ env.issue_comment }}
+          EOF' >> $GITHUB_ENV
 
       # POST
       - name: post comment

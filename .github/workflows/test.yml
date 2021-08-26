@@ -32,3 +32,8 @@ jobs:
         env:
           ENV_CONTEXT: ${{ toJSON(env) }}
         run: echo "$ENV_CONTEXT"
+
+echo 'ISSUE_COMMENT=<<EOF:boom: Thanks for reporting @mkungla!
+You have opened total **28** issues in this repository.
+
+EOF'
