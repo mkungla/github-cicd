@@ -5,10 +5,10 @@ jobs:
   data:
     runs-on: ubuntu-latest
     steps:
-      - pre: echo "pre"
-        post: echo "post"
-        main: echo "main"
-        run: echo "run"
+      - run:
+          pre: echo "pre"
+          post: echo "post"
+          main: echo "main"
 
       - name: Dump GitHub context
         env:
