@@ -128,7 +128,7 @@ jobs:
             👋 Thanks for reporting @${{ github.event.sender.login }}!
             This your first issue and will be reviewed shortly.
         # set env vars
-        run: echo "ISSUE_URL=${{ env.issue_url }}" >> $GITHUB_ENV && echo "ISSUE_COMMENT=${{ env.issue_comment }}" >> $GITHUB_ENV
+        run: echo "ISSUE_URL=${{ env.issue_url }}" >> $GITHUB_ENV && echo 'ISSUE_COMMENT<<EOF${{ env.issue_comment }}EOF' >> $GITHUB_ENV
 
       - name: greeting for reccuring user
         if: needs.issue.outputs.user-issues-total > 0 && github.event.action == 'opened'
@@ -137,7 +137,7 @@ jobs:
           issue_comment: |
             :boom: Thanks for reporting @${{ github.event.sender.login }}!
             You have opened total **${{ needs.issue.outputs.user-issues-total }}** issues in this repository.
-        run: echo "ISSUE_URL='${{ env.issue_url }}'" >> $GITHUB_ENV && echo "ISSUE_COMMENT='${{ env.issue_comment }}'" >> $GITHUB_ENV
+        run: echo "ISSUE_URL=${{ env.issue_url }}" >> $GITHUB_ENV && echo 'ISSUE_COMMENT<<EOF${{ env.issue_comment }}EOF' >> $GITHUB_ENV
 
       # POST
       - name: post comment
