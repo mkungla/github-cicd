@@ -117,19 +117,32 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      ISSUE_COMMENT_URL: ''
-      ISSUE_COMMENT_MESSAGE: ''
+      ISSUE_URL: ''
+      ISSUE_COMMENT: ''
     steps:
       - name: greeting on first issue
         if: needs.issue.outputs.user-issues-total == 0 && github.event.action == 'opened'
-        run: |
-          gh issue comment ${{ github.event.issue.html_url }} \
-            --body "👋 Thanks for reporting @${{ github.event.sender.login }}! This your first issue and will be reviewed shortly."
+        env:
+          issue_url: ${{ github.event.issue.html_url }}
+          issue_comment: |
+            👋 Thanks for reporting @${{ github.event.sender.login }}!
+            This your first issue and will be reviewed shortly.
+        # set env vars
+        run: echo "ISSUE_URL=${{ env.issue_url }}" >> $GITHUB_ENV && echo "ISSUE_COMMENT=${{ env.issue_comment }}" >> $GITHUB_ENV
+
       - name: greeting for reccuring user
         if: needs.issue.outputs.user-issues-total > 0 && github.event.action == 'opened'
-        run: |
-          gh issue comment ${{ github.event.issue.html_url }} \
-            --body ":boom: Thanks for reporting @${{ github.event.sender.login }}! You have opened total **${{ needs.issue.outputs.user-issues-total }}** issues in this repository."
+        env:
+          issue_url: ${{ github.event.issue.html_url }}
+          issue_comment: |
+            :boom: Thanks for reporting @${{ github.event.sender.login }}!
+            You have opened total **${{ needs.issue.outputs.user-issues-total }}** issues in this repository.
+        run: echo "ISSUE_URL=${{ env.issue_url }}" >> $GITHUB_ENV && echo "ISSUE_COMMENT=${{ env.issue_comment }}" >> $GITHUB_ENV
+
+      # POST
+      - name: post comment
+        if: env.ISSUE_URL != '' && env.ISSUE_COMMENT != ''
+        run: gh issue comment ${{ env.ISSUE_URL }} --body "${{ env.ISSUE_COMMENT }}"
 
   # add remove labels
   labels:
