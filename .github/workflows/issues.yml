@@ -117,7 +117,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       issue_url: ${{ github.event.issue.html_url }}
-      issue_comment: ${{ join(needs.*.outputs.issue_comment, '\n\n') }}
+      issue_comment: ${{ join(steps.*.outputs.issue_comment, '\n\n') }}
     steps:
       - id: greeting-on-first-issue
         if: github.event.action == 'opened' && needs.issue.outputs.user-issues-total == 0
