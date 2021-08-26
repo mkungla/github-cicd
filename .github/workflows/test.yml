@@ -15,7 +15,7 @@ jobs:
           - a
           - b
           - c
-
+    if: matrix.if
     steps:
       - name: Dump strategy context
         env:
