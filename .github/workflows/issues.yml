@@ -119,7 +119,7 @@ jobs:
       issue_url: ${{ github.event.issue.html_url }}
       issue_comment: ${{ join(needs.*.outputs.issue_comment, '\n\n') }}
     steps:
-      - id: greeting on first issue
+      - id: greeting-on-first-issue
         if: github.event.action == 'opened' && needs.issue.outputs.user-issues-total == 0
         env:
           ISSUE_COMMENT: |
@@ -127,7 +127,7 @@ jobs:
             This your first issue and will be reviewed shortly.
         run: echo "::set-output name=issue_comment::${{env.ISSUE_COMMENT}}"
 
-      - name: greeting for reccuring user
+      - name: greeting-for-reccuring-user
         if: github.event.action == 'opened' && needs.issue.outputs.user-issues-total > 0
         env:
           ISSUE_COMMENT: |
