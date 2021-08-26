@@ -2,9 +2,19 @@ on:
   push:
 
 jobs:
-  data:
+  tag:
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
+    steps:
+      - name: set
+        run: echo ""
 
+  push:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    outputs:
+      output1: 111
+      output2: 222
     steps:
       - name: set
         env:
@@ -14,6 +24,15 @@ jobs:
             This your first issue and will be reviewed shortly.
         run: echo ""
 
+
+
+  comment:
+    needs:
+      - set
+      - tag
+
+    runs-on: ubuntu-latest
+    steps:
       - name: Dump strategy context
         env:
           STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
@@ -42,5 +61,3 @@ jobs:
         env:
           ENV_CONTEXT: ${{ toJSON(env) }}
         run: echo "$ENV_CONTEXT"
-
-
