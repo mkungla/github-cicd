@@ -133,6 +133,7 @@ jobs:
           ISSUE_COMMENT: |
             :boom: Thanks for reporting @${{ github.event.sender.login }}!
             You have opened total **${{ needs.issue.outputs.user-issues-total }}** issues in this repository.
+        run: echo "::set-output name=issue_comment::${{env.ISSUE_COMMENT}}"
 
   #############################################################################
   # Workflow actors
