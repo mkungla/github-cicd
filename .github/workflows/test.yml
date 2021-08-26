@@ -13,7 +13,7 @@ jobs:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     outputs:
-      issue_url: ${{ steps.*.env }}
+      issue_url: ${{ toJSON(steps.*.env) }}
       issue_comment: ''
     steps:
       - name: set
