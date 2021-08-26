@@ -4,8 +4,6 @@ on:
 jobs:
   data:
     runs-on: ubuntu-latest
-    env:
-      ISSUE_URL: ''
     strategy:
       matrix:
         if:
@@ -17,7 +15,7 @@ jobs:
           - c
 
     steps:
-      - if: ${{ matrix.if }}
+      - if: matrix.if
         name: Dump strategy context
         env:
           STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
