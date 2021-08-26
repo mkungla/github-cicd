@@ -4,13 +4,10 @@ on:
 jobs:
   data:
     runs-on: ubuntu-latest
-
+     env:
+          ISSUE_URL: ''
     steps:
       - run: node --version
-
-      - env:
-          ISSUE_URL: ''
-
       - run: |
           echo "ISSUE_URL=https://issue.url" >> $GITHUB_ENV
 
