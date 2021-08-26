@@ -15,9 +15,10 @@ jobs:
           - a
           - b
           - c
-    if: ${{ matrix.if }}
+
     steps:
-      - name: Dump strategy context
+      - if: ${{ matrix.if }}
+        name: Dump strategy context
         env:
           STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
         run: echo "$STRATEGY_CONTEXT"
