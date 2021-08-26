@@ -11,7 +11,8 @@ jobs:
       - run: node --version
       - id: set-out-for-job
         with:
-          with_value: some value
+          entrypoint: /bin/echo
+          args: The ${{ github.event_name }} event triggered this step.
         run: |
           echo "::save-state name=fnSaveState::12345"
           echo '::set-output name=fnSetOutput::67890'
