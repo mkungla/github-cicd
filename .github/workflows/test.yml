@@ -9,7 +9,7 @@ jobs:
         run: |
           echo "::save-state name=fnSaveState::12345"
           echo '::set-output name=fnSetOutput::67890'
-
+          echo "fnSetEnv=123456" >> $GITHUB_ENV
 
 
       - name: Dump GitHub context
