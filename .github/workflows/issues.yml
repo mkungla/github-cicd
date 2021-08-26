@@ -32,6 +32,10 @@ on:
       cron: '*/5 * * * *' # 0 0 * * *
 
 jobs:
+  #############################################################################
+  # workflow pipline triggers
+  # add pipline entrypoint based on event or multiple conditions
+  #############################################################################
   # Comment
   issue-comment:
     name: Issue comment
@@ -102,6 +106,10 @@ jobs:
       - if: ${{ contains(toJSON(github.event), 'daily') }}
         run: exit 1
 
+  #############################################################################
+  # Job definitions
+  #############################################################################
+
   # comment on issue
   comment:
     needs:
@@ -109,6 +117,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      ISSUE_COMMENT_URL: ''
+      ISSUE_COMMENT_MESSAGE: ''
     steps:
       - name: greeting on first issue
         if: needs.issue.outputs.user-issues-total == 0 && github.event.action == 'opened'
@@ -125,6 +135,7 @@ jobs:
   labels:
     needs:
       - issue
+
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -159,7 +170,8 @@ jobs:
     if: always()
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/stale@v4
+      # https://github.com/actions/stale/pull/554
+      - uses: mkungla/stale@main
         with:
           days-before-issue-stale: 1
           days-before-issue-close: 1
@@ -172,9 +184,6 @@ jobs:
           exempt-all-issue-milestones: true
           days-before-pr-stale : -1
           days-before-pr-close: -1
-
-
-
 
 # - run: |
 #     echo "${{ github.event.sender.login }} triggered ${{ github.event.action }} issue #${{ github.event.issue.number }}"
