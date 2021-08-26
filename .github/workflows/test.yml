@@ -13,8 +13,8 @@ jobs:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     outputs:
-      issue_url: ${{ toJSON(steps.*.outputs.issue_url) }}
-      issue_comment: ${{ toJSON(steps.*.outputs.issue_comment) }}
+      issue_url: ${{ join(toJSON(steps.*.outputs.issue_url), '') }}
+      issue_comment: ${{ join(toJSON(steps.*.outputs.issue_comment), '') }}
     steps:
       - name: set
         env:
