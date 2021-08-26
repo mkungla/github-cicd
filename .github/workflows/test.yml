@@ -4,8 +4,8 @@ on:
 jobs:
   data:
     runs-on: ubuntu-latest
-     env:
-          ISSUE_URL: ''
+    env:
+      ISSUE_URL: ''
     steps:
       - run: node --version
       - run: |
