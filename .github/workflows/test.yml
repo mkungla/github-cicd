@@ -13,7 +13,7 @@ jobs:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     outputs:
-      issue_url: ${{ toJSON(steps) }}
+      issue_url: ${{ steps.*.outputs }}
       issue_comment: ''
     steps:
       - name: set
@@ -74,7 +74,7 @@ jobs:
     #   issue_comment: join(needs.*.outputs.issue_comment, '\n\n')
     steps:
       - run: |
-          echo "${{ toJSON(fromJSON(needs.*.outputs)) }}"
+          echo "${{ toJSON(needs.*.outputs) }}"
         # echo "${{ env.issue_comment }}"
       - name: Dump strategy context
         env:
