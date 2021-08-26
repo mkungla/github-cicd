@@ -30,7 +30,7 @@ jobs:
     needs:
       - push
       - tag
-    if: success()
+    if: success() || cancelled()
     runs-on: ubuntu-latest
     steps:
       - name: Dump strategy context
