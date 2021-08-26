@@ -31,11 +31,12 @@ jobs:
       - push
       - tag
     if: |
-      always() &&
-      contains(needs.*.outputs, 'issue_url') &&
-      contains(needs.*.outputs, 'issue_comment')
+      always()
     runs-on: ubuntu-latest
     steps:
+      - run: |
+          echo contains(needs.*.outputs, 'issue_url')
+          echo contains(needs.*.outputs, 'issue_comment')
       - name: Dump strategy context
         env:
           STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
