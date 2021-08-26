@@ -32,3 +32,16 @@ jobs:
         env:
           ENV_CONTEXT: ${{ toJSON(env) }}
         run: echo "$ENV_CONTEXT"
+
+echo "ISSUE_COMMENT=$()" >> $GITHUB_ENV
+
+
+cat <<EOF
+  👋 Thanks for reporting @${{ github.event.sender.login }}!
+  This your first issue and will be reviewed shortly.' EOF
+
+
+cat <<EOF
+👋 Thanks for reporting @github.event.sender.login
+  This your first issue and will be reviewed shortly.
+EOF
