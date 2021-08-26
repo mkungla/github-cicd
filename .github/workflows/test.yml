@@ -39,8 +39,8 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      issue_url: {{ join(needs.*.outputs.issue_url, '') }}
-      issue_comment: { join(needs.*.outputs.issue_comment, '\n\n') }
+      issue_url: ${{ join(needs.*.outputs.issue_url, '') }}
+      issue_comment: ${{ join(needs.*.outputs.issue_comment, '\n\n') }}
     steps:
       - run: |
           echo "${{ env.issue_url }}"
