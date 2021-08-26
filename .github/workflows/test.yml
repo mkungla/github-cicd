@@ -13,18 +13,16 @@ jobs:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     outputs:
-      issue_url: 111
-      issue_comment: 222
+      issue_url: ''
+      issue_comment: ''
     steps:
       - name: set
         env:
-          ISSUE_URL: my value
+          ISSUE_URL: https://github.com/mkungla/github-cicd/issues/40
           ISSUE_COMMENT: |
             👋 Thanks for reporting @x!
             This your first issue and will be reviewed shortly.
         run: echo ""
-
-
 
   comment:
     needs:
