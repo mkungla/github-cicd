@@ -35,8 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "${{ contains(needs.*.outputs, 'issue_url') }}"
-          echo "${{ contains(needs.*.outputs, 'issue_comment') }}"
+          echo "${{ needs.*.outputs.issue_url }}"
       - name: Dump strategy context
         env:
           STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
