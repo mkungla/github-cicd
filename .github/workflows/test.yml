@@ -3,7 +3,7 @@ on:
 
 jobs:
   tag:
-    if: github.event_name == 'push'
+    if: github.event_name == 'tag'
     runs-on: ubuntu-latest
     steps:
       - name: set
@@ -28,7 +28,7 @@ jobs:
 
   comment:
     needs:
-      - set
+      - push
       - tag
 
     runs-on: ubuntu-latest
