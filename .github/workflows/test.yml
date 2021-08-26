@@ -30,7 +30,7 @@ jobs:
     needs:
       - push
       - tag
-    if: always()
+    if: success()
     runs-on: ubuntu-latest
     steps:
       - name: Dump strategy context
@@ -61,3 +61,7 @@ jobs:
         env:
           ENV_CONTEXT: ${{ toJSON(env) }}
         run: echo "$ENV_CONTEXT"
+      - name: Dump needs context
+        env:
+          NEEDS_CONTEXT: ${{ toJSON(needs) }}
+        run: echo "$NEEDS_CONTEXT"
