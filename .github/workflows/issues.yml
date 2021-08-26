@@ -194,14 +194,17 @@ jobs:
     needs:
       - daily
       - issue-comment
-    if: always()
+    # only run on schedule and issue comment
+    # also would be nice to skip that if this job was just executed
+    # e.g. on heated discussion under issue.
+    if: always() && github.event_name != 'issues'
     runs-on: ubuntu-latest
     steps:
       # https://github.com/actions/stale/pull/554
       - uses: mkungla/stale@main
         with:
-          days-before-issue-stale: 1
-          days-before-issue-close: 1
+          days-before-issue-stale: 2
+          days-before-issue-close: 2
           stale-issue-message: 'This issue has no activity for a while.'
           close-issue-message: 'This issue was closed since there was no activity after it was marked stale.'
           stale-issue-label: 'stale'
