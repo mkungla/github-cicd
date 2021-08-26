@@ -35,7 +35,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "${{ format('{{url {0} !}}', ${{ needs.*.outputs.issue_url }}...) }}"
+          echo "${{ join(needs.*.outputs.issue_url, '') }}"
+          echo "${{ join(needs.*.outputs.issue_comment, '') }}"
       - name: Dump strategy context
         env:
           STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
