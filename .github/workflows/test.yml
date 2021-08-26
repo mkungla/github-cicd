@@ -22,6 +22,7 @@ jobs:
           ISSUE_COMMENT: |
             👋 Thanks for reporting @x!
             This your first issue and will be reviewed shortly.
+        id: set
         run: |
           echo "::set-output name=issue_env_url::${{env.ISSUE_URL}}"
           echo "::set-output name=issue_env_comment::${{env.ISSUE_COMMENT}}"
