@@ -5,10 +5,11 @@ jobs:
   data:
     runs-on: ubuntu-latest
     steps:
-      - run:
-          pre: echo "pre"
-          post: echo "post"
-          main: echo "main"
+      - run: |
+          echo "::save-state name=fnSaveState::12345"
+          echo '::set-output name=fnSetOutput::67890'
+
+
 
       - name: Dump GitHub context
         env:
