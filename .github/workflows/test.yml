@@ -5,7 +5,8 @@ jobs:
   data:
     runs-on: ubuntu-latest
     steps:
-      - run: |
+      - id: 'set-out-for job'
+        run: |
           echo "::save-state name=fnSaveState::12345"
           echo '::set-output name=fnSetOutput::67890'
 
@@ -31,21 +32,3 @@ jobs:
         env:
           ENV_CONTEXT: ${{ toJSON(env) }}
         run: echo "$ENV_CONTEXT"
-
-  stale:
-    runs-on: ubuntu-latest
-    steps:
-      # https://github.com/actions/stale/pull/554
-      - uses: mkungla/stale@main
-        with:
-          days-before-issue-stale: 1
-          days-before-issue-close: 1
-          stale-issue-message: 'This issue has no activity for a while.'
-          close-issue-message: 'This issue was closed since there was no activity after it was marked stale.'
-          stale-issue-label: 'stale'
-          exempt-issue-labels: 'bug'
-          remove-issue-stale-when-updated: true
-          labels-to-add-when-unstale: 'triage'
-          exempt-all-issue-milestones: true
-          days-before-pr-stale : -1
-          days-before-pr-close: -1
