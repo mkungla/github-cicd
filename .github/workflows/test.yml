@@ -23,8 +23,8 @@ jobs:
             👋 Thanks for reporting @x!
             This your first issue and will be reviewed shortly.
         run: |
-          echo "::set-output name=issue_url::${{env.ISSUE_URL}}"
-          echo "::set-output name=issue_comment::${{env.ISSUE_COMMENT}}"
+          echo "::save-state name=issue_url::${{env.ISSUE_URL}}"
+          echo "::save-state name=issue_comment::${{env.ISSUE_COMMENT}}"
       - name: Dump strategy context
         env:
           STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
