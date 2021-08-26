@@ -6,13 +6,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: allenevans/set-env@v2.0.0
-        with:
+      - name: set
+        env:
           ISSUE_URL: my value
           ISSUE_COMMENT: |
             👋 Thanks for reporting @x!
             This your first issue and will be reviewed shortly.
-
+        run: echo ""
 
       - name: Dump strategy context
         env:
