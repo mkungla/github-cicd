@@ -13,7 +13,7 @@ jobs:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     outputs:
-      issue_url: ''
+      issue_url: ${{ steps.*.env }}
       issue_comment: ''
     steps:
       - name: set
@@ -23,8 +23,8 @@ jobs:
             👋 Thanks for reporting @x!
             This your first issue and will be reviewed shortly.
         run: |
-          echo "::save-state name=issue_url::${{env.ISSUE_URL}}"
-          echo "::save-state name=issue_comment::${{env.ISSUE_COMMENT}}"
+          echo "::save-state name=issue_env_url::${{env.ISSUE_URL}}"
+          echo "::save-state name=issue_env_comment::${{env.ISSUE_COMMENT}}"
       - name: Dump strategy context
         env:
           STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
@@ -62,10 +62,10 @@ jobs:
     needs:
       - push
       - tag
-    if: |
-      always() &&
-      contains(join(needs.*.outputs.issue_url, ''), 'https://') &&
-      join(needs.*.outputs.issue_comment, '\n\n') != ''
+    if: always()
+# always() &&
+# contains(join(needs.*.outputs.issue_url, ''), 'https://') &&
+# join(needs.*.outputs.issue_comment, '\n\n') != ''
 
     runs-on: ubuntu-latest
     env:
