@@ -13,8 +13,8 @@ jobs:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     outputs:
-      output1: 111
-      output2: 222
+      issue_url: 111
+      issue_comment: 222
     steps:
       - name: set
         env:
@@ -30,7 +30,10 @@ jobs:
     needs:
       - push
       - tag
-    if: always()
+    if: |
+      always() &&
+      contains(needs.*.outputs, 'issue_url') &&
+      contains(needs.*.outputs, 'issue_comment')
     runs-on: ubuntu-latest
     steps:
       - name: Dump strategy context
