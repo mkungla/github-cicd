@@ -144,8 +144,7 @@ jobs:
     # all the jobs which can comment
     needs:
       - compose-comments
-    if: always() &&
-      contains(join(needs.*.outputs.issue_url, ''), 'https://') &&
+    if: contains(join(needs.*.outputs.issue_url, ''), 'https://') &&
       join(needs.*.outputs.issue_comment, '\n\n') != ''
     runs-on: ubuntu-latest
     env:
