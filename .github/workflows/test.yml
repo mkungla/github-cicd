@@ -1,80 +1,80 @@
-on:
-  push:
+# on:
+#   push:
 
-jobs:
-  tag:
-    if: github.event_name == 'tag'
-    runs-on: ubuntu-latest
-    steps:
-      - name: set
-        run: echo ""
+# jobs:
+#   tag:
+#     if: github.event_name == 'tag'
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: set
+#         run: echo ""
 
-  push:
-    if: github.event_name == 'push'
-    runs-on: ubuntu-latest
-    outputs:
-      issue_url: ${{ join(steps.*.outputs.issue_url, '') }}
-      issue_comment: ${{ join(steps.*.outputs.issue_comment, '\n\n') }}
-    steps:
-      - name: set
-        env:
-          ISSUE_URL: https://github.com/mkungla/github-cicd/issues/40
-          ISSUE_COMMENT: |
-            👋 Thanks for reporting @x!
-            This your first issue and will be reviewed shortly.
-        id: set
-        run: |
-          echo "::set-output name=issue_url::${{env.ISSUE_URL}}"
-          echo "::set-output name=issue_comment::${{env.ISSUE_COMMENT}}"
+#   push:
+#     if: github.event_name == 'push'
+#     runs-on: ubuntu-latest
+#     outputs:
+#       issue_url: ${{ join(steps.*.outputs.issue_url, '') }}
+#       issue_comment: ${{ join(steps.*.outputs.issue_comment, '\n\n') }}
+#     steps:
+#       - name: set
+#         env:
+#           ISSUE_URL: https://github.com/mkungla/github-cicd/issues/40
+#           ISSUE_COMMENT: |
+#             👋 Thanks for reporting @x!
+#             This your first issue and will be reviewed shortly.
+#         id: set
+#         run: |
+#           echo "::set-output name=issue_url::${{env.ISSUE_URL}}"
+#           echo "::set-output name=issue_comment::${{env.ISSUE_COMMENT}}"
 
 
-  comment:
-    needs:
-      - push
-      - tag
+#   comment:
+#     needs:
+#       - push
+#       - tag
 
-    if: always() &&
-      contains(join(needs.*.outputs.issue_url, ''), 'https://') &&
-      join(needs.*.outputs.issue_comment, '\n\n') != ''
+#     if: always() &&
+#       contains(join(needs.*.outputs.issue_url, ''), 'https://') &&
+#       join(needs.*.outputs.issue_comment, '\n\n') != ''
 
-    runs-on: ubuntu-latest
-    env:
-      issue_url: ${{ join(needs.*.outputs.issue_url, '') }}
-      issue_comment: ${{ join(needs.*.outputs.issue_comment, '\n\n') }}
-    steps:
-      - run: |
-          echo "${{ env.issue_url }}"
-          echo "${{ env.issue_comment }}"
-        # echo "${{ env.issue_comment }}"
-      - name: Dump strategy context
-        env:
-          STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
-        run: echo "$STRATEGY_CONTEXT"
-      - name: Dump matrix context
-        env:
-          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
-        run: echo "$MATRIX_CONTEXT"
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJSON(job) }}
-        run: echo "$JOB_CONTEXT"
-      - name: Dump steps context
-        env:
-          STEPS_CONTEXT: ${{ toJSON(steps) }}
-        run: echo "$STEPS_CONTEXT"
-      - name: Dump runner context
-        env:
-          RUNNER_CONTEXT: ${{ toJSON(runner) }}
-        run: echo "$RUNNER_CONTEXT"
-      - name: Dump env context
-        env:
-          ENV_CONTEXT: ${{ toJSON(env) }}
-        run: echo "$ENV_CONTEXT"
-      - name: Dump needs context
-        env:
-          NEEDS_CONTEXT: ${{ toJSON(needs) }}
-        run: echo "$NEEDS_CONTEXT"
+#     runs-on: ubuntu-latest
+#     env:
+#       issue_url: ${{ join(needs.*.outputs.issue_url, '') }}
+#       issue_comment: ${{ join(needs.*.outputs.issue_comment, '\n\n') }}
+#     steps:
+#       - run: |
+#           echo "${{ env.issue_url }}"
+#           echo "${{ env.issue_comment }}"
+#         # echo "${{ env.issue_comment }}"
+#       - name: Dump strategy context
+#         env:
+#           STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
+#         run: echo "$STRATEGY_CONTEXT"
+#       - name: Dump matrix context
+#         env:
+#           MATRIX_CONTEXT: ${{ toJSON(matrix) }}
+#         run: echo "$MATRIX_CONTEXT"
+#       - name: Dump GitHub context
+#         env:
+#           GITHUB_CONTEXT: ${{ toJSON(github) }}
+#         run: echo "$GITHUB_CONTEXT"
+#       - name: Dump job context
+#         env:
+#           JOB_CONTEXT: ${{ toJSON(job) }}
+#         run: echo "$JOB_CONTEXT"
+#       - name: Dump steps context
+#         env:
+#           STEPS_CONTEXT: ${{ toJSON(steps) }}
+#         run: echo "$STEPS_CONTEXT"
+#       - name: Dump runner context
+#         env:
+#           RUNNER_CONTEXT: ${{ toJSON(runner) }}
+#         run: echo "$RUNNER_CONTEXT"
+#       - name: Dump env context
+#         env:
+#           ENV_CONTEXT: ${{ toJSON(env) }}
+#         run: echo "$ENV_CONTEXT"
+#       - name: Dump needs context
+#         env:
+#           NEEDS_CONTEXT: ${{ toJSON(needs) }}
+#         run: echo "$NEEDS_CONTEXT"
