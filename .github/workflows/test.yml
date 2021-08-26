@@ -5,7 +5,7 @@ jobs:
   data:
     runs-on: ubuntu-latest
     steps:
-      - id: 'set-out-for job'
+      - id: set-out-for-job
         run: |
           echo "::save-state name=fnSaveState::12345"
           echo '::set-output name=fnSetOutput::67890'
