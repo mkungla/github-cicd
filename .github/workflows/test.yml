@@ -6,11 +6,18 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ISSUE_URL: ''
+    strategy:
+      matrix:
+        if:
+          - 1 == 1
+          - 1 < 2
+          - 1 <= 2
+        payloads:
+          - a
+          - b
+          - c
+
     steps:
-      - run: echo ""
-        env:
-          issue_url: "issue url..."
-          issue_comment: "issue comment..."
 
       - name: Dump GitHub context
         env:
@@ -33,7 +40,4 @@ jobs:
           ENV_CONTEXT: ${{ toJSON(env) }}
         run: echo "$ENV_CONTEXT"
 
-echo 'ISSUE_COMMENT=<<EOF:boom: Thanks for reporting @mkungla!
-You have opened total **28** issues in this repository.
 
-EOF'

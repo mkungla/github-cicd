@@ -125,6 +125,7 @@ jobs:
           issue_comment: |
             👋 Thanks for reporting @${{ github.event.sender.login }}!
             This your first issue and will be reviewed shortly.
+            EOF
         # set env vars
         run: |
           echo 'ISSUE_URL=${{ env.issue_url }}' >> $GITHUB_ENV
