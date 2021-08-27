@@ -55,6 +55,7 @@ jobs:
       - run: echo "this will never run"
   C:
     runs-on: ubuntu-latest
+    if: false
     steps:
       - run: |
           exho "here to fail"
