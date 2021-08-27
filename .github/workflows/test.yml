@@ -44,8 +44,29 @@ jobs:
       - name: Dump matrix context
         run: echo "${{ toJSON(matrix) }}"
 
-  test:
+  A:
     runs-on: ubuntu-latest
     steps:
       - run: |
           echo "noop"
+  B:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "noop"
+  B:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "noop"
+  Z:
+    runs-on: ubuntu-latest
+    needs: [A, B, C]
+    if: |
+      always() &&
+      (needs.A.result == 'success' || needs.A.result == 'skipped') &&
+      (needs.B.result == 'success' || needs.B.result == 'skipped') &&
+      (needs.C.result == 'success' || needs.C.result == 'skipped') &&
+    steps:
+      - run: |
+        echo "noop"
