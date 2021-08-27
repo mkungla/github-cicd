@@ -2,7 +2,7 @@ on:
   push:
 
 jobs:
-  comment:
+  debug:
     runs-on: ubuntu-latest
     steps:
       - name: Dump GitHub env
@@ -57,10 +57,10 @@ jobs:
           CHANGELOG="${CHANGELOG//$'\r'/'%0D'}"
           echo "::set-output name=changeLog::$CHANGELOG"
       - run: |
-          echo '{ "changeLog": "${{steps.getLog.outputs.changeLog}}"}'
+          echo '{ "changeLog": ${{ toJSON(steps.getLog.outputs.changeLog) }}}'
       - name: Invoke CLI workflow with changelog
         uses: benc-uk/workflow-dispatch@v1
         with:
           workflow: publish
           token: ${{ secrets.PAT_TOKEN }}
-          inputs: '{ "changeLog": "${{steps.getLog.outputs.changeLog}}"}'
+          inputs: '{ "changeLog": ${{ toJSON(steps.getLog.outputs.changeLog) }}}'
