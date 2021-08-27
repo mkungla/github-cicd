@@ -148,8 +148,9 @@ jobs:
         env:
           comment: |
             Your issue will be reviewed shortly!
-            this is automated message by [GitHub Actions](https://github.com/features/actions) configured in  [.issues.yml](.github/workflows/issues.yml)
             ***
+          # this is automated message by [GitHub Actions](https://github.com/features/actions) configured in  [.issues.yml](.github/workflows/issues.yml)
+
         run: echo "::set-output name=issue_comment::${{ toJSON(env.comment) }}"
 
       # - name: debug
