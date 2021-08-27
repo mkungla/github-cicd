@@ -51,10 +51,11 @@ jobs:
           echo "noop"
   B:
     runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
     steps:
       - run: |
           echo "noop"
-  B:
+  C:
     runs-on: ubuntu-latest
     steps:
       - run: |
