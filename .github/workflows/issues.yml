@@ -183,8 +183,9 @@ jobs:
       - name: post comment
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          issue_comment: ${{ env.issue_comment }}
         run: |
-          issue_comment="${${{env.issue_comment}}//'%'/'%25'}"
+          issue_comment="${issue_comment//'%'/'%25'}"
           issue_comment="${issue_comment//$'\n'/'%0A'}"
           issue_comment="${issue_comment//$'\r'/'%0D'}"
           gh issue comment ${{ env.issue_url }} --body "${{ issue_comment }}"
