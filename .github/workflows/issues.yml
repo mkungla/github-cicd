@@ -119,7 +119,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       issue_url: ${{ github.event.issue.html_url }}
-      issue_comment: ${{ toJSON(steps.*.outputs.issue_comment) }}
+      issue_comment: ${{ steps.*.outputs.issue_comment }}
     steps:
 
       - id: greeting-on-first-issue
