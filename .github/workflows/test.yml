@@ -60,5 +60,5 @@ jobs:
         uses: benc-uk/workflow-dispatch@v1
         with:
           workflow: publish
-          token: ${{ secrets.GITHUB_TOKEN }} # trigger
+          token: ${{ secrets.PAT_TOKEN }}
           inputs: '{ "changeLog": ${{ toJSON(steps.getLog.outputs.changeLog) }}}'
