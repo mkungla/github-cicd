@@ -61,5 +61,4 @@ jobs:
         with:
           workflow: publish
           token: ${{ secrets.GITHUB_TOKEN }} # trigger
-          repo: mkungla/github-cicd
           inputs: '{ "changeLog": ${{ toJSON(steps.getLog.outputs.changeLog) }}}'
