@@ -50,7 +50,7 @@ jobs:
       - name: Get Log
         id: getLog
         env:
-          CHANGELOG: cg
+          CHANGELOG: $(cat test.md)
         run: |
           CHANGELOG="${CHANGELOG//'%'/'%25'}"
           CHANGELOG="${CHANGELOG//$'\n'/'%0A'}"
