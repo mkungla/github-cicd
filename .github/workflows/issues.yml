@@ -5,20 +5,20 @@ on:
     types:
       - opened
       - edited
-      - deleted
-      - transferred
+      # - deleted
+      # - transferred
       - pinned
       - unpinned
-      - closed
-      - reopened
-      - assigned
-      - unassigned
+      # - closed
+      # - reopened
+      # - assigned
+      # - unassigned
       - labeled
       - unlabeled
-      - locked
-      - unlocked
-      - milestoned
-      - demilestoned
+      # - locked
+      # - unlocked
+      # - milestoned
+      # - demilestoned
 
   # https://github.com/mkungla/github-cicd/discussions/11#discussioncomment-1233633
   issue_comment:
@@ -113,7 +113,7 @@ jobs:
   # Workflow action tricers
   # These jobs set outputs what (Workflow actors) use to trigger actual actions
   #############################################################################
-  should-comment:
+  compose-comment:
     needs:
       - issue
     runs-on: ubuntu-latest
@@ -171,7 +171,7 @@ jobs:
   create-comment:
     # all the jobs which can comment
     needs:
-      - should-comment
+      - compose-comment
     if: contains(join(needs.*.outputs.issue_url, ''), 'https://') &&
       join(needs.*.outputs.issue_comment, '') != ''
     runs-on: ubuntu-latest
