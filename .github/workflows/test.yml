@@ -51,10 +51,10 @@ jobs:
       - name: Get Log
         id: getLog
         run: |
-          CHANGELOG=$(cat test.md)
-          CHANGELOG="${CHANGELOG//'%'/'%25'}"
-          CHANGELOG="${CHANGELOG//$'\n'/'%0A'}"
-          CHANGELOG="${CHANGELOG//$'\r'/'%0D'}"
+          CHANGELOG="$(cat test.md)"
+          CHANGELOG="$($CHANGELOG//'%'/'%25')"
+          CHANGELOG="$($CHANGELOG//$'\n'/'%0A')"
+          CHANGELOG="$($CHANGELOG//$'\r'/'%0D')"
           echo "::set-output name=changeLog::$CHANGELOG"
       - name: Invoke CLI workflow with changelog
         uses: benc-uk/workflow-dispatch@v1
