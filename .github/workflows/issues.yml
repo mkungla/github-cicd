@@ -140,7 +140,7 @@ jobs:
             You have opened total **${{ needs.issue.outputs.user-issues-total }}** issues in this repository.
         run: |
           echo "${{env.comment}}"
-          echo "::set-output name=issue_comment::${{env.comment}}"
+          echo "::set-output name=issue_comment::${{toJSON(env.comment)}}"
       - name: debug
         run: |
           echo "${{ toJSON(steps) }}"
