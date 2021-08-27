@@ -238,7 +238,7 @@ jobs:
   # remove labels
   remove-labels:
     needs:
-      - should-manage-labels
+      - manage-labels
     runs-on: ubuntu-latest
     if: join(needs.*.outputs.remove_labels, ',') != ''
     env:
