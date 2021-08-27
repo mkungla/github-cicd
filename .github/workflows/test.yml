@@ -59,7 +59,7 @@ jobs:
       - run: echo "noop"
   C:
     runs-on: ubuntu-latest
-    needs: [a, b, c]
+    needs: [A, B, C]
     if: |
       always() &&
       !contains(needs.*.result, 'failure') &&
