@@ -140,7 +140,11 @@ jobs:
             :boom: Thanks for reporting again @${{ github.event.sender.login }}!
             You have opened total **${{ needs.issue.outputs.user-issues-total }}** issues in this repository.
             ***
-        run: echo "::set-output name=issue_comment::${{ toJSON(env.comment) }}"
+        run: |
+          comment="${comment//'%'/'%25'}"
+          comment="${comment//$'\n'/'%0A'}"
+          comment="${comment//$'\r'/'%0D'}"
+          echo "::set-output name=issue_comment::$comment"
 
       - name: opened issue footer
         id: opened-issue-footer
@@ -148,10 +152,13 @@ jobs:
         env:
           comment: |
             Your issue will be reviewed shortly!
+            this is automated message by [GitHub Actions](https://github.com/features/actions) configured in  [.issues.yml](.github/workflows/issues.yml)
             ***
-          # this is automated message by [GitHub Actions](https://github.com/features/actions) configured in  [.issues.yml](.github/workflows/issues.yml)
-
-        run: echo "::set-output name=issue_comment::${{ toJSON(env.comment) }}"
+        run: |
+          comment="${comment//'%'/'%25'}"
+          comment="${comment//$'\n'/'%0A'}"
+          comment="${comment//$'\r'/'%0D'}"
+          echo "::set-output name=issue_comment::$comment"
 
       # - name: debug
       #   run: |
@@ -167,23 +174,19 @@ jobs:
     # all the jobs which can comment
     needs:
       - compose-comments
-    # if: contains(join(needs.*.outputs.issue_url, ''), 'https://') &&
-    #   join(needs.*.outputs.issue_comment, '\n\n') != ''
+    if: contains(join(needs.*.outputs.issue_url, ''), 'https://') &&
+      join(needs.*.outputs.issue_comment, '') != ''
     runs-on: ubuntu-latest
     env:
       issue_url: ${{ join(needs.*.outputs.issue_url, '') }}
       issue_comment: ${{ join(needs.*.outputs.issue_comment, '') }}
     steps:
-      # - run: echo "toJSON(needs)"
       # POST copmment
       - name: post comment
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh issue comment ${{ env.issue_url }} --body "${{ env.issue_comment }}"
-        # echo "${{ env.issue_comment }}\n\n"
-        # echo "${{ toJSON(needs.*.outputs.issue_comment) }}\\"
-        # echo "${{ toJSON(needs) }}\n"
+        run: gh issue comment ${{ env.issue_url }} --body "${{ env.issue_comment }}"
+
   # add remove labels
   labels:
     needs:
