@@ -49,9 +49,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Get Log
         id: getLog
-        env:
-          CHANGELOG: $(cat test.md)
         run: |
+          CHANGELOG=$(cat test.md)
           CHANGELOG="${CHANGELOG//'%'/'%25'}"
           CHANGELOG="${CHANGELOG//$'\n'/'%0A'}"
           CHANGELOG="${CHANGELOG//$'\r'/'%0D'}"
