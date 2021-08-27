@@ -47,7 +47,7 @@ jobs:
   A:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "success"
+      - run: echo "success always"
   B:
     runs-on: ubuntu-latest
     if: false
@@ -65,7 +65,6 @@ jobs:
     needs: [A, B, C]
     if: |
       always() &&
-      !contains(needs.*.result, 'failure') &&
       !contains(needs.*.result, 'cancelled')
     steps:
       - run: echo "${{ toJSON(job) }}"
