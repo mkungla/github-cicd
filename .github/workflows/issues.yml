@@ -170,8 +170,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run:
-          echo "${{ toJSON(needs.*.outputs) }}"
-          # gh issue comment ${{ env.issue_url }} --body "${{ env.issue_comment }}"
+          gh issue comment ${{ env.issue_url }} --body "${{ env.issue_comment }}"
 
   # add remove labels
   labels:
