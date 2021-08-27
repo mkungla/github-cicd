@@ -19,6 +19,10 @@ jobs:
           env | grep '^RUNNER'
           echo "::endgroup::"
 
+          echo "::group::GITHUB_ENV"
+          cat $GITHUB_ENV
+          echo "::endgroup::"
+
       - name: Dump job context
         run: echo "${{ toJSON(env) }}"
       - name: Dump steps context
