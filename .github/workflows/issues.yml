@@ -119,11 +119,7 @@ jobs:
       issue_url: ${{ github.event.issue.html_url }}
       issue_comment: ${{ join(steps.*.outputs.issue_comment, '\n\n') }}
     steps:
-      - name: init comment
-        run: |
-          echo "${{ toJSON(steps) }}"
-          echo "${{ toJSON(job) }}"
-          echo "${{ toJSON(env) }}"
+
       - id: greeting-on-first-issue
         if: github.event.action == 'opened' && needs.issue.outputs.user-issues-total == 0
         env:
@@ -139,7 +135,11 @@ jobs:
             :boom: Thanks for reporting again @${{ github.event.sender.login }}!
             You have opened total **${{ needs.issue.outputs.user-issues-total }}** issues in this repository.
         run: echo "::set-output name=issue_comment::${{env.comment}}"
-
+      - name: debug
+        run: |
+          echo "${{ toJSON(steps) }}"
+          echo "${{ toJSON(job) }}"
+          echo "${{ toJSON(env) }}"
   #############################################################################
   # Workflow actors
   #############################################################################
@@ -161,7 +161,9 @@ jobs:
       - name: post comment
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh issue comment ${{ env.issue_url }} --body "${{ env.issue_comment }}"
+        run:
+          echo "${{ toJSON(needs.*.outputs) }}"
+          gh issue comment ${{ env.issue_url }} --body "${{ env.issue_comment }}"
 
   # add remove labels
   labels:
