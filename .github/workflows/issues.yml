@@ -205,7 +205,6 @@ jobs:
       - name: on unpinned remove labels
         if: github.event.action == 'unpinned' && contains(github.event.issue.labels.*.name, 'attention')
         run: gh issue edit ${{ github.event.issue.html_url }} --remove-label "attention"
-      -
 
   # add reactions
   reaction:
