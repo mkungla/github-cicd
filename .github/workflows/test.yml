@@ -15,7 +15,6 @@ jobs:
         run: echo "${{ toJSON(env) }}"
       - name: Dump steps context
         run: echo "${{ toJSON(env) }}"
-        run: echo "$STEPS_CONTEXT"
       - name: Dump runner context
         run: echo "${{ toJSON(env) }}"
       - name: Dump env context
