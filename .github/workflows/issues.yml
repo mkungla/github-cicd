@@ -163,11 +163,6 @@ jobs:
           comment="${comment//$'\r'/'%0D'}"
           echo "::set-output name=issue_comment::$comment"
 
-      # - name: debug
-      #   run: |
-      #     echo "${{ toJSON(steps) }}"
-      #     echo "${{ toJSON(job) }}"
-      #     echo "${{ toJSON(env) }}"
   #############################################################################
   # Workflow actors
   #############################################################################
@@ -204,6 +199,13 @@ jobs:
       - name: on close remove labels
         if: github.event.action == 'closed' && contains(github.event.issue.labels.*.name, 'triage')
         run: gh issue edit ${{ github.event.issue.html_url }} --remove-label "triage"
+      - name: on pinned add labels
+        if: github.event.action == 'pinned' && !contains(github.event.issue.labels.*.name, 'attention')
+        run: gh issue edit ${{ github.event.issue.html_url }} --add-label "attention"
+      - name: on unpinned remove labels
+        if: github.event.action == 'unpinned' && contains(github.event.issue.labels.*.name, 'attention')
+        run: gh issue edit ${{ github.event.issue.html_url }} --remove-label "attention"
+      -
 
   # add reactions
   reaction:
@@ -238,7 +240,7 @@ jobs:
         with:
           days-before-issue-stale: 1
           days-before-issue-close: 1
-          stale-issue-message: 'This issue has no activity for a while.'
+          stale-issue-message: 'This issue has no activity for a while. It will be closed if no action is taken in near future'
           close-issue-message: 'This issue was closed since there was no activity after it was marked stale.'
           stale-issue-label: 'stale'
           exempt-issue-labels: 'bug'
