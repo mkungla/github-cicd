@@ -176,19 +176,15 @@ jobs:
     runs-on: ubuntu-latest
     env:
       issue_url: ${{ join(needs.*.outputs.issue_url, '') }}
-      issue_comment: ${{ join(needs.*.outputs.issue_comment, '\n\n') }}
+      issue_comment: ${{ join(needs.*.outputs.issue_comment, '%0A%0A') }}
     steps:
       # - run: echo "toJSON(needs)"
       # POST copmment
       - name: post comment
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          comment: ${{ env.issue_comment }}
         run: |
-          comment="${comment//'%'/'%25'}"
-          comment="${comment//$'\n'/'%0A'}"
-          comment="${comment//$'\r'/'%0D'}"
-          gh issue comment ${{ env.issue_url }} --body "$comment"
+          gh issue comment ${{ env.issue_url }} --body "${{ env.issue_comment }}"
         # echo "${{ env.issue_comment }}\n\n"
         # echo "${{ toJSON(needs.*.outputs.issue_comment) }}\\"
         # echo "${{ toJSON(needs) }}\n"
