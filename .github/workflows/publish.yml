@@ -1,4 +1,5 @@
 name: publish
+
 on:
   workflow_dispatch:
     inputs:
@@ -8,9 +9,8 @@ on:
         default: ''
 jobs:
   chlog:
-  runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
-      - name: Dump GitHub env
-        run: |
-          echo "${{ github.event.inputs.changeLog }}!" >> cl.md
+      - run: |
+          echo "${{ github.event.inputs.changeLog }}" >> cl.md
           cat cl.md
