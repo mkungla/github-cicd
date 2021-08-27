@@ -6,7 +6,7 @@ on:
       - opened
       - edited
       - deleted
-      # - transferred
+      - transferred
       - pinned
       - unpinned
       - closed
@@ -112,11 +112,11 @@ jobs:
       - name: event
         run: echo "${{ toJSON(github.event) }}"
 
-  closed:
+  edited:
     runs-on: ubuntu-latest
     needs:
       - issue
-    if: github.event.action == 'closed'
+    if: github.event.action == 'edited'
     steps:
       - run: echo "noop"
 
@@ -125,6 +125,22 @@ jobs:
     needs:
       - issue
     if: github.event.action == 'closed'
+    steps:
+      - run: echo "noop"
+
+  deleted:
+    runs-on: ubuntu-latest
+    needs:
+      - issue
+    if: github.event.action == 'deleted'
+    steps:
+      - run: echo "noop"
+
+  transferred:
+    runs-on: ubuntu-latest
+    needs:
+      - issue
+    if: github.event.action == 'transferred'
     steps:
       - run: echo "noop"
 
@@ -133,6 +149,22 @@ jobs:
     needs:
       - issue
     if: github.event.action == 'reopened'
+    steps:
+      - run: echo "noop"
+
+  locked:
+    runs-on: ubuntu-latest
+    needs:
+      - issue
+    if: github.event.action == 'locked'
+    steps:
+      - run: echo "noop"
+
+  unlocked:
+    runs-on: ubuntu-latest
+    needs:
+      - issue
+    if: github.event.action == 'unlocked'
     steps:
       - run: echo "noop"
 
