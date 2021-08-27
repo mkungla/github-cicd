@@ -44,23 +44,8 @@ jobs:
       - name: Dump matrix context
         run: echo "${{ toJSON(matrix) }}"
 
-  clog:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Get Log
-        id: getLog
-        run: |
-          CHANGELOG=$(cat test.md)
-          CHANGELOG="${CHANGELOG//'%'/'%25'}"
-          CHANGELOG="${CHANGELOG//$'\n'/'%0A'}"
-          CHANGELOG="${CHANGELOG//$'\r'/'%0D'}"
-          echo "::set-output name=changeLog::$CHANGELOG"
       - run: |
-          echo '{ "changeLog": ${{ toJSON(steps.getLog.outputs.changeLog) }}}'
-      - name: Invoke CLI workflow with changelog
-        uses: benc-uk/workflow-dispatch@v1
-        with:
-          workflow: publish
-          token: ${{ secrets.PAT_TOKEN }}
-          inputs: '{ "changeLog": ${{ toJSON(steps.getLog.outputs.changeLog) }}}'
+          echo "noop"
