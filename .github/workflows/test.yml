@@ -51,7 +51,7 @@ jobs:
         id: getLog
         run: |
           CHANGELOG="$(cat test.md)"
-          CHANGELOG="${$CHANGELOG//'%'/'%25'"
+          CHANGELOG="${$CHANGELOG//'%'/'%25'}"
           CHANGELOG="${$CHANGELOG//$'\n'/'%0A'}"
           CHANGELOG="${$CHANGELOG//$'\r'/'%0D'}"
           echo "::set-output name=changeLog::$CHANGELOG"
