@@ -5,12 +5,20 @@ jobs:
   comment:
     runs-on: ubuntu-latest
     steps:
-      - name: Dump GitHub context
+      - name: Dump GitHub env
         run: |
+          echo "::group::github"
           echo "${{ toJSON(github) }}"
+          echo "::endgroup::"
+
+          echo "::group::GITHUB"
           env | grep '^GITHUB'
+          echo "::endgroup::"
+
+          echo "::group::RUNNER"
           env | grep '^RUNNER'
-          echo "$GITHUB_ENV"
+          echo "::endgroup::"
+
       - name: Dump job context
         run: echo "${{ toJSON(env) }}"
       - name: Dump steps context
