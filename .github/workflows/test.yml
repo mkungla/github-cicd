@@ -47,19 +47,16 @@ jobs:
   A:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo "noop"
+      - run: echo "noop"
   B:
     runs-on: ubuntu-latest
-    if: github.event_name == 'schedule'
+    if: false
     steps:
-      - run: |
-          echo "noop"
+      - run: echo "noop"
   C:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo "noop"
+      - run: echo "noop"
   Z:
     runs-on: ubuntu-latest
     needs: [A, B, C]
