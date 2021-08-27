@@ -47,7 +47,7 @@ jobs:
   A:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "success always"
+      - run: echo "success always" && exit 1
   B:
     runs-on: ubuntu-latest
     if: false
