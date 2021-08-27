@@ -149,8 +149,8 @@ jobs:
     # all the jobs which can comment
     needs:
       - compose-comments
-    if: contains(join(needs.*.outputs.issue_url, ''), 'https://') &&
-      join(needs.*.outputs.issue_comment, '\n\n') != ''
+    # if: contains(join(needs.*.outputs.issue_url, ''), 'https://') &&
+    #   join(needs.*.outputs.issue_comment, '\n\n') != ''
     runs-on: ubuntu-latest
     env:
       issue_url: ${{ join(needs.*.outputs.issue_url, '') }}
@@ -163,7 +163,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run:
           echo "${{ toJSON(needs.*.outputs) }}"
-          gh issue comment ${{ env.issue_url }} --body "${{ env.issue_comment }}"
+          # gh issue comment ${{ env.issue_url }} --body "${{ env.issue_comment }}"
 
   # add remove labels
   labels:
