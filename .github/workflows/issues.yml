@@ -72,7 +72,7 @@ jobs:
           echo '${{ toJSON(github.event) }}'
           echo '::endgroup::'
 
-      - name: id: set-user-issues-total
+      - name: set user issues total
         id: set-user-issues-total
         uses: actions/github-script@v4
         with:
