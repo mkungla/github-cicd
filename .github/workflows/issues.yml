@@ -128,7 +128,7 @@ jobs:
         env:
           comment: |
             👋 Thanks for reporting @${{ github.event.sender.login }}!
-            This your first issue and will be reviewed shortly.
+            This your first issue.
         run: echo "::set-output name=issue_comment::${{env.comment}}"
 
       - name: greeting for reccuring user
@@ -143,6 +143,12 @@ jobs:
           comment="${comment//$'\n'/'%0A'}"
           comment="${comment//$'\r'/'%0D'}"
           echo "::set-output name=issue_comment::$comment"
+
+      - name: opened issue footer
+        if: github.event.action == 'opened'
+        env:
+          comment: |
+            Your issue will be reviewed shortly.
       - name: debug
         run: |
           echo "${{ toJSON(steps) }}"
