@@ -113,7 +113,7 @@ jobs:
   # Workflow action tricers
   # These jobs set outputs what (Workflow actors) use to trigger actual actions
   #############################################################################
-  compose-comments:
+  should-comment:
     needs:
       - issue
     runs-on: ubuntu-latest
@@ -168,10 +168,10 @@ jobs:
   #############################################################################
 
   # comment on issue
-  comment:
+  create-comment:
     # all the jobs which can comment
     needs:
-      - compose-comments
+      - should-comment
     if: contains(join(needs.*.outputs.issue_url, ''), 'https://') &&
       join(needs.*.outputs.issue_comment, '') != ''
     runs-on: ubuntu-latest
@@ -185,26 +185,62 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh issue comment ${{ env.issue_url }} --body "${{ env.issue_comment }}"
 
-  # add remove labels
-  labels:
+  # should add remove labels
+  should-manage-labels:
     needs:
       - issue
     runs-on: ubuntu-latest
+    outputs:
+      add_labels: ${{ join(steps.*.outputs.add_labels, '') }}
+      remove_labels: ${{ join(steps.*.outputs.remove_labels, '') }}
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: on open add labels
+        id: on-open-add-labels
         if: github.event.action == 'opened' && !contains(github.event.issue.labels.*.name, 'triage')
         run: gh issue edit ${{ github.event.issue.html_url }} --add-label "triage"
+        run: echo "::set-output name=add_labels::triage"
       - name: on close remove labels
+        id: on-close-remove-labels
         if: github.event.action == 'closed' && contains(github.event.issue.labels.*.name, 'triage')
-        run: gh issue edit ${{ github.event.issue.html_url }} --remove-label "triage"
+        run: echo "::set-output name=remove_labels::triage"
       - name: on pinned add labels
+        id: on-pinned-add-labels
         if: github.event.action == 'pinned' && !contains(github.event.issue.labels.*.name, 'attention')
-        run: gh issue edit ${{ github.event.issue.html_url }} --add-label "attention"
+        run: echo "::set-output name=add_labels::attention"
       - name: on unpinned remove labels
+        id: on-unpinned-remove-labels
         if: github.event.action == 'unpinned' && contains(github.event.issue.labels.*.name, 'attention')
-        run: gh issue edit ${{ github.event.issue.html_url }} --remove-label "attention"
+        run: echo "::set-output name=remove_labels::attention"
+
+  # add labels
+  add-labels:
+    needs:
+      - should-manage-labels
+    runs-on: ubuntu-latest
+    if: join(needs.*.outputs.add_labels, ',') != ''
+    env:
+      add_labels: ${{ join(needs.*.outputs.add_labels, ',') }}
+    steps:
+      - name: add labels
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh issue edit ${{ github.event.issue.html_url }} --add-label "${{ env.add_labels }}"
+
+  # remove labels
+  remove-labels:
+    needs:
+      - should-manage-labels
+    runs-on: ubuntu-latest
+    if: join(needs.*.outputs.remove_labels, ',') != ''
+    env:
+      add_labels: ${{ join(needs.*.outputs.remove_labels, ',') }}
+    steps:
+      - name: remove labels
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh issue edit ${{ github.event.issue.html_url }} --remove-label "${{ env.remove_labels }}"
 
   # add reactions
   reaction:
