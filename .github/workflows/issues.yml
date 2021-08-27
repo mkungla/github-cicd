@@ -203,6 +203,15 @@ jobs:
         if: github.event.action == 'unpinned' && contains(github.event.issue.labels.*.name, 'attention')
         run: echo "::set-output name=remove_labels::attention"
 
+        # labels added
+      - name: labeled
+        if: github.event.action == 'labeled'
+        run: echo "labeled"
+        # labels added
+      - name: unlabeled
+        if: github.event.action == 'labeled'
+        run: echo "unlabeled"
+
   #############################################################################
   # Workflow actors
   #############################################################################
@@ -212,7 +221,12 @@ jobs:
     # all the jobs which can comment
     needs:
       - compose-comment
-    if: contains(join(needs.*.outputs.issue_url, ''), 'https://') &&
+      - manage-labels
+    if: |
+      always() &&
+      !contains(needs.*.result, 'failure') &&
+      !contains(needs.*.result, 'cancelled') &&
+      contains(join(needs.*.outputs.issue_url, ''), 'https://') &&
       join(needs.*.outputs.issue_comment, '') != ''
     runs-on: ubuntu-latest
     env:
