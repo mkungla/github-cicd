@@ -119,7 +119,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       issue_url: ${{ github.event.issue.html_url }}
-      issue_comment: ${{ join(steps.*.outputs.issue_comment, '  ') }}
+      issue_comment: ${{ join(steps.*.outputs.issue_comment, '') }}
     steps:
 
       - id: greeting-on-first-issue
@@ -129,6 +129,7 @@ jobs:
           comment: |
             👋 Thanks for reporting @${{ github.event.sender.login }}!
             This your first issue.
+
         run: echo "::set-output name=issue_comment::${{env.comment}}"
 
       - name: greeting for reccuring user
@@ -138,6 +139,7 @@ jobs:
           comment: |
             :boom: Thanks for reporting again @${{ github.event.sender.login }}!
             You have opened total **${{ needs.issue.outputs.user-issues-total }}** issues in this repository.
+
         run: |
           comment="${comment//'%'/'%25'}"
           comment="${comment//$'\n'/'%0A'}"
@@ -176,7 +178,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       issue_url: ${{ join(needs.*.outputs.issue_url, '') }}
-      issue_comment: ${{ join(needs.*.outputs.issue_comment, '  ') }}
+      issue_comment: ${{ join(needs.*.outputs.issue_comment, '') }}
     steps:
       # - run: echo "toJSON(needs)"
       # POST copmment
