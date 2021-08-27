@@ -43,6 +43,7 @@ jobs:
         run: echo "${{ toJSON(strategy) }}"
       - name: Dump matrix context
         run: echo "${{ toJSON(matrix) }}"
+
   clog:
     runs-on: ubuntu-latest
     steps:
@@ -59,6 +60,6 @@ jobs:
         uses: benc-uk/workflow-dispatch@v1
         with:
           workflow: publish
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }} # trigger
           repo: mkungla/github-cicd
           inputs: '{ "changeLog": ${{ toJSON(steps.getLog.outputs.changeLog) }}}'
