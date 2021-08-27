@@ -101,18 +101,17 @@ jobs:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: echo "$GITHUB_CONTEXT"
 
-  daily:
-    needs: schedule
-    if: github.event.schedule == '*/5 * * * *'
-    runs-on: ubuntu-latest
-    steps:
-      - if: ${{ contains(toJSON(github.event), 'daily') }}
-        run: exit 1
-
   #############################################################################
   # Workflow action tricers
   # These jobs set outputs what (Workflow actors) use to trigger actual actions
   #############################################################################
+  noop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: event
+        run: echo "${{ toJSON(github.event) }}"
+
+
   compose-comment:
     needs:
       - issue
@@ -163,30 +162,17 @@ jobs:
           comment="${comment//$'\r'/'%0D'}"
           echo "::set-output name=issue_comment::$comment"
 
-  #############################################################################
-  # Workflow actors
-  #############################################################################
-
-  # comment on issue
-  create-comment:
-    # all the jobs which can comment
-    needs:
-      - compose-comment
-    if: contains(join(needs.*.outputs.issue_url, ''), 'https://') &&
-      join(needs.*.outputs.issue_comment, '') != ''
+  # daily schedule
+  daily:
+    needs: schedule
+    if: github.event.schedule == '*/5 * * * *'
     runs-on: ubuntu-latest
-    env:
-      issue_url: ${{ join(needs.*.outputs.issue_url, '') }}
-      issue_comment: ${{ join(needs.*.outputs.issue_comment, '') }}
     steps:
-      # POST copmment
-      - name: post comment
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh issue comment ${{ env.issue_url }} --body "${{ env.issue_comment }}"
+      - if: ${{ contains(toJSON(github.event), 'daily') }}
+        run: exit 1
 
   # should add remove labels
-  should-manage-labels:
+  manage-labels:
     needs:
       - issue
     runs-on: ubuntu-latest
@@ -213,10 +199,32 @@ jobs:
         if: github.event.action == 'unpinned' && contains(github.event.issue.labels.*.name, 'attention')
         run: echo "::set-output name=remove_labels::attention"
 
+  #############################################################################
+  # Workflow actors
+  #############################################################################
+
+  # comment on issue
+  create-comment:
+    # all the jobs which can comment
+    needs:
+      - compose-comment
+    if: contains(join(needs.*.outputs.issue_url, ''), 'https://') &&
+      join(needs.*.outputs.issue_comment, '') != ''
+    runs-on: ubuntu-latest
+    env:
+      issue_url: ${{ join(needs.*.outputs.issue_url, '') }}
+      issue_comment: ${{ join(needs.*.outputs.issue_comment, '') }}
+    steps:
+      # POST copmment
+      - name: post comment
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh issue comment ${{ env.issue_url }} --body "${{ env.issue_comment }}"
+
   # add labels
   add-labels:
     needs:
-      - should-manage-labels
+      - manage-labels
     runs-on: ubuntu-latest
     if: join(needs.*.outputs.add_labels, ',') != ''
     env:
