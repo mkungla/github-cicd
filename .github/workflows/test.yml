@@ -58,7 +58,7 @@ jobs:
       - name: Invoke CLI workflow with changelog
         uses: benc-uk/workflow-dispatch@v1
         with:
-          workflow: Workflow publish
+          workflow: publish
           token: ${{ secrets.GITHUB_TOKEN }}
           repo: mkungla/github-cicd
           inputs: '{ "changeLog": ${{ toJSON(steps.getLog.outputs.changeLog) }}}'
