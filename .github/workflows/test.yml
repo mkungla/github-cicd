@@ -43,3 +43,22 @@ jobs:
         run: echo "${{ toJSON(strategy) }}"
       - name: Dump matrix context
         run: echo "${{ toJSON(matrix) }}"
+  clog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get Log
+        id: getLog
+        run: |
+          CHANGELOG="$(cat test.md)"
+          CHANGELOG="$($CHANGELOG//'%'/'%25')"
+          CHANGELOG="$($CHANGELOG//$'\n'/'%0A')"
+          CHANGELOG="$($CHANGELOG//$'\r'/'%0D')"
+          echo "::set-output name=changeLog::$CHANGELOG"
+      - name: Invoke CLI workflow with changelog
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: Workflow publish
+          token: ${{ secrets.TOKEN }}
+          repo: mkungla/github-cicd
+          inputs: '{ "changeLog": "${{steps.getLog.outputs.changeLog}}"}'

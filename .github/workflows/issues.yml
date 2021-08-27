@@ -111,7 +111,7 @@ jobs:
       - name: event
         run: echo "${{ toJSON(github.event) }}"
 
-
+  # compose automatic comment to add
   compose-comment:
     needs:
       - issue
@@ -122,18 +122,22 @@ jobs:
     steps:
 
       - id: greeting-on-first-issue
-        name: greeting on first issue
         if: github.event.action == 'opened' && needs.issue.outputs.user-issues-total == 0
+        name: greeting on first issue
         env:
           comment: |
             👋 Thanks for reporting @${{ github.event.sender.login }}!
             This your first issue.
             ***
-        run: echo "::set-output name=issue_comment::${{env.comment}}"
+        run: |
+          comment="${comment//'%'/'%25'}"
+          comment="${comment//$'\n'/'%0A'}"
+          comment="${comment//$'\r'/'%0D'}"
+          echo "::set-output name=issue_comment::$comment"
 
       - name: greeting for reccuring user
-        id: greeting-for-reccuring-user
         if: github.event.action == 'opened' && needs.issue.outputs.user-issues-total > 0
+        id: greeting-for-reccuring-user
         env:
           comment: |
             :boom: Thanks for reporting again @${{ github.event.sender.login }}!
@@ -146,8 +150,8 @@ jobs:
           echo "::set-output name=issue_comment::$comment"
 
       - name: opened issue footer
-        id: opened-issue-footer
         if: github.event.action == 'opened'
+        id: opened-issue-footer
         env:
           comment: |
             Your issue will be reviewed shortly!
