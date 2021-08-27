@@ -56,13 +56,12 @@ jobs:
   C:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "noop"
+      - run: exit 1
   D:
     runs-on: ubuntu-latest
     needs: [A, B, C]
     if: |
       always() &&
-      !contains(needs.*.result, 'failure') &&
       !contains(needs.*.result, 'cancelled')
     steps:
       - run: echo "${{ toJSON(job) }}"
