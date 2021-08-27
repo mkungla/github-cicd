@@ -1,39 +1,31 @@
-# on:
-#   push:
+on:
+  push:
 
-# jobs:
-#   comment:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Dump strategy context
-#         env:
-#           STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
-#         run: echo "$STRATEGY_CONTEXT"
-#       - name: Dump matrix context
-#         env:
-#           MATRIX_CONTEXT: ${{ toJSON(matrix) }}
-#         run: echo "$MATRIX_CONTEXT"
-#       - name: Dump GitHub context
-#         env:
-#           GITHUB_CONTEXT: ${{ toJSON(github) }}
-#         run: echo "$GITHUB_CONTEXT"
-#       - name: Dump job context
-#         env:
-#           JOB_CONTEXT: ${{ toJSON(job) }}
-#         run: echo "$JOB_CONTEXT"
-#       - name: Dump steps context
-#         env:
-#           STEPS_CONTEXT: ${{ toJSON(steps) }}
-#         run: echo "$STEPS_CONTEXT"
-#       - name: Dump runner context
-#         env:
-#           RUNNER_CONTEXT: ${{ toJSON(runner) }}
-#         run: echo "$RUNNER_CONTEXT"
-#       - name: Dump env context
-#         env:
-#           ENV_CONTEXT: ${{ toJSON(env) }}
-#         run: echo "$ENV_CONTEXT"
-#       - name: Dump needs context
-#         env:
-#           NEEDS_CONTEXT: ${{ toJSON(needs) }}
-#         run: echo "$NEEDS_CONTEXT"
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Dump GitHub context
+        run: |
+          echo "${{ toJSON(github) }}"
+          env | grep '^GITHUB'
+          env | grep '^RUNNER'
+          echo "${{ toJSON($GITHUB_ENV) }}"
+      - name: Dump job context
+        run: echo "${{ toJSON(env) }}"
+      - name: Dump steps context
+        run: echo "${{ toJSON(env) }}"
+        run: echo "$STEPS_CONTEXT"
+      - name: Dump runner context
+        run: echo "${{ toJSON(env) }}"
+      - name: Dump env context
+        run: echo "${{ toJSON(env) }}"
+      - name: Dump needs context
+        run: echo "${{ toJSON(needs) }}"
+      - name: Dump needs context
+        run: echo "${{ toJSON(steps) }}"
+      - name: Dump strategy context
+        run: echo "${{ toJSON(strategy) }}"
+      - name: Dump matrix context
+        run: echo "${{ toJSON(matrix) }}"

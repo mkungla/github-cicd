@@ -5,7 +5,7 @@ on:
     types:
       - opened
       - edited
-      # - deleted
+      - deleted
       # - transferred
       - pinned
       - unpinned
