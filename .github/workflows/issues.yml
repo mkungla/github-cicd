@@ -105,6 +105,15 @@ jobs:
   # Workflow action tricers
   # These jobs set outputs what (Workflow actors) use to trigger actual actions
   #############################################################################
+  closed:
+    runs-on: ubuntu-latest
+    needs:
+      - issue
+    if: github.event.action == 'closed'
+    steps:
+      - name: event
+        run: echo "noop"
+
   noop:
     runs-on: ubuntu-latest
     steps:
