@@ -134,14 +134,12 @@ jobs:
       - name: greeting for reccuring user
         id: greeting-for-reccuring-user
         if: github.event.action == 'opened' && needs.issue.outputs.user-issues-total > 0
-        env:
-          comment: |
 
         run: |
           echo "${{env.comment}}"
-          echo "::set-output name=issue_comment::'$(cat << EOF
+          echo "::set-output name=issue_comment::$(cat << EOF
             :boom: Thanks for reporting again @${{ github.event.sender.login }}!
-            You have opened total **${{ needs.issue.outputs.user-issues-total }}** issues in this repository.'
+            You have opened total **${{ needs.issue.outputs.user-issues-total }}** issues in this repository.
           EOF
           )"
       - name: debug
