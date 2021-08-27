@@ -176,7 +176,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       issue_url: ${{ join(needs.*.outputs.issue_url, '') }}
-      issue_comment: ${{ join(needs.*.outputs.issue_comment, "%0A%0A%0A%0A") }}
+      issue_comment: ${{ join(needs.*.outputs.issue_comment, '%0A%0A%0A%0A') }}
     steps:
       # - run: echo "toJSON(needs)"
       # POST copmment
