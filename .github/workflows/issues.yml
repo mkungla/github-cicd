@@ -152,7 +152,10 @@ jobs:
         env:
           comment: |
             Your issue will be reviewed shortly!
-            this is automated message by [GitHub Actions](https://github.com/features/actions) configured in  [.issues.yml](.github/workflows/issues.yml)
+            this is automated message by [GitHub Actions][github-actions] configured in [.issues.yml][issues-yml]
+
+            [github-actions]: https://github.com/features/actions
+            [issues-yml]: https://github.com/mkungla/github-cicd/blob/main/.github/workflows/issues.yml
             ***
         run: |
           comment="${comment//'%'/'%25'}"
