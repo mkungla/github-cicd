@@ -67,4 +67,4 @@ jobs:
       always() &&
       !contains(needs.*.result, 'cancelled')
     steps:
-      - run: echo "${{ toJSON(job) }}"
+      - run: echo "${{ toJSON(needs) }}"
