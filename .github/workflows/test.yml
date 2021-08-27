@@ -56,7 +56,8 @@ jobs:
           CHANGELOG="${CHANGELOG//$'\n'/'%0A'}"
           CHANGELOG="${CHANGELOG//$'\r'/'%0D'}"
           echo "::set-output name=changeLog::$CHANGELOG"
-      - run: echo "${{steps.getLog.outputs.changeLog}}"
+      - run: |
+          echo '{ "changeLog": "${{steps.getLog.outputs.changeLog}}"}'
       - name: Invoke CLI workflow with changelog
         uses: benc-uk/workflow-dispatch@v1
         with:
