@@ -23,6 +23,10 @@ jobs:
           cat $GITHUB_ENV
           echo "::endgroup::"
 
+          echo "::group::env"
+          env
+          echo "::endgroup::"
+
       - name: Dump job context
         run: echo "${{ toJSON(env) }}"
       - name: Dump steps context
