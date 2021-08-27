@@ -157,11 +157,11 @@ jobs:
           comment="${comment//$'\r'/'%0D'}"
           echo "::set-output name=issue_comment::$comment"
 
-      - name: debug
-        run: |
-          echo "${{ toJSON(steps) }}"
-          echo "${{ toJSON(job) }}"
-          echo "${{ toJSON(env) }}"
+      # - name: debug
+      #   run: |
+      #     echo "${{ toJSON(steps) }}"
+      #     echo "${{ toJSON(job) }}"
+      #     echo "${{ toJSON(env) }}"
   #############################################################################
   # Workflow actors
   #############################################################################
