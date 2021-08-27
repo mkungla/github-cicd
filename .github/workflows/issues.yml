@@ -121,21 +121,23 @@ jobs:
     steps:
       - name: init comment
         run: |
-          echo "toJSON(steps)"
-          echo "toJSON(job)"
-          echo "toJSON(env)"
+          echo "${{ toJSON(steps) }}"
+          echo "${{ toJSON(job) }}"
+          echo "${{ toJSON(env) }}"
       - id: greeting-on-first-issue
         if: github.event.action == 'opened' && needs.issue.outputs.user-issues-total == 0
         env:
-          comment: "👋 Thanks for reporting @${{ github.event.sender.login }}!\\n
-            This your first issue and will be reviewed shortly."
+          comment: |
+            👋 Thanks for reporting @${{ github.event.sender.login }}!
+            This your first issue and will be reviewed shortly.
         run: echo "::set-output name=issue_comment::${{env.comment}}"
 
       - id: greeting-for-reccuring-user
         if: github.event.action == 'opened' && needs.issue.outputs.user-issues-total > 0
         env:
-          comment: ":boom: Thanks for reporting again @${{ github.event.sender.login }}!\\n
-            You have opened total **${{ needs.issue.outputs.user-issues-total }}** issues in this repository."
+          comment: |
+            :boom: Thanks for reporting again @${{ github.event.sender.login }}!
+            You have opened total **${{ needs.issue.outputs.user-issues-total }}** issues in this repository.
         run: echo "::set-output name=issue_comment::${{env.comment}}"
 
   #############################################################################
