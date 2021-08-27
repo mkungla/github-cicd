@@ -199,7 +199,6 @@ jobs:
       - name: on open add labels
         id: on-open-add-labels
         if: github.event.action == 'opened' && !contains(github.event.issue.labels.*.name, 'triage')
-        run: gh issue edit ${{ github.event.issue.html_url }} --add-label "triage"
         run: echo "::set-output name=add_labels::triage"
       - name: on close remove labels
         id: on-close-remove-labels
