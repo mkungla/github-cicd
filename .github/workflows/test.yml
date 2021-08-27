@@ -66,5 +66,8 @@ jobs:
     if: |
       always() &&
       !contains(needs.*.result, 'cancelled')
+    env:
+      SLACK_COLOR: "${{ contains(needs.*.result, 'failure') && 'danger' || 'good' }}"
     steps:
+      - run: echo $SLACK_COLOR
       - run: echo "${{ toJSON(needs) }}"
