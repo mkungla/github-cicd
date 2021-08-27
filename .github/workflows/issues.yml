@@ -119,6 +119,11 @@ jobs:
       issue_url: ${{ github.event.issue.html_url }}
       issue_comment: ${{ join(steps.*.outputs.issue_comment, '\n\n') }}
     steps:
+      - name: init comment
+        run: |
+          echo "toJSON(steps)"
+          echo "toJSON(job)"
+          echo "toJSON(env)"
       - id: greeting-on-first-issue
         if: github.event.action == 'opened' && needs.issue.outputs.user-issues-total == 0
         env:
