@@ -70,4 +70,4 @@ jobs:
       (needs.C.result == 'success' || needs.C.result == 'skipped')
     steps:
       - run: |
-        echo "noop"
+          echo "noop"
