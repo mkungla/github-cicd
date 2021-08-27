@@ -57,9 +57,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "noop"
-  job_d:
+  C:
     runs-on: ubuntu-latest
-    needs: [job_a, job_b]
+    needs: [a, b, c]
     if: |
       always() &&
       !contains(needs.*.result, 'failure') &&
