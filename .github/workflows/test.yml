@@ -62,9 +62,7 @@ jobs:
     needs: [A, B, C]
     if: |
       always() &&
-      (needs.A.result == 'success' || needs.A.result == 'skipped') &&
-      (needs.B.result == 'success' || needs.B.result == 'skipped') &&
-      (needs.C.result == 'success' || needs.C.result == 'skipped')
+      !contains(needs.*.result, 'failure') &&
+      !contains(needs.*.result, 'cancelled')
     steps:
-      - run: |
-          echo "${{ toJSON(needs) }}"
+      - run: echo "${{ toJSON(needs) }}"
