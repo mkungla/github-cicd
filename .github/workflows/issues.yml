@@ -187,11 +187,11 @@ jobs:
           issue_comment="${issue_comment//'%'/'%25'}"
           issue_comment="${issue_comment//$'\n'/'%0A'}"
           issue_comment="${issue_comment//$'\r'/'%0D'}"
-          # echo "${{ env.issue_comment }}\n\n"
-          # echo "${{ toJSON(needs.*.outputs.issue_comment) }}\\"
-          # echo "${{ toJSON(needs) }}\n"
-          gh issue comment ${{ env.issue_url }} --body "${{ env.issue_comment }}"
+          gh issue comment ${{ env.issue_url }} --body "${{ issue_comment }}"
 
+      # echo "${{ env.issue_comment }}\n\n"
+      # echo "${{ toJSON(needs.*.outputs.issue_comment) }}\\"
+      # echo "${{ toJSON(needs) }}\n"
   # add remove labels
   labels:
     needs:
