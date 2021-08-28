@@ -21,7 +21,7 @@ on:
   # https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07
   schedule:
     - cron: '0 0 * * *'
-https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#changing-the-languages-that-are-analyzed
+
 jobs:
   analyze:
     if: github.repository == 'mkungla/github-cicd-experiments'
