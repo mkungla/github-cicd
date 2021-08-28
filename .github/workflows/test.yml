@@ -52,6 +52,8 @@ jobs:
       - run: echo "success always"
 
   A:
+    needs:
+      - prerequisites
     runs-on: ubuntu-latest
     steps:
       - run: echo "success always"
