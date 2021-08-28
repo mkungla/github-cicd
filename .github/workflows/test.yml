@@ -48,6 +48,9 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       status: ${{ job.status }}
+    steps:
+      - run: echo "success always"
+
   A:
     runs-on: ubuntu-latest
     steps:
