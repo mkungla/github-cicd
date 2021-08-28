@@ -94,10 +94,10 @@ jobs:
             core.setOutput('totalCount', res.repository.issues.totalCount)
 
             // RANDOM SENTENCE
-            const zen = await github.rest.meta.getZen()
-            // const zen = await github.rest.request('GET zen')
-            core.info(`zen: ${zen}`)
-            core.setOutput('zen', zen)
+            // const zen = await github.rest.meta.getZen()
+            const zen = await github.rest.request('GET /zen')
+            core.info(zen)
+            // core.setOutput('zen', zen)
 
   # Schedule
   schedule:
