@@ -1,0 +1,76 @@
+on:
+  # Events that trigger workflows
+  # https://docs.github.com/en/actions/reference/events-that-trigger-workflows#triggering-new-workflows-using-a-personal-access-token
+  - check_run
+  - check_suite
+  - create
+  - delete
+  - deployment
+  - deployment_status
+  - discussion
+  - discussion_comment
+  - fork
+  - gollum
+  # - issue_comment               ./issues.yml
+  # - issues                      ./issues.yml
+  - label
+  - milestone
+  - page_build
+  - project
+  - project_card
+  - project_column
+  - public
+  - pull_request
+  - pull_request_review
+  - pull_request_review_comment
+  - pull_request_target
+  - push
+  - registry_package
+  - release
+  - status
+  - watch
+  - workflow_run
+  # Webhook events and payloads
+  # https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#code_scanning_alert
+  # Potentially catch other webhook events
+  - code_scanning_alert
+  - content_reference
+  - deploy_key
+  - github_app_authorization
+  - gollum
+  - installation
+  - installation_repositories
+  - marketplace_purchase
+  - member
+  - membership
+  - meta
+  - organization
+  - org_block
+  - package
+  - ping
+  - repository_dispatch
+  - repository
+  - repository_import
+  - repository_vulnerability_alert
+  - secret_scanning_alert
+  - security_advisory
+  - sponsorship
+  - star
+  - team
+  - team_add
+  - workflow_dispatch
+
+
+
+jobs:
+  catch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: event
+        run: |
+          echo "${{ toJSON(github.event) }}"
+          exit 1
+
+
+
+
