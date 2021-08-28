@@ -40,7 +40,7 @@ on:
   # - installation is not a valid event name
   # - installation_repositories is not a valid event name
   # - marketplace_purchase is not a valid event name
-  - member
+  # - member is not a valid event name
   - membership
   - meta
   - organization
