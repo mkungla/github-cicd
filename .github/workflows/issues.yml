@@ -4,13 +4,13 @@ on:
   issues:
     types:
       - opened
-      - edited
-      - deleted
-      - transferred
+      # - edited
+      # - deleted
+      # - transferred
       - pinned
       - unpinned
-      - closed
-      - reopened
+      # - closed
+      # - reopened
       # - assigned
       # - unassigned
       - labeled
@@ -24,8 +24,8 @@ on:
   issue_comment:
     types:
       - created
-      - deleted
-      - edited
+      # - deleted
+      # - edited
 
   schedule:
     - name: "daily"
@@ -168,6 +168,38 @@ jobs:
     steps:
       - run: echo "noop"
 
+  milestoned:
+    runs-on: ubuntu-latest
+    needs:
+      - issue
+    if: github.event.action == 'milestoned'
+    steps:
+      - run: echo "noop"
+
+  demilestoned:
+    runs-on: ubuntu-latest
+    needs:
+      - issue
+    if: github.event.action == 'demilestoned'
+    steps:
+      - run: echo "noop"
+
+  assigned:
+    runs-on: ubuntu-latest
+    needs:
+      - issue
+    if: github.event.action == 'assigned'
+    steps:
+      - run: echo "noop"
+
+  unassigned:
+    runs-on: ubuntu-latest
+    needs:
+      - issue
+    if: github.event.action == 'unassigned'
+    steps:
+      - run: echo "noop"
+
   # compose automatic comment to add
   compose-comment:
     needs:
@@ -247,14 +279,22 @@ jobs:
         id: on-open-add-labels
         if: github.event.action == 'opened' && !contains(github.event.issue.labels.*.name, 'triage')
         run: echo "::set-output name=add_labels::triage"
+
+      - name: on potential question
+        id: on-potential-question
+        if: github.event.action == 'opened' && endsWith(github.event.issue.title, '?')
+        run: echo "::set-output name=add_labels::question"
+
       - name: on close remove labels
         id: on-close-remove-labels
         if: github.event.action == 'closed' && contains(github.event.issue.labels.*.name, 'triage')
         run: echo "::set-output name=remove_labels::triage"
+
       - name: on pinned add labels
         id: on-pinned-add-labels
         if: github.event.action == 'pinned' && !contains(github.event.issue.labels.*.name, 'attention')
         run: echo "::set-output name=add_labels::attention"
+
       - name: on unpinned remove labels
         id: on-unpinned-remove-labels
         if: github.event.action == 'unpinned' && contains(github.event.issue.labels.*.name, 'attention')
