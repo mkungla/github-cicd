@@ -5,12 +5,12 @@ name: "CodeQL config"
 disable-default-queries: true
 
 languages:
-  # - cpp
-  # - csharp
+  - cpp
+  - csharp
   - go
-  # - java
-  # - javascript
-  # - python
+  - java
+  - javascript
+  - python
 
 queries:
   - name: Extended Security

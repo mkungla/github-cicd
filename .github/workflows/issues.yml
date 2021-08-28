@@ -57,7 +57,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'issues'
     outputs:
-      user-issues-total: ${{ steps.set-user-issues-total.outputs.value }}
+      user-issues-total: ${{ steps.set-from-github-api.outputs.totalCount }}
+      zen: ${{ steps.set-from-github-api.outputs.zen }}
     steps:
       # no pull request should trugger this job
       - name: is pull request
@@ -72,12 +73,13 @@ jobs:
           echo '${{ toJSON(github.event) }}'
           echo '::endgroup::'
 
-      - name: set user issues total
-        id: set-user-issues-total
+      - name: set from github api
+        id: set-from-github-api
         uses: actions/github-script@v4
         with:
           script: |
             const user = context.payload.sender.login
+            // TOTAL ISSUES
             const query = `query($user: String) {
               repository(owner: "mkungla", name: "github-cicd") {
                 issues(filterBy: {createdBy: $user}) {
@@ -89,7 +91,12 @@ jobs:
               "user": user
             })
             core.info(`user: ${user} has total ${res.repository.issues.totalCount} issues`)
-            core.setOutput('value', res.repository.issues.totalCount)
+            core.setOutput('totalCount', res.repository.issues.totalCount)
+
+            // RANDOM SENTENCE
+            const zen = await github.meta.getZen()
+            core.info(`zen: ${zen}`)
+            core.setOutput('zen', zen)
 
   # Schedule
   schedule:
@@ -115,6 +122,7 @@ jobs:
   edited:
     runs-on: ubuntu-latest
     needs:
+      - noop
       - issue
     if: github.event.action == 'edited'
     steps:
@@ -123,6 +131,7 @@ jobs:
   closed:
     runs-on: ubuntu-latest
     needs:
+      - noop
       - issue
     if: github.event.action == 'closed'
     steps:
@@ -131,6 +140,7 @@ jobs:
   deleted:
     runs-on: ubuntu-latest
     needs:
+      - noop
       - issue
     if: github.event.action == 'deleted'
     steps:
@@ -139,6 +149,7 @@ jobs:
   transferred:
     runs-on: ubuntu-latest
     needs:
+      - noop
       - issue
     if: github.event.action == 'transferred'
     steps:
@@ -147,6 +158,7 @@ jobs:
   reopened:
     runs-on: ubuntu-latest
     needs:
+      - noop
       - issue
     if: github.event.action == 'reopened'
     steps:
@@ -155,6 +167,7 @@ jobs:
   locked:
     runs-on: ubuntu-latest
     needs:
+      - noop
       - issue
     if: github.event.action == 'locked'
     steps:
@@ -163,6 +176,7 @@ jobs:
   unlocked:
     runs-on: ubuntu-latest
     needs:
+      - noop
       - issue
     if: github.event.action == 'unlocked'
     steps:
@@ -171,6 +185,7 @@ jobs:
   milestoned:
     runs-on: ubuntu-latest
     needs:
+      - noop
       - issue
     if: github.event.action == 'milestoned'
     steps:
@@ -179,6 +194,7 @@ jobs:
   demilestoned:
     runs-on: ubuntu-latest
     needs:
+      - noop
       - issue
     if: github.event.action == 'demilestoned'
     steps:
@@ -187,6 +203,7 @@ jobs:
   assigned:
     runs-on: ubuntu-latest
     needs:
+      - noop
       - issue
     if: github.event.action == 'assigned'
     steps:
@@ -195,6 +212,7 @@ jobs:
   unassigned:
     runs-on: ubuntu-latest
     needs:
+      - noop
       - issue
     if: github.event.action == 'unassigned'
     steps:
@@ -250,6 +268,7 @@ jobs:
           comment="${comment//$'\n'/'%0A'}"
           comment="${comment//$'\r'/'%0D'}"
           echo "::set-output name=issue_comment::$comment"
+
       - name: opened issue footer
         id: opened-issue-footer
         if: github.event.action == 'opened'
