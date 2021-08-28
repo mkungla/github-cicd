@@ -33,12 +33,13 @@ on:
   # Webhook events and payloads
   # https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#code_scanning_alert
   # Potentially catch other webhook events
-  # - code_scanning_alert `code_scanning_alert` is not a valid event name
-  # - content_reference `content_reference` is not a valid event name
-  # - deploy_key `deploy_key` is not a valid event name
-  # - github_app_authorization `github_app_authorization` is not a valid event name
-  # - installation
-  - installation_repositories
+  # - code_scanning_alert is not a valid event name
+  # - content_reference is not a valid event name
+  # - deploy_key is not a valid event name
+  # - github_app_authorization is not a valid event name
+  # - installation is not a valid event name
+  # - installation_repositories is not a valid event name
+
   - marketplace_purchase
   - member
   - membership
