@@ -270,8 +270,8 @@ jobs:
       - issue
     runs-on: ubuntu-latest
     outputs:
-      add_labels: ${{ join(steps.*.outputs.add_labels, '') }}
-      remove_labels: ${{ join(steps.*.outputs.remove_labels, '') }}
+      add_labels: ${{ join(steps.*.outputs.add_labels, ',') }}
+      remove_labels: ${{ join(steps.*.outputs.remove_labels, ',') }}
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
