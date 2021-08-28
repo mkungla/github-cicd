@@ -94,7 +94,7 @@ jobs:
             core.setOutput('totalCount', res.repository.issues.totalCount)
 
             // RANDOM SENTENCE
-            const zen = await github.meta.getZen()
+            const zen = await github.rest.meta.getZen()
             core.info(`zen: ${zen}`)
             core.setOutput('zen', zen)
 
