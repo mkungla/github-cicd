@@ -33,7 +33,7 @@ on:
   # Webhook events and payloads
   # https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#code_scanning_alert
   # Potentially catch other webhook events
-  - code_scanning_alert
+  # - code_scanning_alert `code_scanning_alert` is not a valid event name
   - content_reference
   - deploy_key
   - github_app_authorization
