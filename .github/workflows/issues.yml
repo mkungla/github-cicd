@@ -95,7 +95,7 @@ jobs:
 
             // RANDOM SENTENCE
             // const zen = await github.rest.meta.getZen()
-            const zen = await github.rest.request('GET /zen')
+            const zen = await github.request('GET /zen')
             core.info(zen)
             // core.setOutput('zen', zen)
 
