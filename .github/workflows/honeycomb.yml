@@ -39,8 +39,7 @@ on:
   # - github_app_authorization is not a valid event name
   # - installation is not a valid event name
   # - installation_repositories is not a valid event name
-
-  - marketplace_purchase
+  # - marketplace_purchase is not a valid event name
   - member
   - membership
   - meta
