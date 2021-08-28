@@ -71,7 +71,11 @@ jobs:
           exit 1
   D:
     runs-on: ubuntu-latest
-    needs: [A, B, C]
+    needs:
+      - prerequisites
+      - A
+      - B
+      - C
     if: |
       always() &&
       !contains(needs.*.result, 'cancelled')
