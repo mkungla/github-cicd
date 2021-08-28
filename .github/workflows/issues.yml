@@ -73,8 +73,8 @@ jobs:
           echo '${{ toJSON(github.event) }}'
           echo '::endgroup::'
 
-      - name: set from github api
-        id: set-from-github-api
+      - name: set from github graphql
+        id: set-from-github-graphql
         uses: actions/github-script@v4
         with:
           script: |
@@ -93,12 +93,16 @@ jobs:
             core.info(`user: ${user} has total ${res.repository.issues.totalCount} issues`)
             core.setOutput('totalCount', res.repository.issues.totalCount)
 
+      - name: set from github api
+        id: set-from-github-api
+        uses: actions/github-script@v4
+        with:
+          script: |
             // RANDOM SENTENCE
-            // const { data: zen } = await github.rest.meta.getZen()
-            const zen = await github.request('GET /zen')
-            core.info(JSON.stringify(zen))
-            // core.setOutput('zen', zen)
-
+            // const zen = await github.rest.meta.getZen()
+            const { data: zen } = await github.request('GET /zen')
+            core.info(zen)
+            core.setOutput('zen', zen)
   # Schedule
   schedule:
     if: github.event_name == 'schedule'
@@ -276,7 +280,8 @@ jobs:
         env:
           comment: |
             Your issue will be reviewed shortly!
-            this is automated message by [GitHub Actions][github-actions] configured in [.issues.yml][issues-yml]
+            ${{ needs.issue.outputs.zen }}
+            This is automated message by [GitHub Actions][github-actions] configured in [.issues.yml][issues-yml]
 
             [github-actions]: https://github.com/features/actions
             [issues-yml]: https://github.com/mkungla/github-cicd/blob/main/.github/workflows/issues.yml
