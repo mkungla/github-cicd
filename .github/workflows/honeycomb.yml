@@ -36,8 +36,7 @@ on:
   # - code_scanning_alert `code_scanning_alert` is not a valid event name
   # - content_reference `content_reference` is not a valid event name
   # - deploy_key `deploy_key` is not a valid event name
-  - github_app_authorization
-  - gollum
+  # - github_app_authorization `github_app_authorization` is not a valid event name
   - installation
   - installation_repositories
   - marketplace_purchase
