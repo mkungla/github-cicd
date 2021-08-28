@@ -103,6 +103,7 @@ jobs:
             const { data: zen } = await github.request('GET /zen')
             core.info(zen)
             core.setOutput('zen', zen)
+
   # Schedule
   schedule:
     if: github.event_name == 'schedule'

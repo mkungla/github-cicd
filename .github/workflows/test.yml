@@ -44,6 +44,10 @@ jobs:
       - name: Dump matrix context
         run: echo "${{ toJSON(matrix) }}"
 
+  prerequisites:
+    runs-on: ubuntu-latest
+    outputs:
+      status: ${{ job.status }}
   A:
     runs-on: ubuntu-latest
     steps:
@@ -55,7 +59,7 @@ jobs:
       - run: echo "this will never run"
   C:
     runs-on: ubuntu-latest
-    if: false
+    if: true
     steps:
       - run: |
           exho "here to fail"
@@ -65,7 +69,6 @@ jobs:
     needs: [A, B, C]
     if: |
       always() &&
-      !contains(needs.*.result, 'failure') &&
       !contains(needs.*.result, 'cancelled')
     steps:
       - run: echo "${{ toJSON(needs) }}"
