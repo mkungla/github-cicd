@@ -210,9 +210,9 @@ jobs:
       issue_comment: ${{ join(steps.*.outputs.issue_comment, '') }}
     steps:
 
-      - id: greeting-on-first-issue
+      - name: greeting on first issue
+        id: greeting-on-first-issue
         if: github.event.action == 'opened' && needs.issue.outputs.user-issues-total == 0
-        name: greeting on first issue
         env:
           comment: |
             👋 Thanks for reporting @${{ github.event.sender.login }}!
@@ -225,8 +225,8 @@ jobs:
           echo "::set-output name=issue_comment::$comment"
 
       - name: greeting for reccuring user
-        if: github.event.action == 'opened' && needs.issue.outputs.user-issues-total > 0
         id: greeting-for-reccuring-user
+        if: github.event.action == 'opened' && needs.issue.outputs.user-issues-total > 0
         env:
           comment: |
             :boom: Thanks for reporting again @${{ github.event.sender.login }}!
@@ -238,9 +238,21 @@ jobs:
           comment="${comment//$'\r'/'%0D'}"
           echo "::set-output name=issue_comment::$comment"
 
+      - name: comment on empty description
+        id: comment-on-empty-description
+        if: github.event.action == 'opened' && !github.event.issue.body
+        env:
+          comment: |
+            Perhaps edit you issue and add some more detail to issue description?
+            ***
+        run: |
+          comment="${comment//'%'/'%25'}"
+          comment="${comment//$'\n'/'%0A'}"
+          comment="${comment//$'\r'/'%0D'}"
+          echo "::set-output name=issue_comment::$comment"
       - name: opened issue footer
-        if: github.event.action == 'opened'
         id: opened-issue-footer
+        if: github.event.action == 'opened'
         env:
           comment: |
             Your issue will be reviewed shortly!
