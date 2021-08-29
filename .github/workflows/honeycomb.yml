@@ -51,7 +51,7 @@ on:
   # - repository is not a valid event name
   # - repository_import is not a valid event name
   # - repository_vulnerability_alert is not a valid event name
-  - secret_scanning_alert
+  # - secret_scanning_alert is not a valid event name
   - security_advisory
   - sponsorship
   - star
