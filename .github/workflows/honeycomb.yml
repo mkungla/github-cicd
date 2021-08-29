@@ -43,7 +43,7 @@ on:
   # - member is not a valid event name
   # - membership is not a valid event name
   # - meta is not a valid event name
-  - organization
+  # - organization is not a valid event name
   - org_block
   - package
   - ping
