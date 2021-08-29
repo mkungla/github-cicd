@@ -53,7 +53,7 @@ on:
   # - repository_vulnerability_alert is not a valid event name
   # - secret_scanning_alert is not a valid event name
   # - security_advisory is not a valid event name
-  - sponsorship
+  # - sponsorship is not a valid event name
   - star
   - team
   - team_add
