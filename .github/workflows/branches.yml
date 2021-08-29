@@ -1,0 +1,12 @@
+name: branches
+on:
+  push:
+
+jobs:
+  catch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: event
+        run: |
+          echo "${{ toJSON(github.event) }}"
+
