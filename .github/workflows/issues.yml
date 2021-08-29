@@ -433,8 +433,8 @@ jobs:
       # https://github.com/actions/stale/pull/554
       - uses: mkungla/stale@main
         with:
-          days-before-issue-stale: 1
-          days-before-issue-close: 1
+          days-before-issue-stale: 30
+          days-before-issue-close: 7
           stale-issue-message: 'This issue has no activity for a while. It will be closed if no action is taken in near future'
           close-issue-message: 'This issue was closed since there was no activity after it was marked stale.'
           stale-issue-label: 'stale'

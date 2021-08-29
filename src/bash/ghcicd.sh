@@ -16,7 +16,7 @@ shell="${shell##-}"
 shell="${shell%% *}"
 shell="$(basename "${shell:-$SHELL}")"
 
-if [ $shell != "bash" ]; then
+if [ "$shell" != "bash" ]; then
   echo "only bash is supported"
   exit 1
 fi
@@ -46,18 +46,18 @@ main() {
   done
 
   if ghcicd_file_exists "$cmdfile"; then
-    local subbase="${2-""}"
-    if [[ $subbase == "help" ]]; then
-      ghcicd_help_header
-      ghcicd_"${1}"_help
-      ghcicd_help_footer
+    local subcmd="${2-""}"
+    if [[ $subcmd == "help" ]]; then
+      ghcicd_help ghcicd_"$1"_help
       ghcicd_exit 0
     fi
 
-    if [[ -n "$subbase" ]]; then
-      ghcicd_"${1}"_"${subbase}" "${@:3}"
+    if [[ -n "$subcmd" ]]; then
+      ghcicd_log_debug "cmd: " "$cmd" "$subcmd"
+      ghcicd_"$1"_"$subcmd" "${@:3}"
     else
-      ghcicd_"${1}"_main "${@:2}"
+      ghcicd_log_debug "cmd: " "$cmd"
+      ghcicd_"$1"_main "${@:2}"
     fi
   else
     ghcicd_log_err "command ($1) not found"
@@ -72,12 +72,22 @@ main() {
 ARGS=()
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    -v | --verbose)
+    --debug)
       export GHCICD_VERBOSE=1
+      export GHCICD_DEBUG=1
       shift 1;;
     -h | --help)
       ghcicd_help
       ghcicd_exit 0;;
+    -v | --verbose)
+      export GHCICD_VERBOSE=1
+      shift 1;;
+    --version)
+      echo "$GHCICD_VERSION"
+      ghcicd_exit 0;;
+    -x)
+      export GHCICD_OUTPUT_X=1
+      shift 1;;
     -*)
       ghcicd_log_err "unknown option: $1";
       ghcicd_exit 1;;

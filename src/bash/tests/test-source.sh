@@ -4,8 +4,8 @@
 set -uo pipefail
 
 
-GHCDCD=$(dirname $BASH_SOURCE[0])/../../src/bash/bin/ghcicd
+GHCDCD=$(dirname $BASH_SOURCE[0])/../ghcicd.sh
 echo "################################################################################"
-echo "test source: $GHCDCD"
+echo "# test source: $GHCDCD"
 echo "################################################################################"
 source $GHCDCD

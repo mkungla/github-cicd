@@ -5,6 +5,25 @@ ghcicd_exit() {
   exit $1
 }
 
+ghcicd_exec() {
+  if ((GHCICD_OUTPUT_X)); then
+    ghcicd_log_bold "[cmd-x ]:" "$1"
+  fi
+
+  ghcicd_task_start "exec cmd" timer
+
+  eval "$2=\$($1)"
+
+  local status=$?
+  if [ $status -eq 0 ]; then
+    ghcicd_task_done "exec cmd" "${timer:?}"
+  else
+    ghcicd_task_failed "exec cmd" "${timer:?}"
+  fi
+
+  return $status
+}
+
 ghcicd_is_dir() {
   if [[ -d $1 ]] && [[ -n $1 ]]; then
     return 0
