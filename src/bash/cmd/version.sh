@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ghcicd_version_main() {
-  echo $GHCICD_VERSION
+  echo "$GHCICD_VERSION"
   ghcicd_exit 0
 }
 

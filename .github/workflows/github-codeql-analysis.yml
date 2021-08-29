@@ -24,7 +24,7 @@ on:
 
 jobs:
   analyze:
-    if: github.repository == 'mkungla/github-cicd-experiments'
+    if: github.repository == 'mkungla/github-cicd'
     name: Analyze
     runs-on: ubuntu-latest
     permissions:

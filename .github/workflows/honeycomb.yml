@@ -41,7 +41,7 @@ on:
   # - installation_repositories is not a valid event name
   # - marketplace_purchase is not a valid event name
   # - member is not a valid event name
-  - membership
+  # - membership is not a valid event name
   - meta
   - organization
   - org_block
