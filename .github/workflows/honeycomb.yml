@@ -31,8 +31,7 @@ on:
   - watch
   - workflow_run:
       workflows: ["test"]
-      types:
-        - cancelled
+      types: [completed]
   # manual
   - repository_dispatch
   - workflow_dispatch
