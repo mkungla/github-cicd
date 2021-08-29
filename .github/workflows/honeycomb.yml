@@ -56,7 +56,7 @@ on:
   # - sponsorship is not a valid event name
   # - star is not a valid event name
   # - team is not a valid event name
-  - team_add
+  # - team_add is not a valid event name
   - workflow_dispatch
 
 
