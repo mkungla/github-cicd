@@ -32,7 +32,7 @@ on:
   - workflow_run:
       workflows: ["test"]
       types:
-        - failed
+        - cancelled
   # manual
   - repository_dispatch
   - workflow_dispatch
