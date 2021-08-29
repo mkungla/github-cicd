@@ -50,7 +50,7 @@ on:
   - repository_dispatch
   # - repository is not a valid event name
   # - repository_import is not a valid event name
-  - repository_vulnerability_alert
+  # - repository_vulnerability_alert is not a valid event name
   - secret_scanning_alert
   - security_advisory
   - sponsorship
