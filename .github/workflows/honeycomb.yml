@@ -54,7 +54,7 @@ on:
   # - secret_scanning_alert is not a valid event name
   # - security_advisory is not a valid event name
   # - sponsorship is not a valid event name
-  - star
+  # - star is not a valid event name
   - team
   - team_add
   - workflow_dispatch
