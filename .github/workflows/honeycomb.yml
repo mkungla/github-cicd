@@ -49,7 +49,7 @@ on:
   # - ping is not a valid event name
   - repository_dispatch
   # - repository is not a valid event name
-  - repository_import
+  # - repository_import is not a valid event name
   - repository_vulnerability_alert
   - secret_scanning_alert
   - security_advisory
