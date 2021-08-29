@@ -44,7 +44,7 @@ on:
   # - membership is not a valid event name
   # - meta is not a valid event name
   # - organization is not a valid event name
-  - org_block
+  # - org_block is not a valid event name
   - package
   - ping
   - repository_dispatch
