@@ -29,8 +29,15 @@ on:
   - release
   - status
   - watch
-  - workflow_run
-  # Webhook events and payloads
+  - workflow_run:
+      workflows: ["test"]
+      types:
+        - failed
+  # manual
+  - repository_dispatch
+  - workflow_dispatch
+
+  # Webhook events and payloads which can nopt be used in workflows
   # https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#code_scanning_alert
   # Potentially catch other webhook events
   # - code_scanning_alert is not a valid event name
@@ -47,7 +54,6 @@ on:
   # - org_block is not a valid event name
   # - package is not a valid event name
   # - ping is not a valid event name
-  - repository_dispatch
   # - repository is not a valid event name
   # - repository_import is not a valid event name
   # - repository_vulnerability_alert is not a valid event name
@@ -57,9 +63,6 @@ on:
   # - star is not a valid event name
   # - team is not a valid event name
   # - team_add is not a valid event name
-  - workflow_dispatch
-
-
 
 jobs:
   catch:
