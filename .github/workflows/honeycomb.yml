@@ -45,7 +45,7 @@ on:
   # - meta is not a valid event name
   # - organization is not a valid event name
   # - org_block is not a valid event name
-  - package
+  # - package is not a valid event name
   - ping
   - repository_dispatch
   - repository
