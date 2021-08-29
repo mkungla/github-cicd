@@ -46,7 +46,7 @@ on:
   # - organization is not a valid event name
   # - org_block is not a valid event name
   # - package is not a valid event name
-  - ping
+  # - ping is not a valid event name
   - repository_dispatch
   - repository
   - repository_import
