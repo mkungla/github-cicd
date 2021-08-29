@@ -42,7 +42,7 @@ on:
   # - marketplace_purchase is not a valid event name
   # - member is not a valid event name
   # - membership is not a valid event name
-  - meta
+  # - meta is not a valid event name
   - organization
   - org_block
   - package
