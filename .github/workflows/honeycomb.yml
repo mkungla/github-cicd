@@ -48,7 +48,7 @@ on:
   # - package is not a valid event name
   # - ping is not a valid event name
   - repository_dispatch
-  - repository
+  # - repository is not a valid event name
   - repository_import
   - repository_vulnerability_alert
   - secret_scanning_alert
