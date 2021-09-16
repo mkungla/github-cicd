@@ -123,7 +123,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: event
-        run: echo "${{ toJSON(github.event) }}"
+        run: echo "" # echo "${{ toJSON(github.event) }}"
 
   edited:
     runs-on: ubuntu-latest
