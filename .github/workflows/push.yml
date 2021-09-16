@@ -1,0 +1,12 @@
+# https://github.com/mkungla/github-cicd/discussions/124
+name: push
+on:
+  push:
+
+jobs:
+  # NOOP
+  noop:
+    runs-on: ubuntu-latest
+    if: false
+    steps:
+      - run: exit 0
