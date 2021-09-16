@@ -1,3 +1,6 @@
+# catch repo events not tested yet
+name: honeycomb
+
 on:
   # Events that trigger workflows
   # https://docs.github.com/en/actions/reference/events-that-trigger-workflows#triggering-new-workflows-using-a-personal-access-token
@@ -13,7 +16,7 @@ on:
   gollum:
   # issue_comment               ./issues.yml
   # issues                      ./issues.yml
-  label:
+  # label:
   milestone:
   page_build:
   project:
