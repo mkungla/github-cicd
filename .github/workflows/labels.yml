@@ -1,0 +1,12 @@
+# https://github.com/mkungla/github-cicd/discussions/123
+name: labels
+on:
+  label:
+  workflow_dispatch:
+
+jobs:
+  payload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: event
+        run: echo "${{ toJSON(github.event) }}"
