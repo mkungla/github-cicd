@@ -4,35 +4,36 @@ on:
   push:
 
 jobs:
-  wait:
+  wait-1:
     runs-on: ubuntu-latest
     steps:
       - run: exit 0
   
-  deploy_backend_staging:
-    needs: wait
+  deploy_backend_staging-1:
+    needs: wait-1
     if: false # force to skip
     runs-on: ubuntu-latest
     steps:
       - run: exit 0
       
-  deploy_frontend_staging:
-    needs: wait
+  deploy_frontend_staging-1:
+    needs: wait-1
     if: false # force to skip
     runs-on: ubuntu-latest
     steps:
       - run: exit 0
       
-  e2e-test:
+  e2e-test-1:
     name: e2e-test
     runs-on: ubuntu-latest
     needs:
-     - deploy_backend_staging
-     - deploy_frontend_staging
+     - deploy_backend_staging-1
+     - deploy_frontend_staging-1
     if: |
-      always() &&
       contains(needs.*.result, 'success') &&
       !contains(needs.*.result, 'failure')
     steps:
       - run: echo "${{ toJSON(needs) }}"
+      - run: echo "any success: ${{ contains(needs.*.result, 'success') }}"
+      - run: echo "any skipped: ${{ contains(needs.*.result, 'skipped') }}"
       - run: exit 1
