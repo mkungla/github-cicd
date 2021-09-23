@@ -58,9 +58,7 @@ jobs:
      - deploy_backend_staging-2
      - deploy_frontend_staging-2
     if: |
-      always() &&
-      ${{ contains(needs.*.result, 'success') }} &&
-      ${{ !contains(needs.*.result, 'failure') }}
+      always()
     steps:
       - run: echo "${{ toJSON(needs) }}"
       - run: echo "any success ${{ contains(needs.*.result, 'success') }}"
