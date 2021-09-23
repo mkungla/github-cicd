@@ -4,28 +4,63 @@ on:
   push:
 
 jobs:
-  A:
+  wait:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "success always"
-  B:
-    runs-on: ubuntu-latest
-    if: false
-    steps:
-      - run: echo "this will never run"
-  C:
+      - run: exit 0
+  
+  deploy_backend_staging-1:
+    needs: wait
+    if: false # force to skip
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          exho "here to fail"
-          exit 1
-
-  D:
+      - run: exit 0
+      
+  deploy_frontend_staging-1:
+    needs: wait
+    if: false # force to skip
     runs-on: ubuntu-latest
-    needs: [A, B, C]
+    steps:
+      - run: exit 0
+      
+  e2e-test-1:
+    runs-on: ubuntu-latest
+    needs:
+     - deploy_backend_staging-1
+     - deploy_frontend_staging-1
     if: |
       always() &&
-      !contains(needs.*.result, 'cancelled') &&
-      !contains(needs.*.result, 'failure')
+      contains(needs.*.result, 'success') &&
+      contains(needs.*.result, 'skipped')
     steps:
       - run: echo "${{ toJSON(needs) }}"
+      - run: echo "this should never run"
+      - run: exit 1
+  
+  deploy_backend_staging-2:
+    needs: wait
+    if: false # force to skip
+    runs-on: ubuntu-latest
+    steps:
+      - run: exit 0
+      
+  deploy_frontend_staging-2:
+    needs: wait
+    runs-on: ubuntu-latest
+    steps:
+      - run: exit 0
+      
+  e2e-test-2:
+    runs-on: ubuntu-latest
+    needs:
+     - deploy_backend_staging-2
+     - deploy_frontend_staging-2
+    if: |
+      always() &&
+      contains(needs.*.result, 'success') &&
+      contains(needs.*.result, 'skipped')
+    steps:
+      - run: echo "${{ toJSON(needs) }}"
+      - run: echo "any success ${{ contains(needs.*.result, 'success') }}"
+      - run: echo "any skipped ${{ contains(needs.*.result, 'skipped') }}"
+      - run: exit 0
