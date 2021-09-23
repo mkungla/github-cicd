@@ -34,6 +34,6 @@ jobs:
       !contains(needs.*.result, 'failure')
     steps:
       - run: echo "${{ toJSON(needs) }}"
-      - run: echo "any success: ${{ contains(needs.*.result, 'success') }}"
-      - run: echo "any skipped: ${{ contains(needs.*.result, 'skipped') }}"
+      - run: echo "any success ${{ contains(needs.*.result, 'success') }}"
+      - run: echo "any skipped ${{ contains(needs.*.result, 'skipped') }}"
       - run: exit 1
