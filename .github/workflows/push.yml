@@ -26,7 +26,6 @@ jobs:
     if: |
       always() &&
       !contains(needs.*.result, 'cancelled')
-    # you can add conditions if needed e.g.
-    # !contains(needs.*.result, 'failure')
+      !contains(needs.*.result, 'failure')
     steps:
       - run: echo "${{ toJSON(needs) }}"
