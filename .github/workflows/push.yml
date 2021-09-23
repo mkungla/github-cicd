@@ -31,12 +31,11 @@ jobs:
      - deploy_frontend_staging-1
     if: |
       always() &&
-      contains(needs.*.result, 'success') == true &&
-      contains(needs.*.result, 'failure') == false
+      ${{ contains(needs.*.result, 'success') }} &&
+      ${{ !contains(needs.*.result, 'failure') }}
     steps:
       - run: echo "${{ toJSON(needs) }}"
-      - run: echo "any success ${{ contains(needs.*.result, 'success') }}"
-      - run: echo "any skipped ${{ contains(needs.*.result, 'skipped') }}"
+      - run: echo "this should never run"
       - run: exit 1
   
   deploy_backend_staging-2:
@@ -60,10 +59,10 @@ jobs:
      - deploy_frontend_staging-2
     if: |
       always() &&
-      contains(needs.*.result, 'success') == true &&
-      contains(needs.*.result, 'failure') == false
+      ${{ contains(needs.*.result, 'success') }} &&
+      ${{ !contains(needs.*.result, 'failure') }}
     steps:
       - run: echo "${{ toJSON(needs) }}"
       - run: echo "any success ${{ contains(needs.*.result, 'success') }}"
       - run: echo "any skipped ${{ contains(needs.*.result, 'skipped') }}"
-      - run: exit 1
+      - run: exit 0
