@@ -30,6 +30,7 @@ jobs:
      - deploy_backend_staging-1
      - deploy_frontend_staging-1
     if: |
+      always() &&
       contains(needs.*.result, 'success') &&
       !contains(needs.*.result, 'failure')
     steps:
@@ -58,6 +59,7 @@ jobs:
      - deploy_backend_staging-2
      - deploy_frontend_staging-2
     if: |
+      always() &&
       contains(needs.*.result, 'success') &&
       !contains(needs.*.result, 'failure')
     steps:
