@@ -75,7 +75,7 @@ jobs:
 
       - name: set from github graphql
         id: set-from-github-graphql
-        uses: actions/github-script@v4
+        uses: actions/github-script@v5
         with:
           script: |
             const user = context.payload.sender.login
@@ -95,7 +95,7 @@ jobs:
 
       - name: set from github api
         id: set-from-github-api
-        uses: actions/github-script@v4
+        uses: actions/github-script@v5
         with:
           script: |
             // RANDOM SENTENCE
@@ -409,7 +409,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - if: github.event.action == 'opened'
-        uses: actions/github-script@v4
+        uses: actions/github-script@v5
         with:
           script: |
             github.reactions.createForIssue({
